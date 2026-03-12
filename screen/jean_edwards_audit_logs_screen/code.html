@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jean Edwards Audit Logs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "surface-dark": "#2c2616",
+                        "surface-dark-hover": "#362f1c",
+                        "text-secondary": "#c9bb92",
+                        "border-color": "#483f23",
+                    },
+                    fontFamily: {
+                        display: ["Noto Serif", "serif"],
+                        sans: ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-slate-100 min-h-screen flex overflow-hidden">
+<!-- Sidebar -->
+<aside class="hidden w-64 flex-col bg-surface-dark border-r border-border-color lg:flex shrink-0">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-6">
+<!-- User Profile -->
+<div class="flex gap-3 items-center px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border border-primary/20" data-alt="Professional profile picture of user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBex1uXxprz57V7n_tErNbxq3B_KqiEhvaKA-O3_EJ8SZaBHuYqumGmxh6mQVjt6x3jBrmwku0vLgx8gMnKYi_3CjuScITH-lH_vEhYIxOO8acKZBJJF-BXGkwMxkPV2kPJ7100UdfsEarG-BVs3sBvdA_WAKypDMiD7oX9LgRvPeFO44auEyfC4gfemSSBuQzHFTv_KoUzLJh6sOeejWKtDyZCXlJj6plwR6_pnZsp6KnuqWJ6fhnuVYHG_rM25AYiPjf9qx1YiTk");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-medium font-display leading-tight">Jean Edwards</h1>
+<p class="text-text-secondary text-xs font-normal leading-normal">Compliance Platform</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">description</span>
+<p class="text-sm font-medium leading-normal">Compliance</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">shield</span>
+<p class="text-sm font-medium leading-normal">Risk Management</p>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-dark-hover text-white border-l-2 border-primary" href="#">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<p class="text-sm font-medium leading-normal">Reporting &amp; Audit Logs</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary transition-colors">help</span>
+<p class="text-sm font-medium leading-normal">Help</p>
+</a>
+</nav>
+</div>
+<!-- Bottom Action -->
+<div class="px-2">
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg border border-border-color text-text-secondary hover:bg-surface-dark-hover hover:text-white transition-colors text-sm">
+<span class="material-symbols-outlined text-sm">logout</span>
+                    Log Out
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Header Section -->
+<header class="flex flex-col gap-1 px-8 py-6 border-b border-border-color bg-surface-dark/50 backdrop-blur-sm sticky top-0 z-10">
+<h2 class="text-slate-900 dark:text-white text-3xl font-display font-bold tracking-tight">Audit Logs</h2>
+<p class="text-slate-500 dark:text-text-secondary text-base">Track system activities, user changes, and security events.</p>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="max-w-7xl mx-auto flex flex-col gap-6">
+<!-- Filters Bar -->
+<div class="flex flex-wrap items-center gap-3 p-1">
+<div class="relative group">
+<button class="flex items-center gap-2 h-10 px-4 rounded-lg bg-surface-dark border border-border-color text-white text-sm font-medium hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-text-secondary text-lg">calendar_today</span>
+<span>Date Range</span>
+<span class="material-symbols-outlined text-text-secondary text-lg ml-1">arrow_drop_down</span>
+</button>
+</div>
+<div class="relative group">
+<button class="flex items-center gap-2 h-10 px-4 rounded-lg bg-surface-dark border border-border-color text-white text-sm font-medium hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-text-secondary text-lg">person</span>
+<span>User</span>
+<span class="material-symbols-outlined text-text-secondary text-lg ml-1">arrow_drop_down</span>
+</button>
+</div>
+<div class="relative group">
+<button class="flex items-center gap-2 h-10 px-4 rounded-lg bg-surface-dark border border-border-color text-white text-sm font-medium hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-text-secondary text-lg">touch_app</span>
+<span>Action Type</span>
+<span class="material-symbols-outlined text-text-secondary text-lg ml-1">arrow_drop_down</span>
+</button>
+</div>
+<div class="relative group">
+<button class="flex items-center gap-2 h-10 px-4 rounded-lg bg-surface-dark border border-border-color text-white text-sm font-medium hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-text-secondary text-lg">widgets</span>
+<span>Module</span>
+<span class="material-symbols-outlined text-text-secondary text-lg ml-1">arrow_drop_down</span>
+</button>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-secondary text-lg">search</span>
+<input class="h-10 pl-10 pr-4 rounded-lg bg-surface-dark border border-border-color text-white text-sm placeholder-text-secondary/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Search logs..." type="text"/>
+</div>
+<button class="flex items-center justify-center h-10 w-10 rounded-lg bg-surface-dark border border-border-color text-text-secondary hover:text-primary hover:border-primary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="w-full overflow-hidden rounded-xl border border-border-color bg-surface-dark shadow-xl shadow-black/20">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-dark-hover border-b border-border-color">
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-secondary w-48">Timestamp</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-secondary w-48">User</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-secondary">Action</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-secondary w-40">Module</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-secondary text-right w-32">Details</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-color text-sm">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-dark-hover/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-slate-300 font-medium">Oct 24, 2023 09:15 AM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">SJ</div>
+<span class="text-white font-medium">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-300">Updated Security Policy v2.4</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900/30 text-blue-200 border border-blue-800">
+                                            Policy Mgmt
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="text-primary hover:text-primary/80 font-medium text-xs flex items-center justify-end gap-1 group-hover:underline" href="#">
+                                            View Details
+                                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-dark-hover/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-slate-300 font-medium">Oct 24, 2023 11:30 AM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-emerald-900/30 flex items-center justify-center text-emerald-400 font-bold text-xs border border-emerald-800">MR</div>
+<span class="text-white font-medium">Michael Ross</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-300">Completed Vendor Risk Assessment for Acme Corp</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-900/30 text-emerald-200 border border-emerald-800">
+                                            Risk Mgmt
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="text-primary hover:text-primary/80 font-medium text-xs flex items-center justify-end gap-1 group-hover:underline" href="#">
+                                            View Details
+                                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-dark-hover/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-slate-300 font-medium">Oct 23, 2023 04:45 PM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-purple-900/30 flex items-center justify-center text-purple-400 font-bold text-xs border border-purple-800">DC</div>
+<span class="text-white font-medium">David Chen</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-300">Added new user role: External Auditor</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-900/30 text-purple-200 border border-purple-800">
+                                            Users
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="text-primary hover:text-primary/80 font-medium text-xs flex items-center justify-end gap-1 group-hover:underline" href="#">
+                                            View Details
+                                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-surface-dark-hover/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-slate-300 font-medium">Oct 23, 2023 02:10 PM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">SJ</div>
+<span class="text-white font-medium">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-300">Exported Q3 Compliance Report (PDF)</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-900/30 text-amber-200 border border-amber-800">
+                                            Reporting
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="text-primary hover:text-primary/80 font-medium text-xs flex items-center justify-end gap-1 group-hover:underline" href="#">
+                                            View Details
+                                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-surface-dark-hover/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-slate-300 font-medium">Oct 22, 2023 10:00 AM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-slate-700/50 flex items-center justify-center text-slate-300 font-bold text-xs border border-slate-600">SYS</div>
+<span class="text-white font-medium">System</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-300">Automated backup completed successfully</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-700/30 text-slate-300 border border-slate-600">
+                                            System
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="text-primary hover:text-primary/80 font-medium text-xs flex items-center justify-end gap-1 group-hover:underline" href="#">
+                                            View Details
+                                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="group hover:bg-surface-dark-hover/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-slate-300 font-medium">Oct 21, 2023 09:30 AM</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-red-900/30 flex items-center justify-center text-red-400 font-bold text-xs border border-red-800">AK</div>
+<span class="text-white font-medium">Alex Klein</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-300">Flagged suspicious login attempt from IP 192.168.1.1</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-900/30 text-red-200 border border-red-800">
+                                            Security
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<a class="text-primary hover:text-primary/80 font-medium text-xs flex items-center justify-end gap-1 group-hover:underline" href="#">
+                                            View Details
+                                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between border-t border-border-color pt-4">
+<div class="text-sm text-text-secondary">
+                        Showing <span class="font-medium text-white">1</span> to <span class="font-medium text-white">6</span> of <span class="font-medium text-white">128</span> results
+                    </div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center h-8 w-8 rounded-full hover:bg-surface-dark-hover text-text-secondary transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-surface-dark font-bold text-sm shadow-lg shadow-primary/20">1</button>
+<button class="flex items-center justify-center h-8 w-8 rounded-full hover:bg-surface-dark-hover text-text-secondary transition-colors text-sm">2</button>
+<button class="flex items-center justify-center h-8 w-8 rounded-full hover:bg-surface-dark-hover text-text-secondary transition-colors text-sm">3</button>
+<span class="text-text-secondary text-sm px-1">...</span>
+<button class="flex items-center justify-center h-8 w-8 rounded-full hover:bg-surface-dark-hover text-text-secondary transition-colors text-sm">12</button>
+<button class="flex items-center justify-center h-8 w-8 rounded-full hover:bg-surface-dark-hover text-text-secondary transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

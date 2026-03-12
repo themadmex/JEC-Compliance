@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jean Edwards - My Work</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ecb613',
+                        'primary-light': '#f5d46b',
+                        'primary-dark': '#b3880a',
+                        'background-light': '#f8f8f6',
+                        'background-dark': '#1a1814', // Slightly darker/richer than the example provided for better contrast
+                        'surface-dark': '#24211a',
+                        'surface-light': '#ffffff',
+                    },
+                    fontFamily: {
+                        display: ['Manrope', 'sans-serif'],
+                        serif: ['Times New Roman', 'serif'], // Adding a serif for the sophisticated header feel requested
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(236, 182, 19, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for a premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1814; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #332d19; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ecb613; 
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #ecb613 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-[#221e11] border-r border-[#332d19] flex flex-col justify-between h-screen sticky top-0">
+<div class="flex flex-col h-full p-4">
+<!-- User Profile -->
+<div class="flex items-center gap-3 mb-8 p-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border border-primary/20" data-alt="Professional woman portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBg1nw27KYqYIKiz7YDeP-rIXEWSofpV811xEimDPiF9H8DtQIDevproLG5ETJ9C-zy1yis7tELHnxC6y9IQh_3YCRTLsiQ_IpHt6lAUQYylCcbD5zSxykLrEZV5LHvqPk-DbqtDdvdVuJRimQw9p3ySl-RtnJIY4FrAWzISmhG2ZkKmZqtuxPwcK8Zx30jt5kT_tENHDBhFIW7csYLHrQWjCt0OouCNyFdnZVFdDUMbPFq5bCLHM1j6efLOaEXPQyX7o7VUZq2CKo");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-medium leading-tight">Jean Edwards</h1>
+<p class="text-primary/70 text-xs font-normal">JE Agent Portal</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20 shadow-glow" href="#">
+<span class="material-symbols-outlined text-primary">assignment</span>
+<span class="text-sm font-medium">My Work</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">description</span>
+<span class="text-sm font-medium">Policies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">group</span>
+<span class="text-sm font-medium">Vendors</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">verified_user</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+</nav>
+<!-- Bottom Settings -->
+<div class="mt-auto pt-4 border-t border-[#332d19]">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto h-screen relative">
+<div class="max-w-7xl mx-auto px-8 py-8 flex flex-col gap-8 pb-24">
+<!-- Header Section -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-primary text-sm font-medium uppercase tracking-widest mb-1">Task Management</p>
+<h1 class="text-4xl md:text-5xl font-serif text-white tracking-tight">My Work</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right hidden sm:block">
+<p class="text-white text-sm font-medium">Today's Focus</p>
+<p class="text-slate-400 text-xs">October 24, 2023</p>
+</div>
+<button class="bg-surface-dark border border-primary/20 hover:border-primary/50 text-white h-10 w-10 flex items-center justify-center rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+<div class="h-px w-full bg-gradient-to-r from-primary/50 via-[#332d19] to-transparent mt-4"></div>
+</div>
+<!-- Stats Overview -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-surface-dark border border-[#332d19] p-4 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="text-slate-400 text-xs uppercase tracking-wide">Tasks Due</span>
+<span class="material-symbols-outlined text-primary text-lg">schedule</span>
+</div>
+<p class="text-2xl font-bold text-white">12</p>
+<p class="text-xs text-slate-500 mt-1">4 high priority</p>
+</div>
+<div class="bg-surface-dark border border-[#332d19] p-4 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="text-slate-400 text-xs uppercase tracking-wide">Approvals</span>
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+</div>
+<p class="text-2xl font-bold text-white">5</p>
+<p class="text-xs text-slate-500 mt-1">2 pending review</p>
+</div>
+<div class="bg-surface-dark border border-[#332d19] p-4 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="text-slate-400 text-xs uppercase tracking-wide">Compliance</span>
+<span class="material-symbols-outlined text-primary text-lg">shield</span>
+</div>
+<p class="text-2xl font-bold text-white">98%</p>
+<p class="text-xs text-green-500 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">arrow_upward</span> On track
+                    </p>
+</div>
+<div class="bg-gradient-to-br from-primary/20 to-surface-dark border border-primary/30 p-4 rounded-xl relative overflow-hidden group cursor-pointer hover:border-primary/50 transition-all">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<span class="text-primary text-xs uppercase tracking-wide font-bold">JE Assistant</span>
+<span class="material-symbols-outlined text-primary text-lg">auto_awesome</span>
+</div>
+<p class="text-sm text-white relative z-10">"You have 3 policies expiring soon."</p>
+<div class="mt-3 flex items-center gap-2 text-xs text-primary font-medium group-hover:translate-x-1 transition-transform">
+<span>View Insights</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Urgent Tasks & Approvals -->
+<div class="lg:col-span-2 flex flex-col gap-8">
+<!-- Urgent Tasks -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-white flex items-center gap-2">
+<span class="w-1 h-6 bg-primary rounded-full"></span>
+                                Urgent Tasks
+                            </h2>
+<button class="text-xs text-primary hover:text-primary-light transition-colors">View All</button>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Task Card 1 -->
+<div class="bg-surface-dark rounded-xl p-5 border-l-4 border-l-red-500 border-y border-r border-y-[#332d19] border-r-[#332d19] shadow-md hover:bg-[#2a261e] transition-colors flex flex-col sm:flex-row gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/10 text-red-500 uppercase tracking-wide border border-red-500/20">High Priority</span>
+<span class="text-slate-500 text-xs">Due Today, 5:00 PM</span>
+</div>
+<h3 class="text-white text-lg font-semibold mb-1">Policy Review: Data Privacy 2024</h3>
+<p class="text-slate-400 text-sm line-clamp-2">Complete the annual review of the Global Data Privacy Policy to ensure compliance with new GDPR regulations updates.</p>
+</div>
+<div class="flex flex-col justify-center sm:items-end gap-3 min-w-[140px]">
+<div class="flex -space-x-2">
+<div class="h-8 w-8 rounded-full border-2 border-surface-dark bg-slate-700 bg-cover bg-center" data-alt="Team member portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCi3oo5OkLCgjs9-WBeXiDj-EZ0WveczFXxsIdQG0xd5L67dn2ZDS1YNcLccZZeBCCMPNfZO7VTbtWxmxeBx2tetyFpA_UkqNoNmozmacfxoIosPguPdE6ypVsBSiIiW8YRCdRs2-xSI5EUkhGU1XNX9HF0O_9XCN-SfhO99j6ecsLnL6y7EaY-6zygQQle6kHfLuLbZCvjgmEIfAUFd_C7KB8AKTRd41gquIEtrXF6F5_RmrQzTG6ZnskP49MDL91Qcg-xPmMWb8o");'></div>
+<div class="h-8 w-8 rounded-full border-2 border-surface-dark bg-slate-600 flex items-center justify-center text-[10px] text-white font-medium">+2</div>
+</div>
+<button class="bg-primary hover:bg-primary-dark text-background-dark text-sm font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors w-full justify-center">
+<span class="material-symbols-outlined text-lg">check</span>
+                                        Complete
+                                    </button>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-dark rounded-xl p-5 border-l-4 border-l-primary border-y border-r border-y-[#332d19] border-r-[#332d19] shadow-md hover:bg-[#2a261e] transition-colors flex flex-col sm:flex-row gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary uppercase tracking-wide border border-primary/20">Medium Priority</span>
+<span class="text-slate-500 text-xs">Due Tomorrow</span>
+</div>
+<h3 class="text-white text-lg font-semibold mb-1">Q3 Vendor Assessment</h3>
+<p class="text-slate-400 text-sm line-clamp-2">Review performance metrics for cloud infrastructure providers against SLA requirements.</p>
+</div>
+<div class="flex flex-col justify-center sm:items-end gap-3 min-w-[140px]">
+<button class="bg-[#332d19] hover:bg-[#453c22] text-primary border border-primary/30 text-sm font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors w-full justify-center">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+                                        Continue
+                                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pending Approvals -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-white flex items-center gap-2">
+<span class="w-1 h-6 bg-slate-600 rounded-full"></span>
+                                Pending Approvals
+                            </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Approval Card 1 -->
+<div class="bg-surface-dark p-4 rounded-xl border border-[#332d19] hover:border-primary/30 transition-colors flex flex-col justify-between h-full">
+<div>
+<div class="flex justify-between items-start mb-3">
+<div class="h-10 w-10 rounded-lg bg-white/5 flex items-center justify-center text-white">
+<span class="material-symbols-outlined">business</span>
+</div>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded border border-primary/20">Awaiting Sig</span>
+</div>
+<h4 class="text-white font-semibold mb-1">TechCorp Inc. Renewal</h4>
+<p class="text-xs text-slate-400 mb-4">Vendor Contract • $45,000/yr</p>
+</div>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-primary text-background-dark text-xs font-bold py-2 rounded hover:bg-primary-dark transition-colors">Approve</button>
+<button class="flex-1 bg-transparent border border-[#332d19] text-slate-400 text-xs font-bold py-2 rounded hover:text-white hover:border-slate-500 transition-colors">Review</button>
+</div>
+</div>
+<!-- Approval Card 2 -->
+<div class="bg-surface-dark p-4 rounded-xl border border-[#332d19] hover:border-primary/30 transition-colors flex flex-col justify-between h-full">
+<div>
+<div class="flex justify-between items-start mb-3">
+<div class="h-10 w-10 rounded-lg bg-white/5 flex items-center justify-center text-white">
+<span class="material-symbols-outlined">description</span>
+</div>
+<span class="text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded border border-slate-700">In Review</span>
+</div>
+<h4 class="text-white font-semibold mb-1">Remote Work Policy</h4>
+<p class="text-xs text-slate-400 mb-4">HR Compliance • Version 2.4</p>
+</div>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-primary text-background-dark text-xs font-bold py-2 rounded hover:bg-primary-dark transition-colors">Approve</button>
+<button class="flex-1 bg-transparent border border-[#332d19] text-slate-400 text-xs font-bold py-2 rounded hover:text-white hover:border-slate-500 transition-colors">Review</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Calendar & Assistant -->
+<div class="flex flex-col gap-8">
+<!-- Calendar Widget -->
+<div class="bg-surface-dark border border-[#332d19] rounded-xl p-5">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-white font-bold text-lg">Compliance Calendar</h3>
+<button class="text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex gap-3 items-start p-2 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col items-center min-w-[40px] bg-[#332d19] rounded p-1 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+<span class="text-[10px] uppercase font-bold text-slate-400 group-hover:text-primary/70">Oct</span>
+<span class="text-lg font-bold text-white group-hover:text-primary">24</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">Quarterly Audit</p>
+<p class="text-slate-500 text-xs">10:00 AM - 11:30 AM</p>
+</div>
+</div>
+<div class="flex gap-3 items-start p-2 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col items-center min-w-[40px] bg-[#332d19] rounded p-1 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+<span class="text-[10px] uppercase font-bold text-slate-400 group-hover:text-primary/70">Oct</span>
+<span class="text-lg font-bold text-white group-hover:text-primary">27</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">Policy Expiration</p>
+<p class="text-slate-500 text-xs">IT Security Handbook</p>
+</div>
+</div>
+<div class="flex gap-3 items-start p-2 hover:bg-white/5 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col items-center min-w-[40px] bg-[#332d19] rounded p-1 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+<span class="text-[10px] uppercase font-bold text-slate-400 group-hover:text-primary/70">Nov</span>
+<span class="text-lg font-bold text-white group-hover:text-primary">02</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">Vendor Review</p>
+<p class="text-slate-500 text-xs">Deadline for Q4 submissions</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-xs text-primary border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">View Full Calendar</button>
+</div>
+<!-- Recent Activity Stream (Mini) -->
+<div class="bg-surface-dark border border-[#332d19] rounded-xl p-5">
+<h3 class="text-white font-bold text-lg mb-4">Recent Activity</h3>
+<div class="relative border-l border-[#332d19] ml-2 space-y-6">
+<div class="ml-4 relative">
+<div class="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full bg-primary border border-surface-dark shadow-[0_0_0_2px_rgba(236,182,19,0.2)]"></div>
+<p class="text-sm text-white">Document signed</p>
+<p class="text-xs text-slate-500">Sales Agreement v2.pdf • 2h ago</p>
+</div>
+<div class="ml-4 relative">
+<div class="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full bg-slate-600 border border-surface-dark"></div>
+<p class="text-sm text-white">Comment added</p>
+<p class="text-xs text-slate-500">on "Risk Assessment" • 5h ago</p>
+</div>
+<div class="ml-4 relative">
+<div class="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full bg-slate-600 border border-surface-dark"></div>
+<p class="text-sm text-white">Task completed</p>
+<p class="text-xs text-slate-500">Weekly report generation • 1d ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- JE Agent AI Assistant Floating Widget -->
+<div class="fixed bottom-8 right-8 z-50 animate-fade-in-up">
+<div class="bg-[#2a2518] rounded-2xl shadow-2xl border border-primary/40 p-4 w-80 backdrop-blur-md relative overflow-hidden group">
+<!-- Glow effect -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+<div class="flex items-start gap-3">
+<div class="bg-primary rounded-lg p-2 shadow-lg shadow-primary/20 flex-shrink-0">
+<span class="material-symbols-outlined text-background-dark font-bold">smart_toy</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="text-white font-bold text-sm">JE Agent</h4>
+<span class="text-[10px] text-primary/80 bg-primary/10 px-1.5 rounded">Active</span>
+</div>
+<p class="text-slate-300 text-xs leading-relaxed mb-3">
+                        I noticed 3 policies are expiring soon. Would you like me to draft renewal notices?
+                    </p>
+<div class="flex gap-2">
+<button class="bg-primary/20 hover:bg-primary/30 text-primary text-xs font-semibold px-3 py-1.5 rounded transition-colors">Yes, draft them</button>
+<button class="text-slate-400 hover:text-white text-xs px-2 py-1.5 transition-colors">Dismiss</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-6 py-4 lg:px-20">
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">shield_lock</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Compliance Portal</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Controls</a>
+<a class="text-sm font-medium text-primary" href="#">Remediation</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Audit</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 px-6 py-8 lg:px-20 max-w-[1400px] mx-auto w-full">
+<!-- Breadcrumbs & Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-sm text-primary/70">
+<a class="hover:underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-xs">arrow_back</span>
+                                Back to All Controls
+                            </a>
+<span>/</span>
+<span>Control DS-05</span>
+</div>
+<h1 class="text-4xl font-bold tracking-tight">Remediation: DS-05</h1>
+<p class="text-primary/80 italic">Data Encryption at Rest - Infrastructure Compliance</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-6 bg-transparent border border-primary text-primary text-sm font-bold hover:bg-primary/5 transition-all">
+                            Request Audit Review
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+                            Complete Remediation
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Content Area -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Status & Priority Badges -->
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-primary text-xs font-bold uppercase tracking-wider">In Progress</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-500">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="text-xs font-bold uppercase tracking-wider">CRITICAL Priority</span>
+</div>
+</div>
+<!-- Remediation Overview -->
+<section class="bg-primary/5 border border-primary/10 rounded-xl p-6">
+<h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                Remediation Overview
+                            </h2>
+<div class="space-y-4">
+<div>
+<h3 class="text-xs font-bold uppercase text-primary/60 mb-1">Observation</h3>
+<p class="text-lg leading-relaxed">
+                                        Failure in control DS-05: <span class="text-primary font-medium">Legacy backup volumes (ID: 992-X)</span> identified without AES-256 encryption.
+                                    </p>
+</div>
+<div class="pt-4 border-t border-primary/10">
+<h3 class="text-xs font-bold uppercase text-primary/60 mb-1">Planned Resolution</h3>
+<p class="text-lg leading-relaxed">
+                                        Migrate legacy volumes to S3-Encrypted buckets and verify encryption at rest for all backup snapshots.
+                                    </p>
+</div>
+</div>
+</section>
+<!-- Action Items -->
+<section>
+<h2 class="text-xl font-bold mb-6 flex items-center gap-2 px-1">
+<span class="material-symbols-outlined text-primary">checklist</span>
+                                Action Items
+                            </h2>
+<div class="space-y-3">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-primary/5 border border-primary/10 group">
+<div class="flex items-center justify-center size-6 rounded bg-green-500/20 text-green-500">
+<span class="material-symbols-outlined text-lg">check</span>
+</div>
+<div class="flex-1">
+<p class="font-medium text-slate-400 line-through">Identify all affected legacy volumes</p>
+</div>
+<span class="text-xs font-bold text-green-500 uppercase">Completed</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/30 shadow-sm">
+<div class="flex items-center justify-center size-6 rounded border border-primary text-primary">
+<span class="material-symbols-outlined text-lg">sync</span>
+</div>
+<div class="flex-1">
+<p class="font-medium">Initiate migration to S3-Encrypted</p>
+</div>
+<span class="text-xs font-bold text-primary uppercase">In Progress</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 p-4 rounded-lg border border-primary/10 opacity-60">
+<div class="flex items-center justify-center size-6 rounded border border-primary/40">
+<span class="material-symbols-outlined text-lg opacity-0">pending</span>
+</div>
+<div class="flex-1">
+<p class="font-medium">Verify AES-256 on new volumes</p>
+</div>
+<span class="text-xs font-bold text-slate-500 uppercase">Upcoming</span>
+</div>
+</div>
+</section>
+<!-- Activity Log & Evidence Tabs -->
+<div class="mt-12">
+<div class="flex border-b border-primary/20 gap-8 mb-6">
+<button class="pb-3 border-b-2 border-primary text-primary font-bold">Activity Log</button>
+<button class="pb-3 text-primary/60 font-medium hover:text-primary transition-colors">Evidence &amp; Files</button>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4 relative">
+<div class="absolute left-3 top-8 bottom-[-24px] w-px bg-primary/20"></div>
+<div class="size-6 rounded-full bg-primary/20 flex items-center justify-center z-10 shrink-0 mt-1">
+<span class="material-symbols-outlined text-xs text-primary">edit</span>
+</div>
+<div class="flex-1">
+<p class="text-sm"><span class="font-bold">Sarah Chen</span> updated status to <span class="text-primary font-medium">In Progress</span></p>
+<p class="text-xs text-primary/50 mt-1">Today at 10:45 AM</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="absolute left-3 top-8 bottom-[-24px] w-px bg-primary/20"></div>
+<div class="size-6 rounded-full bg-primary/20 flex items-center justify-center z-10 shrink-0 mt-1">
+<span class="material-symbols-outlined text-xs text-primary">upload_file</span>
+</div>
+<div class="flex-1">
+<p class="text-sm"><span class="font-bold">System</span> uploaded <a class="text-primary hover:underline italic" href="#">inventory_scan_results_oct.pdf</a></p>
+<p class="text-xs text-primary/50 mt-1">Yesterday at 3:12 PM</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="size-6 rounded-full bg-primary/20 flex items-center justify-center z-10 shrink-0 mt-1">
+<span class="material-symbols-outlined text-xs text-primary">add_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm"><span class="font-bold">Cloud Engineering</span> remediation ticket created</p>
+<p class="text-xs text-primary/50 mt-1">Oct 28, 2023</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Content -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Progress Sidebar Card -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl overflow-hidden">
+<div class="p-6">
+<h3 class="text-lg font-bold mb-6">Progress Status</h3>
+<div class="space-y-8">
+<!-- Progress Circle/Bar -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="text-3xl font-bold">15%</span>
+<span class="text-sm text-primary/60 font-medium pb-1 uppercase tracking-tighter">Complete</span>
+</div>
+<div class="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(236,182,19,0.5)]" style="width: 15%"></div>
+</div>
+</div>
+<!-- Metadata List -->
+<div class="space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-primary/10">
+<span class="text-sm text-primary/60">Assigned To</span>
+<span class="text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">groups</span>
+                                                Cloud Engineering
+                                            </span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-primary/10">
+<span class="text-sm text-primary/60">Priority</span>
+<span class="text-sm font-bold text-red-500">CRITICAL</span>
+</div>
+<div class="flex justify-between items-center py-3">
+<span class="text-sm text-primary/60">Target Date</span>
+<span class="text-sm font-bold">Nov 20, 2023</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 p-4 border-t border-primary/10">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Avatar of Lead Engineer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA-FDjf1TUYr49rH89758Zb6TCqcYwA5YqQmTBzv8K-5XH93xNo4OZ8GOrc8BkmyuosRUZC80_ISFniYutpJDrV8t5IaLXJUhR0VmplEMXBi7fUixlySLgHN1izav3M3S1i34VazdW6tpRC-FWO426E3NmZ5K5rQsj8jSmWFIOmgR-RutF3hMB0f0cC9r3WT6MKV3GTYqqjSkL5qa1cgWp6J_RES615AwLvwkK8kuSRF_dFKhRJMiPPD1JYOB3-iGWUUTamOO9ft_c");'></div>
+<div>
+<p class="text-xs font-bold leading-none">Sarah Chen</p>
+<p class="text-[10px] text-primary/60 uppercase tracking-widest mt-1">Lead Remediation Officer</p>
+</div>
+</div>
+</div>
+</div>
+<!-- System Context / Map -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl p-6">
+<h3 class="text-sm font-bold uppercase text-primary/60 mb-4">Affected Region</h3>
+<div class="w-full h-40 rounded-lg bg-background-dark/50 border border-primary/10 relative overflow-hidden">
+<div class="absolute inset-0 opacity-30 bg-center bg-cover" data-alt="Abstract map showing data center region" data-location="Northern Virginia" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBf4MKcuW0xWLHsOW8fRrz4M-TeWFK1rgoPpQOZwEsFS87hmxZUGp7eQ1bbjT0ZxNkAhcWurBvDe89CqvjgQAb2MauQELT1L0VC3qlaJkjqk88qD-qCZ14VrF_Uosplb_oxAxy5nbI3s_s6H_wIKjVMPOsRtg1YNgrqj8YvidZ6Ys7kCPwnrzDEKjMHnPE7ExjEzo8HFD05EGg7D0SleSOUYzcnoW1oSe5m1XAf0woHvr1OLy2C1SU6qOuNlslLx1KghXfJlT-5eXs');"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-3xl">location_on</span>
+<span class="text-[10px] font-bold mt-1 text-primary">US-EAST-1</span>
+</div>
+</div>
+</div>
+<p class="text-xs mt-4 text-primary/60 leading-relaxed italic">
+                                * This remediation affects assets currently hosted in the primary production VPC.
+                            </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-12 px-6 py-8 lg:px-20 border-t border-primary/10 text-center">
+<p class="text-xs text-primary/40 uppercase tracking-widest">© 2023 Governance Risk &amp; Compliance • DS-05 Security Framework</p>
+</footer>
+</div>
+</div>
+</body></html>

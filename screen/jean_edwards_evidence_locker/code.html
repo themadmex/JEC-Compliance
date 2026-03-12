@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jean Edwards Evidence Locker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "text-primary-light": "#1b180d",
+                        "text-primary-dark": "#fcfbf8",
+                        "text-secondary-light": "#9a864c",
+                        "text-secondary-dark": "#d4c59a",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d2615",
+                        "border-light": "#e7e1cf",
+                        "border-dark": "#4a3f2b"
+                    },
+                    fontFamily: {
+                        display: ["Newsreader", "serif"],
+                        sans: ["Inter", "sans-serif"] // Fallback/System sans
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        /* Material Symbols Customization */
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 300,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .material-symbols-outlined.filled {
+             font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark antialiased min-h-screen flex flex-col md:flex-row">
+<!-- Sidebar -->
+<aside class="w-full md:w-72 bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex flex-col h-screen sticky top-0 z-20">
+<div class="p-6 flex flex-col gap-8 h-full">
+<!-- User Profile -->
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-12 w-12 border-2 border-primary" data-alt="Profile picture of Jean Edwards" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDsxwsu0b3xRryAMx7FAx3YOX3jcZLOTwC8QH_JGRNi-i2hBP4R8P3wcpRQWsjYIKuwSAFa6Ah_r69mghpZTtwoGQep8Dqt_saS-Qi2jvzGN9DQKmGYnoqVPAxl6FIDPo60ptdh1fQC96ENxZQpGFyqbxUbd3am6wemN1M-z08Qb9fL5E3z60JecWsr1dUu_9co9Jt2J53Cx4qmkCANF59lLTRsad9vlHmINY2U0r_-iFDsj8SkfSMCLclZ9CbXqPJFRT6oJMf_mpI");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-primary-light dark:text-text-primary-dark text-lg font-medium leading-tight">Jean Edwards</h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal">Audit &amp; Risk</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary">grid_view</span>
+<span class="text-text-primary-light dark:text-text-primary-dark font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark shadow-sm" href="#">
+<span class="material-symbols-outlined filled text-primary">folder</span>
+<span class="text-text-primary-light dark:text-text-primary-dark font-medium">Evidence Locker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary">assignment</span>
+<span class="text-text-primary-light dark:text-text-primary-dark font-medium">Audits</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary">verified_user</span>
+<span class="text-text-primary-light dark:text-text-primary-dark font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary">settings</span>
+<span class="text-text-primary-light dark:text-text-primary-dark font-medium">Settings</span>
+</a>
+</nav>
+<!-- Bottom Action -->
+<div class="mt-auto pt-6 border-t border-border-light dark:border-border-dark">
+<button class="flex items-center gap-3 w-full px-4 py-2 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium">Log Out</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto bg-background-light dark:bg-background-dark">
+<div class="max-w-[1200px] w-full mx-auto p-6 md:p-10 flex flex-col gap-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-border-light dark:border-border-dark pb-6">
+<div class="flex flex-col gap-2">
+<h2 class="text-4xl md:text-5xl font-medium tracking-tight text-text-primary-light dark:text-text-primary-dark">Evidence Locker</h2>
+<p class="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-xl">Securely manage, organize, and validate your audit evidence files in one centralized location.</p>
+</div>
+<button class="bg-primary hover:bg-yellow-500 text-white shadow-lg shadow-primary/30 px-6 py-3 rounded-lg font-bold tracking-wide flex items-center gap-2 transition-all transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined">upload_file</span>
+                    Upload Evidence
+                </button>
+</header>
+<!-- Filters & Search -->
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+<!-- Search Bar -->
+<div class="relative w-full md:w-96 group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-focus-within:text-primary">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-border-light dark:border-border-dark rounded-lg leading-5 bg-surface-light dark:bg-surface-dark placeholder-text-secondary-light dark:placeholder-text-secondary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-shadow shadow-sm" placeholder="Search documents, folders, or tags..." type="text"/>
+</div>
+<!-- Tabs/Filters -->
+<div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-medium shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95">All Files</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-primary/10 border border-primary text-primary font-bold shadow-sm">SOC2</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-medium shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95">ISO 27001</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-medium shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95">Quarterly Reviews</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-medium shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95">Pending Review</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark overflow-hidden flex-1">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-background-light/50 dark:bg-background-dark/50 border-b border-border-light dark:border-border-dark">
+<th class="p-4 pl-6 text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider w-[40%]">Name</th>
+<th class="p-4 text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider w-[15%]">Type</th>
+<th class="p-4 text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider w-[20%]">Date Uploaded</th>
+<th class="p-4 text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider w-[15%]">Status</th>
+<th class="p-4 pr-6 text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider w-[10%] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-light dark:divide-border-dark">
+<!-- Row 1 -->
+<tr class="hover:bg-background-light dark:hover:bg-background-dark/30 transition-colors group">
+<td class="p-4 pl-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded text-primary">
+<span class="material-symbols-outlined filled">folder</span>
+</div>
+<span class="font-medium text-text-primary-light dark:text-text-primary-dark group-hover:text-primary transition-colors">SOC2 Control Evidence 2023</span>
+</div>
+</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Folder</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Oct 24, 2023</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Validated
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors p-1 rounded-full hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-background-light dark:hover:bg-background-dark/30 transition-colors group">
+<td class="p-4 pl-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-red-100 dark:bg-red-900/20 rounded text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<span class="font-medium text-text-primary-light dark:text-text-primary-dark group-hover:text-primary transition-colors">Q3 User Access Review.pdf</span>
+</div>
+</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">PDF</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Oct 22, 2023</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+<span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors p-1 rounded-full hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-background-light dark:hover:bg-background-dark/30 transition-colors group">
+<td class="p-4 pl-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded text-primary">
+<span class="material-symbols-outlined filled">folder</span>
+</div>
+<span class="font-medium text-text-primary-light dark:text-text-primary-dark group-hover:text-primary transition-colors">ISO 27001 Policy Documents</span>
+</div>
+</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Folder</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Sep 15, 2023</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Validated
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors p-1 rounded-full hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-background-light dark:hover:bg-background-dark/30 transition-colors group">
+<td class="p-4 pl-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">description</span>
+</div>
+<span class="font-medium text-text-primary-light dark:text-text-primary-dark group-hover:text-primary transition-colors">Employee Handbook_v2.docx</span>
+</div>
+</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">DOCX</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Aug 30, 2023</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-orange-100 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                        Review Needed
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors p-1 rounded-full hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-background-light dark:hover:bg-background-dark/30 transition-colors group">
+<td class="p-4 pl-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-red-100 dark:bg-red-900/20 rounded text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<span class="font-medium text-text-primary-light dark:text-text-primary-dark group-hover:text-primary transition-colors">Penetration Test Report 2023.pdf</span>
+</div>
+</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">PDF</td>
+<td class="p-4 text-text-secondary-light dark:text-text-secondary-dark text-sm">Aug 12, 2023</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Validated
+                                    </span>
+</td>
+<td class="p-4 pr-6 text-right">
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors p-1 rounded-full hover:bg-background-light dark:hover:bg-background-dark">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-border-light dark:border-border-dark flex items-center justify-between bg-background-light/30 dark:bg-background-dark/30">
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Showing <span class="font-medium text-text-primary-light dark:text-text-primary-dark">1-5</span> of <span class="font-medium text-text-primary-light dark:text-text-primary-dark">24</span> results</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark text-sm hover:border-primary hover:text-primary disabled:opacity-50">Previous</button>
+<button class="px-3 py-1 rounded border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark text-sm hover:border-primary hover:text-primary">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk Register - Jean Edwards Suite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif"],
+                        "sans": ["Noto Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-background-dark border-r border-primary/20 flex flex-col shrink-0">
+<div class="p-6 border-b border-primary/10">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtCqgYzASRs3LYE38R0INP6NBv4uBKOAB-d7KTkj30e12zb5fCw1RTdhtvxIA3L_XviKcq8x78j71isTIdTZqltynnEis_0fpzGWSJBxjqZ7317O-gv6v6OovKWfkT-2p7E5QBiT6_JpaDKZASQe0ccR3VaKmR4DOuJsQfCds_6R3T9FKXvNdlgWe1Pp2XMf-DYIrS7OKdiFTo6MxL3tpGUV6wJOFMzfswGWgPDjkfexCz58wMYua3tytvItClgsYrJpm0lfe-QuQ"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-sm font-bold font-display">Jean Edwards</h1>
+<p class="text-primary text-xs uppercase tracking-wider font-semibold">Risk Management Suite</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto p-4 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="text-sm font-medium">Risk Register</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="text-sm font-medium">Control Framework</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+</nav>
+<div class="p-4 border-t border-primary/10">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark/95">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 px-8 flex items-center justify-between shrink-0 bg-background-dark/30 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">security</span>
+<h2 class="text-lg font-display font-bold text-slate-100 tracking-tight">Risk Scenarios</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">search</span>
+</span>
+<input class="bg-primary/5 border border-primary/20 text-slate-100 text-sm rounded-lg focus:ring-1 focus:ring-primary focus:border-primary block w-64 pl-10 p-2 placeholder-slate-500 outline-none transition-all" placeholder="Search scenarios..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-l border-primary/20 pl-6">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border border-background-dark"></span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="size-8 rounded-full border border-primary/40 overflow-hidden ml-2">
+<img class="w-full h-full object-cover" data-alt="User profile thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0y5U_srWShAgcZwNZ0D8DlM2QetqTkpuvXuee7kNz5j-3pZ7HlV2fVaBI6NopwEml4AiBrS_v5wAYXvTD6-iGwFj8gFx2sW2z7-xRd4nflfL1TMxfmuDofopDBgsQDzWrVNsKHQZy4yUbNRAG_Ri3LRTB18CNDmADawGJSYZ0n-U2NyAS_a-VQWMpXCpeiFW5V62IM1nxTfMSbISO2F8AEXXJN790KvSGSzoT31qKKCTl_AWJtSzl7U6f5NlMoCl9NBRp_AzdmY4"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Top Title Section -->
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-semibold text-primary uppercase tracking-widest">Enterprise Oversight</span>
+</div>
+<h3 class="text-4xl font-display font-bold text-slate-100">Risk Register</h3>
+<p class="text-slate-400 mt-2 max-w-2xl">A comprehensive database of identified enterprise risks, their potential impact, and the ongoing treatment plans to maintain organizational resilience.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-primary/30 text-primary hover:bg-primary/10 transition-colors font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">download</span>
+                            Export Report
+                        </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-background-dark hover:bg-primary/90 transition-colors font-bold text-sm">
+<span class="material-symbols-outlined text-lg">add</span>
+                            New Scenario
+                        </button>
+</div>
+</div>
+<!-- Stats/Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<p class="text-xs font-semibold text-slate-500 uppercase">Total Risks</p>
+<p class="text-2xl font-display font-bold text-slate-100">124</p>
+</div>
+<div class="bg-red-500/5 border border-red-500/20 p-4 rounded-xl">
+<p class="text-xs font-semibold text-red-500 uppercase">High Inherent</p>
+<p class="text-2xl font-display font-bold text-slate-100">18</p>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<p class="text-xs font-semibold text-slate-500 uppercase">Treatments Pending</p>
+<p class="text-2xl font-display font-bold text-slate-100">7</p>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<p class="text-xs font-semibold text-slate-500 uppercase">Avg Residual Risk</p>
+<p class="text-2xl font-display font-bold text-slate-100">Moderate</p>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary border border-primary/30 text-xs font-bold uppercase tracking-wider">
+                        All Risks
+                        <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 text-slate-400 hover:border-primary/50 hover:text-primary transition-colors text-xs font-bold uppercase tracking-wider">
+                        High Inherent
+                        <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 text-slate-400 hover:border-primary/50 hover:text-primary transition-colors text-xs font-bold uppercase tracking-wider">
+                        Treatment Pending
+                        <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 text-slate-400 hover:border-primary/50 hover:text-primary transition-colors text-xs font-bold uppercase tracking-wider">
+                        Critical Assets
+                        <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<div class="ml-auto text-slate-500 text-xs font-medium">
+                        Showing 1-10 of 124 scenarios
+                    </div>
+</div>
+<!-- Data Table -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary/10 border-b border-primary/20">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary">Risk Scenario</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary">Owner</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary text-center">Inherent Risk</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary">Treatment Plan</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary text-center">Residual Risk</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/10">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-bold mb-1">Company records are altered</span>
+<span class="text-xs text-slate-500">Integrity compromise via unauthorized DB access</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-300">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-300">AH</div>
+<span>Arthur Hayes</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center justify-center size-8 rounded-lg bg-red-900/30 border border-red-500/50 text-red-500 font-bold">9</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs text-slate-100 font-medium">Immutable Audit Logging Implementation</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/30 text-[10px] font-bold uppercase">Moderate</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-bold mb-1">Audit logs are corrupted</span>
+<span class="text-xs text-slate-500">Forensic trail elimination during cyber-incident</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-300">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-300">SC</div>
+<span>Sarah Chen</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center justify-center size-8 rounded-lg bg-red-900/30 border border-red-500/50 text-red-500 font-bold">8</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-slate-400">Off-site Write-Once-Read-Many storage</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-[10px] font-bold uppercase">Low</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-bold mb-1">Privileged escalation via API</span>
+<span class="text-xs text-slate-500">Broken access control in customer gateway</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-300">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-300">MM</div>
+<span>Marcus Miller</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center justify-center size-8 rounded-lg bg-red-900/30 border border-red-500/50 text-red-500 font-bold">7</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs text-slate-100 font-medium">Zero Trust Architecture Migration</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-red-500/10 text-red-500 border border-red-500/30 text-[10px] font-bold uppercase">Critical</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-bold mb-1">Phishing-led credential theft</span>
+<span class="text-xs text-slate-500">Human factor vulnerability in finance dept</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-300">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-300">LW</div>
+<span>Linda Wright</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center justify-center size-8 rounded-lg bg-amber-900/30 border border-amber-500/50 text-amber-500 font-bold">5</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-slate-400">Quarterly Simulation Training Complete</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-[10px] font-bold uppercase">Low</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-bold mb-1">DDoS attack on client portal</span>
+<span class="text-xs text-slate-500">Availability risk for customer-facing services</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-300">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-300">JC</div>
+<span>James Carter</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center justify-center size-8 rounded-lg bg-red-900/30 border border-red-500/50 text-red-500 font-bold">6</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-slate-400">CDN Edge Protection Enabled</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-[10px] font-bold uppercase">Low</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 flex items-center justify-between border-t border-primary/20 bg-primary/10">
+<div class="text-xs text-slate-400 font-medium">Page 1 of 13</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded bg-primary/5 border border-primary/20 text-slate-400 hover:text-primary transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="px-3 py-1.5 rounded bg-primary/20 border border-primary/40 text-primary font-bold text-xs">1</button>
+<button class="px-3 py-1.5 rounded bg-primary/5 border border-primary/20 text-slate-400 hover:text-primary transition-colors text-xs">2</button>
+<button class="px-3 py-1.5 rounded bg-primary/5 border border-primary/20 text-slate-400 hover:text-primary transition-colors text-xs">3</button>
+<button class="px-3 py-1.5 rounded bg-primary/5 border border-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer disclaimer or secondary info -->
+<div class="mt-8 pt-6 border-t border-primary/10 flex justify-between items-center opacity-60">
+<p class="text-xs text-slate-400">© 2024 Jean Edwards Risk Management Suite. All scenarios are Confidential.</p>
+<div class="flex gap-6">
+<a class="text-xs text-slate-400 hover:text-primary transition-colors underline underline-offset-4 decoration-primary/30" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-400 hover:text-primary transition-colors underline underline-offset-4 decoration-primary/30" href="#">Standard Operating Procedures</a>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

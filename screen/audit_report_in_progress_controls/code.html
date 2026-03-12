@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>In Progress Controls - SOC 2 Type I Audit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#1a160d",
+                        "surface-dark": "#221d10",
+                        "border-dark": "#3d351d",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"],
+                        "sans": ["Manrope", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans antialiased">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-64 bg-surface-dark border-r border-border-dark flex flex-col fixed h-full overflow-y-auto">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-10">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-display font-bold text-xl">JE</div>
+<div>
+<h2 class="font-display text-lg font-bold leading-tight">Jean Edwards</h2>
+<p class="text-xs text-primary/80 uppercase tracking-widest font-semibold">Compliance Premium</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1">shield_with_heart</span>
+<span class="text-sm font-medium">Audits</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">fact_check</span>
+<span class="text-sm font-medium">Controls</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">folder_open</span>
+<span class="text-sm font-medium">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="text-sm font-medium">Team</span>
+</a>
+<div class="pt-6 pb-2">
+<p class="px-3 text-[10px] uppercase tracking-widest text-slate-500 font-bold">Preferences</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-primary/30" data-alt="Professional headshot of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKvByRYlA4Lg4D545331Msk3vzJnVEBHPJ4OXpWgBnUEAY8AQXJSxfLGpZePF5hZY8XyNzE9_rAcdFamw7r1d8vwNdenqzcq4WixTK8Ylh40zLrs6Vw2cmZFhI0O3lvo5l3ngfMQQZCUSP4eqrjRuNE7kfZfijTBtZlQyl_RorNzqICfzPgBAWe0zjpJgi9yPGBmKTUTO8NVBDhc-IPhU-mq-F61_PP4OTdreCNw93YW8EElBqEv66syFKWIcoxDMuh3NwQMKu4Z8"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Jean Edwards</p>
+<p class="text-xs text-slate-400 truncate">Senior Auditor</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-64 p-8">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 text-sm text-slate-500 mb-6">
+<a class="hover:text-primary" href="#">Audits</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">SOC 2 Type I Report</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-semibold">In Progress</span>
+</div>
+<!-- Header -->
+<div class="mb-10">
+<h1 class="font-display text-5xl font-bold text-slate-100 mb-2">In Progress Controls</h1>
+<p class="text-slate-400 max-w-2xl">Manage and monitor all active control evaluations for the current audit cycle. Ensure timely evidence collection and remediation activities.</p>
+</div>
+<!-- Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-surface-dark p-6 rounded-xl border border-border-dark relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<p class="text-slate-400 text-sm font-medium mb-1">Total In Progress</p>
+<div class="flex items-end gap-2">
+<span class="text-4xl font-display font-bold text-slate-100">42</span>
+<span class="text-primary text-xs font-bold mb-1.5 uppercase tracking-tighter">+3 this week</span>
+</div>
+</div>
+<div class="bg-surface-dark p-6 rounded-xl border border-border-dark relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<p class="text-slate-400 text-sm font-medium mb-1">Remediation Active</p>
+<div class="flex items-end gap-2">
+<span class="text-4xl font-display font-bold text-slate-100">18</span>
+<span class="text-orange-400 text-xs font-bold mb-1.5 uppercase tracking-tighter">High Priority</span>
+</div>
+</div>
+<div class="bg-surface-dark p-6 rounded-xl border border-border-dark relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<p class="text-slate-400 text-sm font-medium mb-1">Pending Auditor Review</p>
+<div class="flex items-end gap-2">
+<span class="text-4xl font-display font-bold text-slate-100">12</span>
+<span class="text-blue-400 text-xs font-bold mb-1.5 uppercase tracking-tighter">Needs Attention</span>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<div class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden">
+<div class="p-6 border-b border-border-dark flex justify-between items-center bg-surface-dark/50">
+<h3 class="font-display text-xl font-bold">Detailed Control Status</h3>
+<div class="flex gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+<input class="bg-background-dark border-border-dark rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-primary focus:border-primary" placeholder="Filter controls..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-primary text-background-dark px-4 py-2 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                            Export Report
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-background-dark/50 border-b border-border-dark">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">ID</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Control Name &amp; Description</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Current Stage</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Assignee</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Timeline</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-6 align-top">
+<span class="font-mono text-xs text-primary bg-primary/10 px-2 py-1 rounded">CC1.1</span>
+</td>
+<td class="px-6 py-6 align-top max-w-xs">
+<p class="font-bold text-slate-100 mb-1 group-hover:text-primary transition-colors">Access Revocation Policy</p>
+<p class="text-xs text-slate-400 leading-relaxed">System access is revoked within 24 hours of employee termination or role change.</p>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-orange-500"></div>
+<span class="text-sm font-semibold text-orange-400">Remediation</span>
+</div>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full border border-border-dark" data-alt="Avatar of Alex Rivera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2usUkZ2sc1CoqPpcD3tz00sVKUTSJkSYv7wzQi0hyvWEfPz96z-M6IJW16booBffO0S7ovrDDTNazuKB7xBB0tDQfs-bGjDzrNv1v65IF7jM_eXJnvVjK3PW2bip5Cv2HoXYZxTvFOJxXiOiLvRsPDXecZHuxZpMFja4ZSLx1niTVzCOib3CG5_yAfO815rU14oJOq2a9vyQKceHnZJ_TlxmDB7EaLaw3t-5-YXvlh_gODWxbYJcKvfNnttVDtguAzsasBN3by8o"/>
+<span class="text-xs font-medium">Alex Rivera</span>
+</div>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="w-full max-w-[120px]">
+<div class="flex justify-between text-[10px] font-bold mb-1 uppercase tracking-tighter">
+<span>Progress</span>
+<span>65%</span>
+</div>
+<div class="h-1.5 w-full bg-background-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 65%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-top text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-6 align-top">
+<span class="font-mono text-xs text-primary bg-primary/10 px-2 py-1 rounded">CC6.1</span>
+</td>
+<td class="px-6 py-6 align-top max-w-xs">
+<p class="font-bold text-slate-100 mb-1 group-hover:text-primary transition-colors">Network Vulnerability Scans</p>
+<p class="text-xs text-slate-400 leading-relaxed">Quarterly vulnerability scans are conducted and results are mitigated based on severity.</p>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-sm font-semibold text-primary">Evidence Collection</span>
+</div>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full border border-border-dark" data-alt="Avatar of Sarah Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHORRhSdM3XMcNLq3DQK0q_GfCkjOdEjWx641Ipvnur2Z85Jl5um1AcbWC0AMpJIIyOXF4jHHeA97RSd6hGofidGKdVJRy45HKYTP_teTpa5kluvYVKEJmVcP5Z9hgmMaBl18cJ0uCX81hY7qhSh1dDni809t-1d8KDmSGeYK7NZqvNecoaTaVBTRYyl-2LxhmHw2MuTWUCpMLdbGiy6D5dBHjsNGqMigUezZKuX9akBeyWSmMkiE74-WBBs0KZKxo-6x74XhgnoU"/>
+<span class="text-xs font-medium">Sarah Chen</span>
+</div>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="w-full max-w-[120px]">
+<div class="flex justify-between text-[10px] font-bold mb-1 uppercase tracking-tighter">
+<span>Progress</span>
+<span>30%</span>
+</div>
+<div class="h-1.5 w-full bg-background-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 30%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-top text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-6 align-top">
+<span class="font-mono text-xs text-primary bg-primary/10 px-2 py-1 rounded">CC7.3</span>
+</td>
+<td class="px-6 py-6 align-top max-w-xs">
+<p class="font-bold text-slate-100 mb-1 group-hover:text-primary transition-colors">Incident Response Exercise</p>
+<p class="text-xs text-slate-400 leading-relaxed">Annual tabletop exercise to test the efficacy of the incident response plan.</p>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-blue-500"></div>
+<span class="text-sm font-semibold text-blue-400">Testing</span>
+</div>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="flex items-center gap-2">
+<img class="w-8 h-8 rounded-full border border-border-dark" data-alt="Avatar of Marcus Vane" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0Wgj6gKM4ZbNVPhX1okrvd4jkPcS3qA8I5s9d0HaTdPlSkVJrg6UQPmP0Not5IbpKV7vKaBQtSjHLMYhBBYCXpebi4x83voRHJ5WfnJGVSr5QXxSmZD3cVIAy7oRshVze5XI77TLQLuN3PEuUu8OVpRU8uhPEM-EfGq7rI_QScIr1DzWWygCZb1WTbrNzsyeEncuN_itPAe4Kvoerv7qrC5fDZysVUAXFvE_Mftyli0jjTQTfbbbAvGFTITtcYQF4AwhYze2QdJU"/>
+<span class="text-xs font-medium">Marcus Vane</span>
+</div>
+</td>
+<td class="px-6 py-6 align-top">
+<div class="w-full max-w-[120px]">
+<div class="flex justify-between text-[10px] font-bold mb-1 uppercase tracking-tighter">
+<span>Progress</span>
+<span>85%</span>
+</div>
+<div class="h-1.5 w-full bg-background-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-top text-right">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-background-dark/30 flex items-center justify-between">
+<p class="text-xs text-slate-500 font-medium tracking-wide">Showing 3 of 42 controls</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-xs border border-border-dark rounded hover:bg-surface-dark transition-colors disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 text-xs border border-border-dark rounded hover:bg-surface-dark bg-primary text-background-dark font-bold">1</button>
+<button class="px-3 py-1 text-xs border border-border-dark rounded hover:bg-surface-dark transition-colors">2</button>
+<button class="px-3 py-1 text-xs border border-border-dark rounded hover:bg-surface-dark transition-colors">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

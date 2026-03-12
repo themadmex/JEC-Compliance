@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "accent-green": "#2d3a1e",
+                        "border-gold": "#483f23",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 border-r border-border-gold bg-background-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<h2 class="text-xl font-bold font-display tracking-tight text-slate-100">Jean Edwards</h2>
+</div>
+<div class="px-4 py-2">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-accent-green/30 border border-border-gold/30 mb-6">
+<div class="size-10 rounded-full bg-cover bg-center border border-primary/30" data-alt="Microsoft Azure corporate logo icon" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPXOS1lvs_p1r2QYyGppNYD3d5CZiEizArMbiu6Lqb8KUXBtAetRhgfxPcy_t9WrZl0BEmNEFMPSSXGiU6dn6eOgbdEn8zlbSOV3hJ_iEunNCTmqnVibqWYH3_PYA5hE0butOhE-zi6KQw7yGc8-XmJw2kwqZSjw4uWZywccoRThwxm4lUzOnoGhdsayb8Ld16-FSSKktVta8qPshz7XcslruYCLn5tVtAAHPUl8HY74jCc8ElXGJjKVGl-_gSD8crS3VDTEQ9tSE')"></div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-100">Microsoft Azure</span>
+<span class="text-xs text-primary/70">Cloud Provider</span>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span class="text-sm font-medium">Security Posture</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary bg-primary/10 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] fill-1">description</span>
+<span class="text-sm font-medium">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="text-sm font-medium">Audit History</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-4 border-t border-border-gold/30">
+<button class="w-full py-2 px-4 rounded-lg bg-border-gold hover:bg-border-gold/80 text-slate-100 text-sm font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">settings</span>
+                    Vendor Settings
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="h-16 border-b border-border-gold px-8 flex items-center justify-between sticky top-0 bg-background-dark/80 backdrop-blur-md z-10">
+<div class="flex items-center gap-2 text-sm">
+<span class="text-slate-400">Vendors</span>
+<span class="material-symbols-outlined text-slate-500 text-xs">chevron_right</span>
+<span class="text-slate-100">Microsoft Azure</span>
+<span class="material-symbols-outlined text-slate-500 text-xs">chevron_right</span>
+<span class="text-primary">Documents</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-border-gold/50 border-none rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary w-64 text-slate-100" placeholder="Search files..." type="text"/>
+</div>
+<button class="text-slate-100 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-xs">JE</div>
+</div>
+</header>
+<div class="p-8 max-w-6xl mx-auto w-full">
+<!-- Title & Action -->
+<div class="flex items-end justify-between mb-8">
+<div>
+<h1 class="text-4xl font-bold font-display text-slate-100 mb-2">Documents</h1>
+<p class="text-slate-400 max-w-lg">Central repository for all compliance certificates, security questionnaires, and audit reports for Microsoft Azure services.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-background-dark font-bold py-2.5 px-6 rounded-lg flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-xl">upload_file</span>
+                        Upload Document
+                    </button>
+</div>
+<!-- Filters -->
+<div class="flex border-b border-border-gold/50 mb-6 overflow-x-auto">
+<button class="px-6 py-3 border-b-2 border-primary text-primary text-sm font-bold whitespace-nowrap">All Documents</button>
+<button class="px-6 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 text-sm font-bold whitespace-nowrap">Certifications</button>
+<button class="px-6 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 text-sm font-bold whitespace-nowrap">Security Reviews</button>
+<button class="px-6 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 text-sm font-bold whitespace-nowrap">Legal &amp; MSA</button>
+</div>
+<!-- Documents List -->
+<div class="bg-border-gold/10 rounded-xl border border-border-gold/30 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-border-gold/20 text-slate-300 text-xs font-bold uppercase tracking-wider">
+<th class="px-6 py-4">Document Name</th>
+<th class="px-6 py-4">Type</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Last Review</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-gold/20">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-red-500/10 rounded flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="font-bold text-slate-100 group-hover:text-primary transition-colors">SOC 2 Type II Report - 2023</p>
+<p class="text-xs text-slate-500">Security, Availability, Confidentiality</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">PDF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-emerald-500 text-sm font-medium">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+                                        Verified
+                                    </div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-400">Oct 12, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-blue-500/10 rounded flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="font-bold text-slate-100 group-hover:text-primary transition-colors">ISO/IEC 27001 Certification</p>
+<p class="text-xs text-slate-500">Information Security Management</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">DOCX</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-amber-500 text-sm font-medium">
+<span class="size-2 rounded-full bg-amber-500"></span>
+                                        Expiring Soon
+                                    </div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-400">Jan 15, 2024</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-red-500/10 rounded flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="font-bold text-slate-100 group-hover:text-primary transition-colors">Sig Lite Security Questionnaire</p>
+<p class="text-xs text-slate-500">Annual self-assessment response</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">PDF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-slate-500 text-sm font-medium">
+<span class="size-2 rounded-full bg-slate-500"></span>
+                                        Pending Review
+                                    </div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-400">Mar 02, 2024</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-red-500/10 rounded flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="font-bold text-slate-100 group-hover:text-primary transition-colors">HIPAA Compliance BAA</p>
+<p class="text-xs text-slate-500">Business Associate Agreement</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">PDF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-rose-500 text-sm font-medium">
+<span class="size-2 rounded-full bg-rose-500"></span>
+                                        Expired
+                                    </div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-400">Dec 31, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-emerald-500/10 rounded flex items-center justify-center text-emerald-500">
+<span class="material-symbols-outlined">table_chart</span>
+</div>
+<div>
+<p class="font-bold text-slate-100 group-hover:text-primary transition-colors">Sub-processor List</p>
+<p class="text-xs text-slate-500">List of authorized 3rd party providers</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">XLSX</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5 text-emerald-500 text-sm font-medium">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+                                        Verified
+                                    </div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-400">Feb 20, 2024</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination/Footer Stats -->
+<div class="mt-6 flex items-center justify-between text-slate-500 text-sm">
+<p>Showing 1-5 of 12 documents</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded bg-border-gold/30 hover:bg-border-gold/50 transition-colors border border-border-gold/40 text-slate-300">Previous</button>
+<button class="px-3 py-1.5 rounded bg-primary text-background-dark font-bold">1</button>
+<button class="px-3 py-1.5 rounded bg-border-gold/30 hover:bg-border-gold/50 transition-colors border border-border-gold/40 text-slate-300">2</button>
+<button class="px-3 py-1.5 rounded bg-border-gold/30 hover:bg-border-gold/50 transition-colors border border-border-gold/40 text-slate-300">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

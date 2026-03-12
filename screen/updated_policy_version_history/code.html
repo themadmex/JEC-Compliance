@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Version History - Jean Edwards Compliance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif"],
+                        "sans": ["Noto Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Nav Bar Component -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-6 py-3 bg-background-light dark:bg-background-dark">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-display font-bold leading-tight tracking-tight">Jean Edwards Compliance</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Policies</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Compliance</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Audit</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6">
+<div class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg bg-slate-200 dark:bg-primary/10 border border-primary/20">
+<div class="text-primary flex items-center justify-center pl-4 rounded-l-lg">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full min-w-0 flex-1 bg-transparent text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none px-4 text-sm" placeholder="Search Policies..." value=""/>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="aspect-square rounded-full size-10 border border-primary/50 overflow-hidden" data-alt="User profile avatar of Jean Edwards">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBUwDh-gQJzQrGkkClfhInLx2Z2L40AMKZWiydRfKh7Us8vRK2_q44SX0ytwftar6IxTUB9Z9w3koDtxjKsuIuUL5U8g3-cokGrW6grMfUm9bKWcDXhWxwQE_E0rCn1KOkhRRB_sDCuAS_jzJB9mil0Nui0vpkP5LpVMsZ63D4DNB27TDsFWvwQcNYwnCHlNstGsNxeZZ3U3dKlAUlDaGhMJInaM-ub8fDISg66kFwDzbb4wyR7T7mXRzNFUUbpYvRUKjO6ut_PA0"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-primary/10 bg-background-light dark:bg-background-dark p-4 hidden md:flex flex-col gap-8">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center">
+<div class="aspect-square rounded-full size-10 border border-primary/30" data-alt="Company logo showing a minimalist monogram">
+<img alt="Brand Logo" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDizzRDvM-QE95KDkPAMz_DJfcpHO2IjSqwtRvUh1xGFHMt1Vr388TYHHU-4os5Z4BhUsK1dvD--jwL4vNsLyoyxrCwkaPi4Zd9PM14kxvq8NA2lDHp4DZMXr4iZ88Mxrry63Lv0hqedtTxWK6JSd1mZNdfskRYSPUdAFnx-i_y9BUdMjl_oeQpPHWmvx7V9iofZRBmB15NDP3uruZT3q_HB-PurGHXw3JDn8XO-bhpajqbycB6M2UG3J-oGFKNYmIfupp7PFXWkyc"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-sm font-bold font-display leading-tight">Human Resources</h1>
+<p class="text-slate-500 dark:text-primary/70 text-xs font-normal">Department Node</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/5 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-primary rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-[20px] fill-1">description</span>
+<p class="text-sm font-bold">Policies</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/5 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">security</span>
+<p class="text-sm font-medium">Risk Assessment</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/5 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">history</span>
+<p class="text-sm font-medium">Incidents</p>
+</a>
+</div>
+</div>
+<div class="mt-auto border-t border-primary/10 pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/5 rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">help</span>
+<p class="text-sm font-medium">Support Center</p>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto px-6 lg:px-12 py-8 bg-slate-50/50 dark:bg-background-dark/95">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-8 text-sm font-medium">
+<a class="text-slate-500 dark:text-primary/60 hover:text-primary transition-colors" href="#">Policies</a>
+<span class="material-symbols-outlined text-[16px] text-slate-400">chevron_right</span>
+<a class="text-slate-500 dark:text-primary/60 hover:text-primary transition-colors" href="#">Human Resource Security Policy</a>
+<span class="material-symbols-outlined text-[16px] text-slate-400">chevron_right</span>
+<span class="text-slate-900 dark:text-white">Version History</span>
+</nav>
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div class="flex flex-col gap-2 max-w-2xl">
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-display font-black leading-tight tracking-tight">Version History: Human Resource Security Policy</h1>
+<p class="text-slate-600 dark:text-primary/70 text-base font-normal">Audit trail and archival log of all iterations made to the security guidelines since establishment.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 rounded-lg h-11 px-5 bg-primary/10 text-primary border border-primary/30 font-bold text-sm hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export CSV</span>
+</button>
+<button class="flex items-center gap-2 rounded-lg h-11 px-5 bg-primary text-background-dark font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>New Version</span>
+</button>
+</div>
+</div>
+<!-- Tabbed View -->
+<div class="border-b border-primary/20 mb-8 overflow-x-auto">
+<div class="flex gap-10 min-w-max">
+<button class="border-b-2 border-primary text-primary pb-3 font-bold text-sm tracking-wide">All Iterations (13)</button>
+<button class="border-b-2 border-transparent text-slate-500 dark:text-primary/60 pb-3 font-medium text-sm hover:text-primary transition-colors">Published Versions</button>
+<button class="border-b-2 border-transparent text-slate-500 dark:text-primary/60 pb-3 font-medium text-sm hover:text-primary transition-colors">Review Pending</button>
+<button class="border-b-2 border-transparent text-slate-500 dark:text-primary/60 pb-3 font-medium text-sm hover:text-primary transition-colors">Archived</button>
+</div>
+</div>
+<!-- Version History Table -->
+<div class="bg-white dark:bg-primary/5 rounded-xl border border-primary/10 overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-100 dark:bg-primary/10 border-b border-primary/10">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/60">Version</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/60">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/60">Date of Change</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/60">Author</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/60 w-1/3">Changes Summary</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/60 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<!-- Version 2.5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/10 transition-colors bg-primary/5 border-l-4 border-primary">
+<td class="px-6 py-5 font-bold text-slate-900 dark:text-white">v2.5</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300">
+                                    Published
+                                </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/80">Oct 24, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border border-primary/20 overflow-hidden" data-alt="User avatar of Jean Edwards">
+<img alt="Jean Edwards" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBUwDh-gQJzQrGkkClfhInLx2Z2L40AMKZWiydRfKh7Us8vRK2_q44SX0ytwftar6IxTUB9Z9w3koDtxjKsuIuUL5U8g3-cokGrW6grMfUm9bKWcDXhWxwQE_E0rCn1KOkhRRB_sDCuAS_jzJB9mil0Nui0vpkP5LpVMsZ63D4DNB27TDsFWvwQcNYwnCHlNstGsNxeZZ3U3dKlAUlDaGhMJInaM-ub8fDISg66kFwDzbb4wyR7T7mXRzNFUUbpYvRUKjO6ut_PA0"/>
+</div>
+<span class="text-sm font-medium dark:text-slate-200">Jean Edwards</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/70 italic">Updated the background check requirements for level 3 security clearances.</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary hover:text-background-dark rounded transition-all" title="View Log">
+<span class="material-symbols-outlined text-[20px]">list_alt</span>
+</button>
+<button class="p-2 text-primary hover:bg-primary hover:text-background-dark rounded transition-all" title="Download PDF">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Version 3.2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-5 font-bold text-slate-900 dark:text-white">v3.2</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300">
+                                    Approved
+                                </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/80">Oct 14, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border border-primary/20 overflow-hidden" data-alt="User avatar of Sarah Jenkins, Policy Manager">
+<img alt="Sarah Jenkins" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASybZpO3bxYYw9-NbKBBtAi9fP6X5D6eoyX-ONJMpbUiIeLvIYYkBdBOilbm9jKPRKfi4-5J83yyrcMpsjB56k2u2C9wLcsOAj-X70dnhxLl0PMr4iy-gKyPra0OYEvOXkUlaH0CM913wOZWMNr75R1U-OM0Db94MXFvNRHeliq0KmTE6fAkxUSDVtjZOATsgehAVTNGhCsDu8yOr-6FetmhZK5ttpPg7qV373eTgt_yM6ZpfmmdE8kAMuUD-pURb1Qg5LE845tfA"/>
+</div>
+<span class="text-sm font-medium dark:text-slate-200">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/70 italic">Updated remote access protocols to comply with GDPR Art 32 requirements.</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary hover:text-background-dark rounded transition-all" title="View Log">
+<span class="material-symbols-outlined text-[20px]">list_alt</span>
+</button>
+<button class="p-2 text-primary hover:bg-primary hover:text-background-dark rounded transition-all" title="Download PDF">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Version 3.1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-5 font-bold text-slate-900 dark:text-white">v3.1</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-primary/20 dark:text-primary">
+                                    Draft
+                                </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/80">Sep 28, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border border-primary/20 overflow-hidden" data-alt="User avatar of Michael Chen, Compliance Officer">
+<img alt="Michael Chen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_nKz_vdFZRaJT90rJwYs0IrSjU7tPI7SLHs6zdowRjoGTpAnO1G34V3dSldo61l5ZMzsaElS7RvkReOWySbNOaw1_gyDCRhLum2lDp6ij3lNzSUJpdS68eLqYG9ZWjdAn-77ufgS44VHJW61eYWWi71340_kIROf9az_49uPIUapGHVKXFChqCBu27w2T0ygOcSNteH6vev2aHykyn2ARJwu0a8p8Tcxui7quSRptiG-O2HUME8qcJpPV_XWq9NpyUMwWKvaBR84"/>
+</div>
+<span class="text-sm font-medium dark:text-slate-200">Michael Chen</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/70 italic">In-progress revisions for the annual 2024 compliance review cycle. Added Section 4.b.</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary hover:text-background-dark rounded transition-all" title="Edit Draft">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Delete Draft">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Version 2.4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/10 transition-colors opacity-70">
+<td class="px-6 py-5 font-bold text-slate-900 dark:text-white">v2.4</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-400">
+                                    Retired
+                                </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/80">Jan 12, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border border-primary/20 overflow-hidden" data-alt="User avatar of Robert Wilson, Senior Auditor">
+<img alt="Robert Wilson" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx9YO1f24QhKCa-SJONoJ9qxntL3VHtJ03fIS9nCxur7BuAlmHwzzpBRnqcMJt7HzyBq4n74mfKzuYQQmL59e4wfMBSDKInnSh6Y13UqJvxqdZn7vbnJjtD0ye4aV9VAIf2bTWRXl55BWdmTjRrPOgxrDLgGkBKInnLWDLq6LFJwFvXmzjhHOBevzun7qLljKCZpI64BT_LilzW1DgcyrcbS93D0fBhcdEr4lD-EceUxys_x1SgC0U7Y9A1nflbTwCFbRa7XtVEqQ"/>
+</div>
+<span class="text-sm font-medium dark:text-slate-200">Robert Wilson</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-primary/70 italic">End of life for 2022 framework. Replaced by version 3.0 suite.</td>
+<td class="px-6 py-5 text-right">
+<div class="flex justify-end gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-primary border border-primary/30 rounded-lg hover:bg-primary hover:text-background-dark transition-all">
+<span class="material-symbols-outlined text-[16px]">history</span>
+                                        Restore
+                                    </button>
+<button class="p-2 text-primary hover:bg-primary/20 rounded transition-all">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 border-t border-primary/10 flex items-center justify-between">
+<p class="text-xs text-slate-500 dark:text-primary/50 font-medium">Showing 4 of 13 historical entries</p>
+<div class="flex gap-2">
+<button class="h-8 w-8 flex items-center justify-center rounded border border-primary/10 text-primary/50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="h-8 w-8 flex items-center justify-center rounded border border-primary/30 text-primary bg-primary/10">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Detailed Log Preview (Optional Sidebar-like Detail) -->
+<div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 space-y-6">
+<h3 class="text-xl font-display font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">timeline</span>
+                        Activity Timeline
+                    </h3>
+<div class="relative pl-8 border-l border-primary/20 space-y-8">
+<div class="relative">
+<div class="absolute -left-[41px] top-0 size-5 rounded-full bg-primary border-4 border-background-dark"></div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">Oct 24, 2023 • 09:00</span>
+<p class="text-sm text-slate-800 dark:text-white font-bold">Policy Published (v2.5)</p>
+<p class="text-sm text-slate-500 dark:text-primary/60">Updated background check requirements for level 3 security clearances as requested by the executive board.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[41px] top-0 size-5 rounded-full bg-primary/50 border-4 border-background-dark"></div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-primary/60 uppercase tracking-widest">Oct 14, 2023 • 14:32</span>
+<p class="text-sm text-slate-800 dark:text-white font-bold">Policy Published (v3.2)</p>
+<p class="text-sm text-slate-500 dark:text-primary/60">Final approval granted by Head of Compliance. Publicly distributed to all HR staff.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1">
+<div class="bg-primary/5 border border-primary/20 rounded-xl p-6">
+<h4 class="font-display font-bold text-slate-900 dark:text-white mb-4">Version Statistics</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-500 dark:text-primary/70">Total Iterations</span>
+<span class="text-lg font-bold text-primary">13</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-500 dark:text-primary/70">Major Revisions</span>
+<span class="text-lg font-bold text-primary">4</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-500 dark:text-primary/70">Retention Period</span>
+<span class="text-lg font-bold text-primary">7 Years</span>
+</div>
+<div class="pt-4 border-t border-primary/10">
+<p class="text-xs text-slate-500 dark:text-primary/50 leading-relaxed italic">The next full policy audit is scheduled for January 2024. All versions remain searchable for litigation purposes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

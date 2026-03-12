@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-item-active {
+            background-color: rgba(236, 182, 19, 0.15);
+            border-left: 3px solid #ecb613;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-slate-950 border-r border-primary/20 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3 border-b border-primary/10">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-slate-950">
+<span class="material-symbols-outlined font-bold">shield_person</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-none tracking-tight text-primary">Jean Edwards</h1>
+<p class="text-[10px] uppercase tracking-widest text-primary/60 mt-1">Compliance Platform</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg sidebar-item-active text-primary" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-medium">Controls</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="text-sm font-medium">Frameworks</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-sm font-medium">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 bg-primary/5 m-4 rounded-xl border border-primary/10">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-800 border border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of professional executive woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1-gNU0YkHJ2Z0ZXjn0ck5nppd8rIdkLB3U3fW9gvPb-vfigE8T14B23mWcXYCXWH8CnLyfLyvQBqBYKXoXF3KgGn4Vd_6p_kG1t_BWchwlpIOpCU41HMV3bOM9ynWtl68FAS13JfIJIAziSuS-mVBPPXfppIl0tRpBJM2b2BMx_Idrsvts2UuQ9vzDVNC6mXtJpPc3iZXXMchBZYTtywmiJX3Bjmvk9H2lzQSMGLcLJq0AgxW3ts5AMPFmHb1LV8UWSsAUS_BWJw"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold truncate">Sarah Mitchell</p>
+<p class="text-[10px] text-slate-500 truncate">Compliance Officer</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<span>Controls</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-medium">Access Identity Validation</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary text-slate-950 px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> Export Report
+                    </button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Page Title & Quick Stats -->
+<div class="mb-8">
+<h2 class="text-4xl font-bold tracking-tight mb-6">Access Identity Validation</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/10 shadow-sm">
+<p class="text-xs uppercase tracking-widest text-slate-500 mb-2">Current Status</p>
+<div class="flex items-center gap-2">
+<span class="size-3 bg-emerald-500 rounded-full animate-pulse"></span>
+<span class="text-2xl font-bold text-emerald-500">Compliant</span>
+</div>
+<p class="text-[10px] text-emerald-500/60 mt-1 italic">Verified 2 days ago</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/10 shadow-sm">
+<p class="text-xs uppercase tracking-widest text-slate-500 mb-2">Last Tested</p>
+<p class="text-2xl font-bold">Oct 12, 2024</p>
+<p class="text-[10px] text-slate-500 mt-1 italic">Automated scan cycle complete</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/10 shadow-sm">
+<p class="text-xs uppercase tracking-widest text-slate-500 mb-2">Risk Level</p>
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold text-primary">Medium</span>
+</div>
+<div class="w-full bg-slate-800 h-1 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full w-1/2"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Details -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Description -->
+<section>
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span> Description
+                            </h3>
+<div class="bg-white dark:bg-slate-900/30 p-8 rounded-xl border border-primary/5 leading-relaxed text-slate-300">
+<p class="mb-4">The Access Identity Validation control ensures that every individual accessing corporate resources is authenticated against the centralized directory service (Active Directory/Okta). This control mandates that identities are verified during every session request through multi-factor authentication and token-based validation.</p>
+<p>Processes include: automated synchronization of HR records with IT directories, mandatory quarterly access reviews, and real-time revocation of access upon personnel departure or role change.</p>
+</div>
+</section>
+<!-- Framework Mapping -->
+<section>
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">hub</span> Framework Mapping
+                            </h3>
+<div class="flex flex-wrap gap-3">
+<div class="px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg flex items-center gap-3">
+<span class="font-bold text-primary">SOC 2</span>
+<span class="text-xs text-slate-400">CC6.1 / CC6.2</span>
+</div>
+<div class="px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg flex items-center gap-3">
+<span class="font-bold text-primary">ISO 27001</span>
+<span class="text-xs text-slate-400">A.9.2.1</span>
+</div>
+<div class="px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg flex items-center gap-3">
+<span class="font-bold text-primary">GDPR</span>
+<span class="text-xs text-slate-400">Article 32</span>
+</div>
+</div>
+</section>
+<!-- Evidence List -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">attachment</span> Evidence Locker
+                                </h3>
+<button class="text-xs font-bold text-primary hover:underline uppercase tracking-tighter">Upload Evidence</button>
+</div>
+<div class="space-y-3">
+<div class="bg-white dark:bg-slate-900/30 p-4 rounded-xl border border-primary/5 flex items-center justify-between group hover:border-primary/40 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 bg-red-500/10 rounded-lg flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<p class="font-bold text-slate-200">User Access Review Q3.pdf</p>
+<p class="text-xs text-slate-500">Uploaded by Sarah Mitchell • Oct 10, 2024</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-primary">download</span>
+</div>
+<div class="bg-white dark:bg-slate-900/30 p-4 rounded-xl border border-primary/5 flex items-center justify-between group hover:border-primary/40 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-500">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="font-bold text-slate-200">Directory Sync Log - Oct 2024.csv</p>
+<p class="text-xs text-slate-500">Automated System Upload • Oct 01, 2024</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-primary">download</span>
+</div>
+<div class="bg-white dark:bg-slate-900/30 p-4 rounded-xl border border-primary/5 flex items-center justify-between group hover:border-primary/40 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<div>
+<p class="font-bold text-slate-200">MFA Policy Configuration.docx</p>
+<p class="text-xs text-slate-500">Uploaded by IT Admin • Sep 24, 2024</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-primary">download</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Timeline & Side Info -->
+<div class="space-y-8">
+<!-- Timeline -->
+<section>
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span> Timeline
+                            </h3>
+<div class="relative pl-6 border-l border-primary/20 space-y-8 ml-3">
+<div class="relative">
+<span class="absolute -left-[31px] top-1 size-4 rounded-full bg-emerald-500 border-4 border-slate-950"></span>
+<p class="text-[10px] uppercase font-bold text-emerald-500 mb-1">Status Update</p>
+<p class="text-sm font-bold">Control status set to Compliant</p>
+<p class="text-xs text-slate-500">Sarah Mitchell • 2h ago</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[31px] top-1 size-4 rounded-full bg-primary border-4 border-slate-950"></span>
+<p class="text-[10px] uppercase font-bold text-primary mb-1">Evidence Added</p>
+<p class="text-sm font-bold">New access review document uploaded</p>
+<p class="text-xs text-slate-500">Sarah Mitchell • Yesterday</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[31px] top-1 size-4 rounded-full bg-slate-700 border-4 border-slate-950"></span>
+<p class="text-[10px] uppercase font-bold text-slate-500 mb-1">Automated Test</p>
+<p class="text-sm font-bold">Daily identity sync validation passed</p>
+<p class="text-xs text-slate-500">SecurityBot • Oct 14, 2024</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[31px] top-1 size-4 rounded-full bg-amber-500 border-4 border-slate-950"></span>
+<p class="text-[10px] uppercase font-bold text-amber-500 mb-1">Risk Review</p>
+<p class="text-sm font-bold">Risk level adjusted to Medium</p>
+<p class="text-xs text-slate-500">Admin Panel • Oct 12, 2024</p>
+</div>
+</div>
+</section>
+<!-- Owners -->
+<section class="bg-primary/5 p-6 rounded-xl border border-primary/10">
+<h4 class="text-sm font-bold mb-4 uppercase tracking-widest text-primary/80">Control Ownership</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional man in business attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhPrLzg1V6zkpJcMF-cqgeLi4ynArhBpg3_GNuRmWmolCcv6hW-MWDkM8_r-viha6j758-u74FdVTkesUKq3nuf-xh8UVj67bLWtpA-tSjMZ_7D5y2egqpoRPD22c8ckKK5IhWrBuiy6BP3rts4RqIYmVnEi9oHT-c-IAxdmqQOe5CUnO_vpyUrrcfN0aJR7YUWmFKUl93K9E9HTemvWe4KQtAQTo4Ly-JSWp4i5CXvgYRNRBflje1e2WR4khugHJeMk2HohBbLMg"/>
+</div>
+<div>
+<p class="text-xs font-bold">David Chen</p>
+<p class="text-[10px] text-slate-500">Primary Owner</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional woman with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZetTw4UV2L76ZdyPMGt8J-ytkqYs33p48lBWW9TEr7iMXfQFZt8c-EC1Ausl9TQpWpOmOjrjnUR6652QrcpjyPU43ymrZGDHZa2dWfHcsvmmkPTwWgYvZgxd_SoWi3qdxHP6D83wmIaU09yJBtbDw6Srao6WavkQkJ2fXY516nq68q3jl8q4qWyZn1KWuGsQDH0fhhDOSyk8tebw6S72M9-ggIzoLsDlsNxnuzeiXG-GO5-w7nFM9MtyHb9cvrg-4eyzB9OyTOKI"/>
+</div>
+<div>
+<p class="text-xs font-bold">Elena Rodriguez</p>
+<p class="text-[10px] text-slate-500">Technical Lead</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

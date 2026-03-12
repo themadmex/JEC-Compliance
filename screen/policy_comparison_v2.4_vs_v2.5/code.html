@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "neutral-dark": "#322b18",
+                        "neutral-muted": "#675a32",
+                        "neutral-light": "#c9bb92",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex min-h-screen flex-col lg:flex-row">
+<!-- Sidebar Navigation -->
+<aside class="w-full lg:w-64 border-r border-neutral-muted bg-background-dark flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">shield_person</span>
+</div>
+<h2 class="text-white text-lg font-bold font-display leading-tight">Jean Edwards</h2>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<div class="flex items-center gap-3 px-3 py-2 text-neutral-light hover:text-white cursor-pointer transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-neutral-dark text-white">
+<span class="material-symbols-outlined">description</span>
+<p class="text-sm font-medium">Policies</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-neutral-light hover:text-white cursor-pointer transition-colors">
+<span class="material-symbols-outlined">verified_user</span>
+<p class="text-sm font-medium">Audits</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-neutral-light hover:text-white cursor-pointer transition-colors">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium">Reports</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-neutral-light hover:text-white cursor-pointer transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</div>
+</nav>
+<div class="p-4 border-t border-neutral-muted mt-auto">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANAgdIPx59tfiOPH1ERFsZNl0SmJ2mhhlwuC4cTvnQgNwIGcYAxUHyZg11foTEQsYk6ZtZV-kJsXNiOCppYgqQCfMutKYm-WKCZWsMo0574yfPfK71pX4VDw52IqfITEPoU6suWn_WupPye2doXoUVcbDosT-o4swJAUXvjwXhFb102nUey_VRZ_2kVXvIxQ9BLDFz2FY0w75xjvaFwcjvc3ULANz-kYq8UFAwx1u3NQs9BA5RXobDH4pVIb9q_--ljG-ejkY6Z1U");'></div>
+<div class="flex flex-col">
+<p class="text-white text-xs font-bold">Admin User</p>
+<p class="text-neutral-light text-[10px]">Compliance Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Header/Navbar -->
+<header class="border-b border-neutral-muted bg-background-dark/50 backdrop-blur-sm px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-xs text-neutral-light font-medium uppercase tracking-wider">
+<span>Compliance Center</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Policies</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary">Compare Versions</span>
+</div>
+<h1 class="text-2xl font-display font-bold text-white">Policy Comparison</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-neutral-dark text-white rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-neutral-muted transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+<span>Close Comparison</span>
+</button>
+</div>
+</header>
+<!-- Comparison View Control -->
+<div class="bg-neutral-dark/30 border-b border-neutral-muted px-6">
+<div class="flex gap-8">
+<button class="border-b-2 border-primary text-primary py-3 text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">side_navigation</span>
+                        Side-by-Side
+                    </button>
+<button class="border-b-2 border-transparent text-neutral-light hover:text-white py-3 text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">difference</span>
+                        Unified Diff
+                    </button>
+</div>
+</div>
+<!-- Comparison Content Wrapper -->
+<div class="flex-1 overflow-auto flex bg-background-dark">
+<!-- Left Column: v2.4 (Archived) -->
+<div class="w-1/2 border-r border-neutral-muted flex flex-col relative overflow-hidden">
+<!-- Subtle Watermark -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] rotate-[-45deg] select-none">
+<span class="text-9xl font-black uppercase">Archived</span>
+</div>
+<!-- Metadata Header -->
+<div class="p-6 border-b border-neutral-muted bg-neutral-dark/10">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-slate-700 text-slate-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter">Archived v2.4</span>
+<span class="text-neutral-light text-xs italic">Retired Jan 15, 2024</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-[10px] text-neutral-light uppercase font-bold">Author</p>
+<p class="text-sm text-white">Robert Chen</p>
+</div>
+<div>
+<p class="text-[10px] text-neutral-light uppercase font-bold">Effective Date</p>
+<p class="text-sm text-white">May 10, 2023</p>
+</div>
+</div>
+</div>
+<!-- Policy Content -->
+<div class="p-8 font-display space-y-6 overflow-y-auto">
+<h2 class="text-2xl text-white font-bold mb-4">Human Resource Security Policy</h2>
+<section>
+<h3 class="text-primary text-lg font-bold mb-2">1. Objective</h3>
+<p class="text-neutral-light leading-relaxed">To ensure that employees and contractors understand their responsibilities and are suitable for the roles they are considered for.</p>
+</section>
+<section class="bg-neutral-dark/20 p-4 rounded border border-transparent">
+<h3 class="text-primary text-lg font-bold mb-2">2. Background Checks</h3>
+<p class="text-neutral-light mb-4">Verification checks on all candidates for employment shall be carried out in accordance with relevant laws, regulations, and ethics.</p>
+<div class="space-y-4">
+<div class="bg-red-900/10 border-l-4 border-red-500/30 p-4">
+<h4 class="text-white font-bold text-sm mb-2">2.4 Level 3 Security Clearance</h4>
+<p class="text-neutral-light text-sm line-through decoration-red-500/50">For positions requiring Level 3 clearance, background checks must include a 5-year criminal history check and professional reference verification from at least two previous employers.</p>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-primary text-lg font-bold mb-2">3. Terms of Employment</h3>
+<p class="text-neutral-light leading-relaxed">The contractual agreement with employees and contractors shall state their and the organization's responsibilities for information security.</p>
+</section>
+</div>
+</div>
+<!-- Right Column: v2.5 (Published) -->
+<div class="w-1/2 flex flex-col relative">
+<!-- Metadata Header -->
+<div class="p-6 border-b border-neutral-muted bg-primary/5">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-primary text-background-dark text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter">Published v2.5</span>
+<span class="text-primary text-xs font-bold">Current Version</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-[10px] text-neutral-light uppercase font-bold">Author</p>
+<p class="text-sm text-white">Robert Chen</p>
+</div>
+<div>
+<p class="text-[10px] text-neutral-light uppercase font-bold">Effective Date</p>
+<p class="text-sm text-white">Jan 16, 2024</p>
+</div>
+</div>
+</div>
+<!-- Policy Content -->
+<div class="p-8 font-display space-y-6 overflow-y-auto">
+<h2 class="text-2xl text-white font-bold mb-4">Human Resource Security Policy</h2>
+<section>
+<h3 class="text-primary text-lg font-bold mb-2">1. Objective</h3>
+<p class="text-neutral-light leading-relaxed">To ensure that employees and contractors understand their responsibilities and are suitable for the roles they are considered for.</p>
+</section>
+<section class="bg-primary/5 p-4 rounded border border-primary/20">
+<h3 class="text-primary text-lg font-bold mb-2">2. Background Checks</h3>
+<p class="text-neutral-light mb-4">Verification checks on all candidates for employment shall be carried out in accordance with relevant laws, regulations, and ethics.</p>
+<div class="space-y-4">
+<div class="bg-green-900/20 border-l-4 border-green-500 p-4">
+<div class="flex items-center gap-2 mb-2">
+<h4 class="text-white font-bold text-sm">2.4 Level 3 Security Clearance</h4>
+<span class="bg-green-500/20 text-green-400 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase">Updated</span>
+</div>
+<p class="text-slate-100 text-sm leading-relaxed">
+                                        For positions requiring Level 3 clearance, background checks <span class="bg-green-500/30 text-white font-bold px-1 rounded">must now include a comprehensive 10-year criminal history check</span>, global financial sanctions screening, and professional reference verification from <span class="bg-green-500/30 text-white font-bold px-1 rounded">at least four previous employers</span> or equivalent professional contacts.
+                                    </p>
+<p class="text-green-400/80 text-[11px] mt-2 italic flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">info</span>
+                                        Increased from 5 years and 2 references to align with ISO/IEC 27001:2022 standards.
+                                    </p>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-primary text-lg font-bold mb-2">3. Terms of Employment</h3>
+<p class="text-neutral-light leading-relaxed">The contractual agreement with employees and contractors shall state their and the organization's responsibilities for information security.</p>
+</section>
+</div>
+</div>
+</div>
+<!-- Footer Stats -->
+<footer class="bg-neutral-dark border-t border-neutral-muted px-6 py-3 flex items-center justify-between text-xs">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500"></span>
+<span class="text-neutral-light"><b class="text-white">12</b> Additions</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-red-500"></span>
+<span class="text-neutral-light"><b class="text-white">4</b> Deletions</span>
+</div>
+</div>
+<div class="text-neutral-light italic">
+                    All changes reviewed by Compliance Committee (Ref: #CC-2024-001)
+                </div>
+</footer>
+</main>
+</div>
+</body></html>

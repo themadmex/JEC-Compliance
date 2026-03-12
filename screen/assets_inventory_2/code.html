@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Asset Inventory | Jean Edwards Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13", // Theme default primary
+                        "brand-gold": "#D4AF37", // Elegant Gold accent for Jean Edwards
+                        "brand-navy": "#0A192F", // Deep Navy for sidebar
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar: Deep Navy per requirements -->
+<aside class="w-72 bg-brand-navy text-slate-200 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-full bg-brand-gold flex items-center justify-center text-brand-navy">
+<span class="material-symbols-outlined font-bold">diamond</span>
+</div>
+<span class="font-serif text-xl tracking-wide text-white">Jean Edwards</span>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/10 text-brand-gold rounded-xl" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Assets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Personnel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-6 mt-auto">
+<div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+<img alt="Profile" class="size-10 rounded-full object-cover border border-brand-gold/30" data-alt="Professional headshot of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFoaNqUd4WWmFi-4hopgFpsKDOpqHRpYIxxqDqXAkHVmA7lMtkozMXLSrZ2z5vt89iTs9IvY8O2fmy51e6eSGU33UcGGG9BbtblRgEfXo0on0ZkSQOORAWd_TM5Qkq1xOj6g3QgYUFMNX85fFkzzIgWzgrWEFDMVXC4RaDUg5_5q7W0AtCPYx3FqvhgDl7uXYs6_b8pVrp-jRQkP3uOZ_z5x0j-CuLo7Zuio0Q4bnwZ9LW_nyRHS43GiMrgsMBmcsPIU6A5jyD1kM"/>
+<div class="overflow-hidden">
+<p class="text-sm font-semibold text-white truncate">Jean Edwards</p>
+<p class="text-xs text-slate-400 truncate">Platform Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden bg-white dark:bg-slate-900">
+<!-- Header -->
+<header class="h-20 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+<div>
+<h1 class="font-serif text-3xl text-slate-900 dark:text-white leading-none">Asset Inventory</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-widest">Enterprise Resource Management</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="pl-10 pr-4 py-2 w-64 rounded-full border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-brand-gold focus:border-brand-gold outline-none" placeholder="Search inventory..." type="text"/>
+</div>
+<button class="bg-brand-navy dark:bg-brand-gold text-white dark:text-brand-navy px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Add New Asset
+                </button>
+</div>
+</header>
+<!-- Stats Overview -->
+<div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-6 shrink-0">
+<div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Total Value</p>
+<p class="text-2xl font-serif text-slate-900 dark:text-white mt-1">$1.42M</p>
+<div class="mt-2 text-xs text-emerald-600 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>4.2% from last audit</span>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Active Assets</p>
+<p class="text-2xl font-serif text-slate-900 dark:text-white mt-1">1,284</p>
+<div class="mt-2 text-xs text-slate-500 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs">info</span>
+<span>Across 12 global regions</span>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Maintenance Required</p>
+<p class="text-2xl font-serif text-slate-900 dark:text-white mt-1">12</p>
+<div class="mt-2 text-xs text-amber-600 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-xs">warning</span>
+<span>Scheduled for this week</span>
+</div>
+</div>
+</div>
+<!-- Table Container -->
+<div class="flex-1 overflow-auto px-8 pb-8">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-500 tracking-wider">Asset Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-500 tracking-wider">Category</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-500 tracking-wider">Owner</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-500 tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-500 tracking-wider">Last Audit Date</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-500 tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">laptop_mac</span>
+</div>
+<span class="font-medium text-slate-900 dark:text-slate-100">MacBook Pro 16" M3</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Company Laptops</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Sarah Jenkins</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Active</span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Oct 12, 2023</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-brand-gold transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">cloud</span>
+</div>
+<span class="font-medium text-slate-900 dark:text-slate-100">AWS Production Cluster</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Cloud Instances</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">DevOps Team</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Active</span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Nov 04, 2023</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-brand-gold transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+</div>
+<span class="font-medium text-slate-900 dark:text-slate-100">Adobe Creative Cloud</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Software Licenses</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Creative Dept</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800">Maintenance</span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Sep 20, 2023</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-brand-gold transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">print</span>
+</div>
+<span class="font-medium text-slate-900 dark:text-slate-100">Xerox PrimeLink C9070</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Hardware</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Operations</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Retired</span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Jan 15, 2023</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-brand-gold transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-lg">dns</span>
+</div>
+<span class="font-medium text-slate-900 dark:text-slate-100">Enterprise Database Node B</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Cloud Instances</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">IT Infrastructure</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Active</span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Nov 12, 2023</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-brand-gold transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-xs text-slate-500">Showing 1 to 5 of 1,284 assets</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium hover:bg-white dark:hover:bg-slate-700 transition-colors">Previous</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium bg-brand-navy text-white dark:bg-brand-gold dark:text-brand-navy transition-colors">1</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium hover:bg-white dark:hover:bg-slate-700 transition-colors">2</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium hover:bg-white dark:hover:bg-slate-700 transition-colors">3</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium hover:bg-white dark:hover:bg-slate-700 transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

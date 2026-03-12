@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 bg-slate-950 dark:bg-black/40 border-r border-primary/10 flex flex-col justify-between p-6">
+<div class="flex flex-col gap-8">
+<!-- User Profile -->
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full border-2 border-primary/50 overflow-hidden bg-primary/10">
+<img alt="Jean Edwards" class="w-full h-full object-cover" data-alt="Professional portrait of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAOJqPzT3l1CLLE9U165fhSFbqomhN_qkJcthSZkbZ5gTvFPePc9X0h4cQ5oleZ0-eTln0coX4O9A0KvVyvg-CwI-7I5ccGeKrwHkCIc04cItoODlDI-GmjsysWy8lnEneBI5jM5-wR8mMKdg7k16-HROCiFtHzSdcMrvQHkFKDS1M5k65Zb0gZeoQjRQgHN26AATroLu7KIMWHmMWhQtUhL4AE0_I8hmMNo7C2TJXA_-0-KApKQRDH82_4JyLmXkS2LGR-gvM4gE"/>
+</div>
+<div class="flex flex-col">
+<h2 class="text-slate-100 text-base font-bold leading-tight">Jean Edwards</h2>
+<p class="text-primary/70 text-xs font-medium uppercase tracking-wider">Admin Account</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-slate-950 font-bold" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span>Vendors</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="font-medium">Risk Assessments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Bottom -->
+<button class="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-primary/20 text-primary hover:bg-primary hover:text-slate-950 transition-all font-bold">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span>Logout</span>
+</button>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto p-8">
+<!-- Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+<div>
+<h1 class="text-4xl font-display font-black text-slate-900 dark:text-slate-100 tracking-tight">Vendors Management</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-2">Manage your third-party ecosystem and security compliance.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-slate-950 px-6 py-3 rounded-lg font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">add</span>
+<span>Add vendor</span>
+</button>
+</div>
+<!-- Stats/Filters Bar -->
+<div class="flex flex-col sm:flex-row gap-4 mb-8">
+<div class="flex bg-slate-200/50 dark:bg-primary/5 rounded-xl p-1 border border-slate-300 dark:border-primary/10">
+<button class="px-8 py-2 rounded-lg bg-primary text-slate-950 font-bold shadow-sm">Active</button>
+<button class="px-8 py-2 rounded-lg text-slate-500 dark:text-slate-400 font-bold hover:text-primary transition-colors">Archived</button>
+<button class="px-8 py-2 rounded-lg text-slate-500 dark:text-slate-400 font-bold hover:text-primary transition-colors">All</button>
+</div>
+<div class="flex-1 flex gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-200/50 dark:bg-primary/5 border border-slate-300 dark:border-primary/10 rounded-xl py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Search vendors..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Vendors Table -->
+<div class="bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-primary/10 overflow-hidden shadow-xl">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-primary/10 border-b border-slate-200 dark:border-primary/10">
+<tr>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/70">Vendor</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/70 text-center">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/70">Inherent Risk Score</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/70">Category</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-primary/70">Security Review</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-primary/5">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">layers</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Jira</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase tracking-tighter border border-emerald-500/20">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%;"></div>
+</div>
+<span class="text-sm font-bold w-6">85</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 dark:text-slate-400 text-sm">Project Management</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-emerald-500">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span class="text-sm font-medium">Up to date</span>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">cloud</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Microsoft Azure</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase tracking-tighter border border-emerald-500/20">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 92%;"></div>
+</div>
+<span class="text-sm font-bold w-6">92</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 dark:text-slate-400 text-sm">Cloud Infrastructure</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-emerald-500">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span class="text-sm font-medium">Up to date</span>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">chat</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Slack</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase tracking-tighter border border-emerald-500/20">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+</div>
+<span class="text-sm font-bold w-6">45</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 dark:text-slate-400 text-sm">Communication</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-emerald-500">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span class="text-sm font-medium">Up to date</span>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">videocam</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Zoom</span>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase tracking-tighter border border-emerald-500/20">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 60%;"></div>
+</div>
+<span class="text-sm font-bold w-6">60</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 dark:text-slate-400 text-sm">Video Conferencing</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-amber-500">
+<span class="material-symbols-outlined text-lg">pending</span>
+<span class="text-sm font-medium">Pending Review</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Pagination Placeholder -->
+<div class="mt-6 flex justify-between items-center text-slate-500 text-sm">
+<p>Showing 4 of 28 vendors</p>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded border border-slate-300 dark:border-primary/10 hover:bg-primary/10 transition-colors">Previous</button>
+<button class="px-4 py-2 rounded bg-primary/20 text-primary font-bold">1</button>
+<button class="px-4 py-2 rounded border border-slate-300 dark:border-primary/10 hover:bg-primary/10 transition-colors">2</button>
+<button class="px-4 py-2 rounded border border-slate-300 dark:border-primary/10 hover:bg-primary/10 transition-colors">3</button>
+<button class="px-4 py-2 rounded border border-slate-300 dark:border-primary/10 hover:bg-primary/10 transition-colors">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

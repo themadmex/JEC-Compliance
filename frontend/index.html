@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JEC Compliance Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div id="login-wall" class="login-wall" style="display:none;">
+      <div class="login-card">
+        <img class="login-logo" src="/branding/JE%20Logo%20Files%20update%20Transparent-03.png" alt="JEC logo" />
+        <h1 class="serif-text login-title">JEC Compliance Hub</h1>
+        <p class="login-sub">Sign in with your JEC Microsoft account to continue.</p>
+        <a href="/auth/login" class="btn btn-primary btn-ms-login">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 21 21" aria-hidden="true">
+            <rect x="0" y="0" width="10" height="10" fill="#f25022"/>
+            <rect x="11" y="0" width="10" height="10" fill="#7fba00"/>
+            <rect x="0" y="11" width="10" height="10" fill="#00a4ef"/>
+            <rect x="11" y="11" width="10" height="10" fill="#ffb900"/>
+          </svg>
+          Sign in with Microsoft
+        </a>
+      </div>
+    </div>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-row">
+          <img class="brand-logo" src="/branding/JE%20Logo%20Files%20update%20Transparent-03.png" alt="JEC logo" />
+          <div>
+            <p class="brand-name">JEC</p>
+            <p class="brand-sub">Compliance Hub</p>
+          </div>
+        </div>
+
+        <div class="side-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Help…</span>
+          <kbd>ctrl+K</kbd>
+        </div>
+
+        <nav class="side-nav">
+          <!-- Flat top-level items -->
+          <a href="#home" data-route="home"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="#my-work" data-route="my-work"><i class="fa-solid fa-circle-check"></i> My work</a>
+          <a href="#agent" data-route="agent"><i class="fa-solid fa-wand-magic-sparkles"></i> JEC Agent</a>
+          <a href="#tests" data-route="tests"><i class="fa-solid fa-list-check"></i> Tests</a>
+          <a href="#reports" data-route="reports"><i class="fa-solid fa-chart-bar"></i> Reports</a>
+
+          <div class="nav-divider"></div>
+
+          <!-- Compliance group -->
+          <div class="nav-group" id="group-compliance">
+            <button class="nav-group-header" data-group="compliance">
+              <span class="nav-group-left"><i class="fa-regular fa-clipboard"></i> Compliance</span>
+              <i class="fa-solid fa-chevron-down nav-chevron"></i>
+            </button>
+            <div class="nav-group-items">
+              <a href="#compliance-frameworks" data-route="compliance-frameworks">Frameworks</a>
+              <a href="#compliance-controls" data-route="compliance-controls">Controls</a>
+              <a href="#compliance-policies" data-route="compliance-policies">Policies</a>
+              <a href="#compliance-documents" data-route="compliance-documents">Documents</a>
+              <a href="#compliance-audits" data-route="compliance-audits">Audits</a>
+              <a href="#compliance-settings" data-route="compliance-settings">Settings</a>
+            </div>
+          </div>
+
+          <!-- Customer trust group -->
+          <div class="nav-group" id="group-customer-trust">
+            <button class="nav-group-header" data-group="customer-trust">
+              <span class="nav-group-left"><i class="fa-regular fa-shield"></i> Customer trust</span>
+              <i class="fa-solid fa-chevron-down nav-chevron"></i>
+            </button>
+            <div class="nav-group-items">
+              <a href="#trust-overview" data-route="trust-overview">Overview</a>
+              <a href="#trust-accounts" data-route="trust-accounts">Accounts</a>
+              <a href="#trust-center" data-route="trust-center">Trust Center</a>
+              <a href="#trust-knowledge" data-route="trust-knowledge">Knowledge base</a>
+              <a href="#trust-activity" data-route="trust-activity">Activity</a>
+              <a href="#trust-settings" data-route="trust-settings">Settings</a>
+            </div>
+          </div>
+
+          <!-- Risk group -->
+          <div class="nav-group" id="group-risk">
+            <button class="nav-group-header" data-group="risk">
+              <span class="nav-group-left"><i class="fa-regular fa-triangle-exclamation"></i> Risk</span>
+              <i class="fa-solid fa-chevron-down nav-chevron"></i>
+            </button>
+            <div class="nav-group-items">
+              <a href="#risk-overview" data-route="risk-overview">Overview</a>
+              <a href="#risk-risks" data-route="risk-risks">Risks</a>
+              <a href="#risk-library" data-route="risk-library">Risk library</a>
+              <a href="#risk-actions" data-route="risk-actions">Action tracker</a>
+              <a href="#risk-snapshots" data-route="risk-snapshots">Snapshots</a>
+              <a href="#risk-settings" data-route="risk-settings">Settings</a>
+            </div>
+          </div>
+
+          <div class="nav-divider"></div>
+
+          <!-- Vendors group -->
+          <div class="nav-group" id="group-vendors">
+            <button class="nav-group-header" data-group="vendors">
+              <span class="nav-group-left"><i class="fa-solid fa-building"></i> Vendors</span>
+              <i class="fa-solid fa-chevron-down nav-chevron"></i>
+            </button>
+            <div class="nav-group-items">
+              <a href="#vendors" data-route="vendors">Vendors</a>
+            </div>
+          </div>
+
+          <!-- Assets group -->
+          <div class="nav-group" id="group-assets">
+            <button class="nav-group-header" data-group="assets">
+              <span class="nav-group-left"><i class="fa-regular fa-hard-drive"></i> Assets</span>
+              <i class="fa-solid fa-chevron-down nav-chevron"></i>
+            </button>
+            <div class="nav-group-items">
+              <a href="#assets" data-route="assets">Inventory</a>
+              <a href="#assets-code" data-route="assets-code">Code changes</a>
+              <a href="#assets-vulns" data-route="assets-vulns">Vulnerabilities</a>
+              <a href="#assets-alerts" data-route="assets-alerts">Security alerts</a>
+              <a href="#assets-settings" data-route="assets-settings">Settings</a>
+            </div>
+          </div>
+
+          <!-- Personnel group -->
+          <div class="nav-group" id="group-personnel">
+            <button class="nav-group-header" data-group="personnel">
+              <span class="nav-group-left"><i class="fa-solid fa-users"></i> Personnel</span>
+              <i class="fa-solid fa-chevron-down nav-chevron"></i>
+            </button>
+            <div class="nav-group-items">
+              <a href="#personnel" data-route="personnel">People</a>
+              <a href="#personnel-computers" data-route="personnel-computers">Computers</a>
+              <a href="#personnel-access" data-route="personnel-access">Access</a>
+              <a href="#personnel-settings" data-route="personnel-settings">Settings</a>
+            </div>
+          </div>
+
+          <div class="nav-divider"></div>
+
+          <a href="#integrations" data-route="integrations"><i class="fa-solid fa-plug"></i> Integrations</a>
+          <a href="#my-security-tasks" data-route="my-security-tasks"><i class="fa-regular fa-user-shield"></i> My security tasks</a>
+        </nav>
+
+        <div class="sidebar-user">
+          <span id="sidebar-user-name" class="sidebar-user-name"></span>
+          <button id="logout-btn" class="btn-logout" title="Sign out"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+      </aside>
+
+      <main id="page-root" class="content"></main>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

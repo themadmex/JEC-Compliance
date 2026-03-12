@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jean Edwards | Evidence Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<aside class="w-64 border-r border-primary/20 bg-background-light dark:bg-background-dark flex flex-col fixed h-full">
+<div class="p-6 flex flex-col h-full justify-between">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">diamond</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight font-display">Jean Edwards</h1>
+<p class="text-primary text-xs font-medium uppercase tracking-widest">Premium Audit</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">shield</span>
+<span class="text-sm font-medium">Audits</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm font-bold">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">warning</span>
+<span class="text-sm font-medium">Risk Registry</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors mt-4 border-t border-primary/10 pt-6" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-100 dark:bg-primary/5 border border-primary/10">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="Professional headshot of a woman smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2iZpNX-RAqFAs_SU_wamtE1fixNyB6gxfD2TbWTghpyJNxrUq7H6BlDvjrZYSrIGwXZyhBJoSPylKeP98wwRnJCfk3mCzsj2y-cs-tHQJJu85FgQQ5ZDoD3jLa3UCCRdVFaqYjhltYf8K36egq6VmYK_NB8OurLcI_BW6C_rtShkzs02VpEEXOSOFQszPm3KwbyjQ0zEFpvKjZS83hPaLDuh7Noj5YywSsowsg3l7atzf_CWmbWQk4mtWZzos7Bl5B0b8HV5fMfw"/>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold truncate">Sarah Jenkins</p>
+<p class="text-[10px] text-primary font-medium">Compliance Lead</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="ml-64 flex-1 flex flex-col">
+<header class="p-8 pb-4 flex justify-between items-end">
+<div class="flex flex-col gap-2">
+<nav class="flex text-xs font-medium text-slate-500 dark:text-slate-400 gap-2 items-center mb-1">
+<span>Audit Suite</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary">Evidence Tracker</span>
+</nav>
+<h2 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 font-display">Evidence</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Review and manage your audit documentation across all compliance frameworks.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded-lg font-bold text-sm transition-all flex items-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-lg">add</span>
+                Upload Evidence
+            </button>
+</header>
+<section class="px-8 py-6">
+<div class="grid grid-cols-4 gap-4 p-1 bg-slate-100 dark:bg-primary/5 border border-primary/10 rounded-xl">
+<div class="flex flex-col gap-1 p-5 bg-background-light dark:bg-background-dark rounded-lg border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Items</span>
+<span class="material-symbols-outlined text-primary text-xl">inventory_2</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-display">128</span>
+<span class="text-emerald-500 text-xs font-bold">+2.4%</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-5 bg-background-light dark:bg-background-dark rounded-lg border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Not Ready</span>
+<span class="material-symbols-outlined text-slate-400 text-xl">pending_actions</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-display">12</span>
+<span class="text-slate-400 text-xs font-bold">Stable</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-5 bg-background-light dark:bg-background-dark rounded-lg border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Flagged</span>
+<span class="material-symbols-outlined text-rose-500 text-xl">report_problem</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-display text-rose-500">5</span>
+<span class="text-rose-400 text-xs font-bold">-12%</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-5 bg-background-light dark:bg-background-dark rounded-lg border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Ready for Audit</span>
+<span class="material-symbols-outlined text-primary text-xl">verified</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-display text-primary">111</span>
+<span class="text-emerald-500 text-xs font-bold">+18%</span>
+</div>
+</div>
+</div>
+</section>
+<section class="px-8 pb-8 flex-1">
+<div class="bg-background-light dark:bg-background-dark border border-primary/10 rounded-xl overflow-hidden shadow-xl shadow-black/5 flex flex-col h-full">
+<div class="border-b border-primary/10 px-6 py-4 flex items-center justify-between bg-slate-50/50 dark:bg-primary/5">
+<div class="flex gap-6">
+<button class="text-sm font-bold text-primary border-b-2 border-primary pb-4 -mb-[17px]">All Evidence</button>
+<button class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-4">Internal Review</button>
+<button class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-4">Auditor Review</button>
+<button class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors pb-4">Archived</button>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-background-light dark:bg-background-dark border border-primary/20 rounded-lg text-sm focus:ring-1 focus:ring-primary focus:border-primary w-64 outline-none" placeholder="Search documentation..." type="text"/>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-primary/5 text-slate-500 dark:text-slate-400 uppercase text-[10px] font-bold tracking-widest">
+<th class="px-6 py-4 border-b border-primary/10">Evidence</th>
+<th class="px-6 py-4 border-b border-primary/10">Type</th>
+<th class="px-6 py-4 border-b border-primary/10">Last Updated</th>
+<th class="px-6 py-4 border-b border-primary/10">Owner</th>
+<th class="px-6 py-4 border-b border-primary/10">Auditor Assessment</th>
+<th class="px-6 py-4 border-b border-primary/10 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">picture_as_pdf</span>
+<div>
+<p class="text-sm font-bold">ISO 27001 Certification</p>
+<p class="text-[11px] text-slate-500">External audit certificate 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 uppercase">PDF</td>
+<td class="px-6 py-5 text-sm text-slate-500">Oct 12, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">SJ</div>
+<span class="text-sm">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-[11px] font-bold border border-emerald-500/20 flex items-center w-fit gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                                        Ready for Audit
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-xs uppercase tracking-wider transition-colors">Update Evidence</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="text-sm font-bold">Access Control Policy</p>
+<p class="text-[11px] text-slate-500">Standard operating procedure v4.2</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 uppercase">DOCX</td>
+<td class="px-6 py-5 text-sm text-slate-500">Oct 10, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">MC</div>
+<span class="text-sm">Michael Chen</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-rose-500/10 text-rose-500 text-[11px] font-bold border border-rose-500/20 flex items-center w-fit gap-1">
+<span class="material-symbols-outlined text-xs">flag</span>
+                                        Flagged by Auditor
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-xs uppercase tracking-wider transition-colors">Update Evidence</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">table_chart</span>
+<div>
+<p class="text-sm font-bold">Incident Response Log</p>
+<p class="text-[11px] text-slate-500">Quarterly security incidents record</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 uppercase">XLSX</td>
+<td class="px-6 py-5 text-sm text-slate-500">Oct 14, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">SJ</div>
+<span class="text-sm">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-slate-500/10 text-slate-500 text-[11px] font-bold border border-slate-500/20 flex items-center w-fit gap-1">
+<span class="material-symbols-outlined text-xs">hourglass_empty</span>
+                                        Not Ready
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-xs uppercase tracking-wider transition-colors">Update Evidence</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">picture_as_pdf</span>
+<div>
+<p class="text-sm font-bold">Employee Training Records</p>
+<p class="text-[11px] text-slate-500">Annual security awareness completion</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 uppercase">PDF</td>
+<td class="px-6 py-5 text-sm text-slate-500">Sep 28, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">LW</div>
+<span class="text-sm">Linda Wong</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-[11px] font-bold border border-emerald-500/20 flex items-center w-fit gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                                        Ready for Audit
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-xs uppercase tracking-wider transition-colors">Update Evidence</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-auto px-6 py-4 border-t border-primary/10 flex items-center justify-between bg-slate-50 dark:bg-primary/5">
+<p class="text-xs text-slate-500">Showing 1 to 4 of 128 items</p>
+<div class="flex gap-2">
+<button class="p-1.5 rounded border border-primary/20 text-slate-500 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="px-3 py-1.5 rounded border border-primary/20 bg-primary text-background-dark font-bold text-xs">1</button>
+<button class="px-3 py-1.5 rounded border border-primary/20 text-slate-500 hover:bg-primary/10 font-bold text-xs">2</button>
+<button class="px-3 py-1.5 rounded border border-primary/20 text-slate-500 hover:bg-primary/10 font-bold text-xs">3</button>
+<button class="p-1.5 rounded border border-primary/20 text-slate-500 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

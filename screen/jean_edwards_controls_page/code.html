@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Control Management | Jean Edwards Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex min-h-screen overflow-x-hidden">
+<!-- Side Navigation -->
+<aside class="w-72 bg-slate-900 dark:bg-background-dark border-r border-slate-200 dark:border-primary/20 flex flex-col fixed h-full">
+<div class="p-6 flex flex-col h-full">
+<!-- Profile Section -->
+<div class="flex items-center gap-3 mb-10">
+<div class="size-12 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq7bIC1-B8jdAQQwlPm52JyMaPKkW8nALWrgKUcjrpNkZOkbGxm7LFu2IxShS5qdClOPdXfxWxvSB-4jqcXr8Zuj2LpfN5o1lu0ALprgSMTSF2cpIKWVjI0ctp9ZQliusV6UdoynoJE6-OG5IUYubEqUwKduWCf4kacuaefjjhjnGCF6eSn0BM1ImOhpL-9CZXRkkgKZPdlVS9T7iIJ7THDhcnR-WDF4YLauun2khwn3q0MTiXKO_4vWIY7FtW2odJ5ZfVlMI80Fc"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-base font-semibold leading-tight">Jean Edwards</h1>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Corporate Portal</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-lg border border-primary/20" href="#">
+<span class="material-symbols-outlined fill-icon text-2xl">shield_person</span>
+<span class="text-sm font-semibold">Controls</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">warning</span>
+<span class="text-sm font-medium">Risks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">assignment_turned_in</span>
+<span class="text-sm font-medium">Assignments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">description</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<!-- Footer Action -->
+<div class="mt-auto pt-6 border-t border-slate-800">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-xl">add_circle</span>
+<span>New Control</span>
+</button>
+<a class="flex items-center gap-3 px-4 py-3 mt-4 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-72">
+<!-- Header -->
+<header class="h-20 border-b border-slate-200 dark:border-primary/10 flex items-center justify-between px-10 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-10">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-1.5 rounded">
+<span class="material-symbols-outlined text-background-dark text-xl font-bold">admin_panel_settings</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Control Management</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-100 dark:bg-primary/5 border border-slate-200 dark:border-primary/10 rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Search inventory..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="p-10 max-w-7xl mx-auto space-y-10">
+<!-- Hero Section -->
+<div>
+<h3 class="text-4xl font-black mb-2 italic">Controls Inventory</h3>
+<p class="text-slate-500 dark:text-slate-400 text-lg">Manage and monitor corporate compliance controls and team assignments.</p>
+</div>
+<!-- Visualization Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Assignment Completion -->
+<div class="bg-white dark:bg-primary/5 p-8 rounded-xl border border-slate-200 dark:border-primary/10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="text-sm font-semibold uppercase tracking-widest text-primary mb-1">Assignment Completion</h4>
+<div class="flex items-baseline gap-3">
+<span class="text-5xl font-bold">84%</span>
+<span class="text-emerald-500 text-sm font-medium">+5.2%</span>
+</div>
+<p class="text-xs text-slate-500 mt-1 uppercase">Previous 30 Days</p>
+</div>
+<span class="material-symbols-outlined text-primary/40 text-4xl">analytics</span>
+</div>
+<div class="flex items-end justify-between h-32 gap-3 px-2">
+<div class="w-full bg-slate-100 dark:bg-primary/10 rounded-t h-[10%] relative group">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-primary/10 rounded-t h-[80%] relative group">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-primary/10 rounded-t h-[35%] relative group">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="w-full bg-primary rounded-t h-[92%]"></div>
+<div class="w-full bg-slate-100 dark:bg-primary/10 rounded-t h-[60%] relative group">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-primary/10 rounded-t h-[45%] relative group">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<div class="flex justify-between mt-3 px-1 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+<span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span>
+</div>
+</div>
+<!-- Control Health -->
+<div class="bg-white dark:bg-primary/5 p-8 rounded-xl border border-slate-200 dark:border-primary/10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="text-sm font-semibold uppercase tracking-widest text-primary mb-1">Control Health Score</h4>
+<div class="flex items-baseline gap-3">
+<span class="text-5xl font-bold">92<span class="text-xl text-slate-400 font-light">/100</span></span>
+<span class="text-rose-500 text-sm font-medium">-1.1%</span>
+</div>
+<p class="text-xs text-slate-500 mt-1 uppercase">Year to Date Trend</p>
+</div>
+<span class="material-symbols-outlined text-primary/40 text-4xl">monitoring</span>
+</div>
+<div class="relative h-32">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(236, 182, 19, 0.2);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(236, 182, 19, 0);stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+<path d="M0,80 Q50,20 100,50 T200,30 T300,70 T400,10 L400,100 L0,100 Z" fill="url(#grad1)"></path>
+<path d="M0,80 Q50,20 100,50 T200,30 T300,70 T400,10" fill="none" stroke="#ecb613" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-3 px-1 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+<span>JAN</span><span>MAR</span><span>MAY</span><span>JUL</span><span>SEP</span><span>NOV</span>
+</div>
+</div>
+</div>
+<!-- Tabs & Controls Table -->
+<div class="space-y-6">
+<div class="flex items-center justify-between border-b border-slate-200 dark:border-primary/10">
+<div class="flex gap-8">
+<button class="pb-4 border-b-2 border-primary text-slate-900 dark:text-slate-100 font-bold text-sm">All Controls</button>
+<button class="pb-4 border-b-2 border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-bold text-sm">Active</button>
+<button class="pb-4 border-b-2 border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-bold text-sm">Archived</button>
+</div>
+<div class="flex gap-4 mb-4">
+<button class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-4 py-2 border border-slate-200 dark:border-primary/20 rounded-lg hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                                Filter
+                            </button>
+<button class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-4 py-2 border border-slate-200 dark:border-primary/20 rounded-lg hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                                Export
+                            </button>
+</div>
+</div>
+<!-- Inventory Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 dark:border-primary/10">
+<th class="py-4 px-4 font-black">Control Name</th>
+<th class="py-4 px-4 font-black">Category</th>
+<th class="py-4 px-4 font-black">Owner</th>
+<th class="py-4 px-4 font-black text-center">Health</th>
+<th class="py-4 px-4 font-black">Status</th>
+<th class="py-4 px-4 font-black">Next Review</th>
+<th class="py-4 px-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-primary/5">
+<tr class="group hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="py-5 px-4">
+<div class="font-bold text-slate-800 dark:text-slate-100">Access Identity Validation</div>
+<div class="text-xs text-slate-500">ID: CTL-4402-B</div>
+</td>
+<td class="py-5 px-4 text-sm font-medium">Security &amp; IAM</td>
+<td class="py-5 px-4">
+<div class="flex items-center gap-2">
+<img class="size-7 rounded-full border border-primary/20" data-alt="User avatar for Sarah Jenkins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj-N7GMQNutya3SCsrc0uHRhs43YzE0afHG7SyTl4Ty1d0s3udM30iBfua8fqNS_21rqiWpzwjnkdij7Bgv3oYwDRKAOE0DJxoJeUs8wefJouOx5P9gk99Y1TihOmtcf1TRv5WjMUZQ8uSDIsbGkrL9xYIVJ2GzMlhv6XWGO6TgL_3w4KI-aQlNBg1NcYTdYgsCarGJmvYSUSl8ure5rQZR7KIRqDmnvxDLIPnEyHR-wfv_0JY8tFX0Vv3pHSfYZi8nszK9U6OK3k"/>
+<span class="text-sm font-medium">Sarah Jenkins</span>
+</div>
+</td>
+<td class="py-5 px-4">
+<div class="flex justify-center">
+<div class="size-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+</div>
+</td>
+<td class="py-5 px-4">
+<span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-black uppercase rounded-full tracking-wider">Compliant</span>
+</td>
+<td class="py-5 px-4 text-sm text-slate-500">Oct 12, 2024</td>
+<td class="py-5 px-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="py-5 px-4">
+<div class="font-bold text-slate-800 dark:text-slate-100">Quarterly Financial Reconciliation</div>
+<div class="text-xs text-slate-500">ID: CTL-2219-A</div>
+</td>
+<td class="py-5 px-4 text-sm font-medium">Finance &amp; Audit</td>
+<td class="py-5 px-4">
+<div class="flex items-center gap-2">
+<img class="size-7 rounded-full border border-primary/20" data-alt="User avatar for Michael Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhGdYenuEGyrY1jfb3BD6Vy4ZU5Fhs5XyAs3A97dSnvwCSgGufM7sygQwFu9aD4sxhclk--yXbzq4sMOIDhrWSUP5TQLnZuLOvzbYcT9cZYnZTjpbtRsCwGHa4-wgr8Qq-D6HJVVAS_tUlWhRiEpAI22CNspuGYTVQzPqfMwP4qTEl1_dvHFm2QwjR4aVj52K_CO8gh0EnZl1Nanp3a2YdFrP6MnmGT0zNJm4SslGESn_SjaZd2L0gASVAlL9RyJpHgx4ZtVuVoZQ"/>
+<span class="text-sm font-medium">Michael Chen</span>
+</div>
+</td>
+<td class="py-5 px-4">
+<div class="flex justify-center">
+<div class="size-3 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(236,182,19,0.5)]"></div>
+</div>
+</td>
+<td class="py-5 px-4">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase rounded-full tracking-wider">In Progress</span>
+</td>
+<td class="py-5 px-4 text-sm text-slate-500">Sep 30, 2024</td>
+<td class="py-5 px-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="py-5 px-4">
+<div class="font-bold text-slate-800 dark:text-slate-100">Data Encryption At Rest</div>
+<div class="text-xs text-slate-500">ID: CTL-9004-C</div>
+</td>
+<td class="py-5 px-4 text-sm font-medium">Technical &amp; IT</td>
+<td class="py-5 px-4">
+<div class="flex items-center gap-2">
+<img class="size-7 rounded-full border border-primary/20" data-alt="User avatar for Elena Rodriguez" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHXHxd7rxHj2h1YqGcQ6TeEnvXq8NrIs0qcpKAf-JehzaoPtDYWIcYTY0h6kmixVN2la_n2SimKwHp-1PrE9UPROJhl9IWDPPNADFpiZSs2YwJpyBcswvR2eiPvN6axiGo6srPqr1Q9Ob2hIOuXE_6i8cLhz5eegJEQJsXrz9Z6SK7JIoJwOFWEL9ydq5uZu0eAy-D0yOW2wfVng2VuSkPe56P1Tbt27FoeEHXnY26I9Y08tsm72xbQCkaqDSVg37P5NcCjLTsEWM"/>
+<span class="text-sm font-medium">Elena Rodriguez</span>
+</div>
+</td>
+<td class="py-5 px-4">
+<div class="flex justify-center">
+<div class="size-3 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]"></div>
+</div>
+</td>
+<td class="py-5 px-4">
+<span class="px-3 py-1 bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 text-[10px] font-black uppercase rounded-full tracking-wider">Critical Fail</span>
+</td>
+<td class="py-5 px-4 text-sm text-slate-500">Overdue</td>
+<td class="py-5 px-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="py-5 px-4">
+<div class="font-bold text-slate-800 dark:text-slate-100">Vendor Risk Assessment</div>
+<div class="text-xs text-slate-500">ID: CTL-5512-E</div>
+</td>
+<td class="py-5 px-4 text-sm font-medium">Procurement</td>
+<td class="py-5 px-4">
+<div class="flex items-center gap-2">
+<img class="size-7 rounded-full border border-primary/20" data-alt="User avatar for Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4XFEgvYyQeibgAm-4yqEKXppYLjzOL-XfyBwCx0ZBm2Cf6V_-MRjF8kCK_-6M-1rIv76aLQgOOQRahk2sVBeFsk-8iY2uFys8pyV4xoW7joCIa1kcd1JqvzwjfIFqmfZEKLkgiQbKgAK_yWSh8eet_izmrT8GQiZ9rOH4nwr6vWANpt-vv3U_dI8o0mqOKWdvPH7x3rDn7A1VnTq2LU8hgnwxztF5e3vE-qAzBell6Unhey49HX224VhW4NNoxbrIA85cxoQIgP4"/>
+<span class="text-sm font-medium">Jean Edwards</span>
+</div>
+</td>
+<td class="py-5 px-4">
+<div class="flex justify-center">
+<div class="size-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+</div>
+</td>
+<td class="py-5 px-4">
+<span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-black uppercase rounded-full tracking-wider">Compliant</span>
+</td>
+<td class="py-5 px-4 text-sm text-slate-500">Oct 01, 2024</td>
+<td class="py-5 px-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Stats -->
+<div class="pt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+<div class="p-6 border border-slate-200 dark:border-primary/10 rounded-lg">
+<div class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Total Controls</div>
+<div class="text-2xl font-bold">142</div>
+</div>
+<div class="p-6 border border-slate-200 dark:border-primary/10 rounded-lg">
+<div class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Active Tests</div>
+<div class="text-2xl font-bold">28</div>
+</div>
+<div class="p-6 border border-slate-200 dark:border-primary/10 rounded-lg">
+<div class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Total Failures</div>
+<div class="text-2xl font-bold text-rose-500">3</div>
+</div>
+<div class="p-6 border border-slate-200 dark:border-primary/10 rounded-lg">
+<div class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Mean Remediation</div>
+<div class="text-2xl font-bold">4.2d</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

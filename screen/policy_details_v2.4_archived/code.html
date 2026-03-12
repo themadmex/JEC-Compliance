@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Policy Management - Archived Version v2.4</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-background-dark border-r border-primary/10 flex flex-col justify-between p-4">
+<div class="flex flex-col gap-8">
+<!-- User Profile -->
+<div class="flex gap-3 items-center">
+<div class="size-10 rounded-full bg-cover bg-center border border-primary/30" data-alt="Professional portrait of Jean Edwards" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAxu_q8FGeirlOUnm2j7rvrKrtYzKzouieMoUzP-fmuhRzPOfPHqNrZsJZRLFFgqxSqkvwMhXjrshNgS3TOoQH3npHpiNs6fNj8OLMEgTEoOoA0pJgR6dsD6c8_oL0W2ENY8WtSwgo9eaCnijmDIfT5gHQaA9Jk9D3T3ASICPxkKsom_4Dkfqs4A8yRbMXuvgPE_6NS00lxlCgXCM8yJ3n3ITHdm90nsixeaDaK1pVt_ubXy75X8MLkmR2SFf-993t-0P9SirO_kCA");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-sm font-semibold">Jean Edwards</h1>
+<p class="text-primary text-xs font-medium">Policy Management</p>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg border border-primary/20" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Policies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<button class="w-full py-2.5 bg-primary hover:bg-primary/90 text-background-dark font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+<span class="text-sm">New Policy</span>
+</button>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 bg-background-dark/50 backdrop-blur-md">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl">policy</span>
+<h2 class="text-xl font-bold tracking-tight">Policy Archive</h2>
+</div>
+<div class="h-4 w-px bg-primary/20"></div>
+<nav class="flex gap-6 text-sm font-medium">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">Overview</a>
+<a class="text-primary border-b border-primary" href="#">History</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">Drafts</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-primary/5 border border-primary/20 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-slate-100 placeholder-slate-500 w-64" placeholder="Search archive..." type="text"/>
+</div>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Archive Warning Banner -->
+<div class="bg-primary/20 border-b border-primary/30 py-4 px-8 flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">inventory_2</span>
+<div>
+<h3 class="text-primary font-bold uppercase tracking-widest text-sm">Archived Version (Read-Only)</h3>
+<p class="text-slate-300 text-sm">This version (v2.4) was retired on Jan 12, 2023. It has been replaced by the v3.0 suite.</p>
+</div>
+<div class="ml-auto flex gap-3">
+<button class="px-4 py-2 border border-primary text-primary hover:bg-primary/10 rounded-lg text-sm font-bold transition-all">Export PDF</button>
+<button class="px-4 py-2 bg-primary text-background-dark hover:bg-primary/90 rounded-lg text-sm font-bold transition-all">Restore this Version</button>
+</div>
+</div>
+<div class="max-w-7xl mx-auto flex gap-8 p-8">
+<!-- Policy Content -->
+<div class="flex-1 space-y-8">
+<div class="border-b border-primary/10 pb-6">
+<nav class="flex text-xs text-slate-500 gap-2 mb-4">
+<span>Policies</span>
+<span>/</span>
+<span>Human Resource Security</span>
+<span>/</span>
+<span class="text-primary font-medium">v2.4 (Archived)</span>
+</nav>
+<h1 class="text-4xl font-display font-black text-slate-100 leading-tight">
+                                Archived Version: v2.4 - Human Resource Security Policy
+                            </h1>
+<p class="text-slate-400 mt-2 italic">Official Document of Jean Edwards &amp; Associates</p>
+</div>
+<article class="prose prose-invert max-w-none text-slate-300 space-y-6 font-serif">
+<section>
+<h2 class="text-xl font-display font-bold text-primary mb-3">1. Objective</h2>
+<p>The objective of this policy is to ensure that employees and contractors are suitable for the roles they are considered for and to provide a framework for maintaining security during their employment or engagement.</p>
+</section>
+<section>
+<h2 class="text-xl font-display font-bold text-primary mb-3">2. Prior to Employment</h2>
+<p>Security responsibilities shall be addressed prior to employment in adequate job descriptions and in terms and conditions of employment. All candidates for employment should be adequately screened, especially for sensitive jobs.</p>
+<ul class="list-disc pl-6 space-y-2 mt-3">
+<li>Background verification checks for all candidates.</li>
+<li>Verification of academic and professional credentials.</li>
+<li>Confirmation of identity via government-issued documentation.</li>
+</ul>
+</section>
+<section>
+<h2 class="text-xl font-display font-bold text-primary mb-3">3. During Employment</h2>
+<p>Management shall require all employees and contractors to apply security in accordance with the established policies and procedures of the organization.</p>
+<p>Employees shall receive appropriate awareness education and training and regular updates in organizational policies and procedures, as relevant for their job function.</p>
+</section>
+<section>
+<h2 class="text-xl font-display font-bold text-primary mb-3">4. Termination and Change of Employment</h2>
+<p>Responsibilities for performing employment termination or change of employment shall remain clearly defined and assigned. Assets must be returned and access rights must be removed immediately upon termination.</p>
+</section>
+</article>
+<!-- Version Note -->
+<div class="bg-slate-900/50 rounded-xl p-6 border border-primary/10 mt-12">
+<div class="flex items-center gap-2 mb-3 text-primary">
+<span class="material-symbols-outlined">info</span>
+<h4 class="font-bold text-sm uppercase tracking-wider">Version Note</h4>
+</div>
+<p class="text-slate-400 text-sm leading-relaxed">
+                                This version (v2.4) was superseded on January 12th, 2023. The transition to the <strong>v3.0 Suite</strong> involved a complete overhaul of Section 4 to include remote-work termination protocols and enhanced cloud asset recovery procedures. Use this archived copy for historical audit purposes only.
+                            </p>
+</div>
+</div>
+<!-- Side Panel: Version Details -->
+<aside class="w-80 space-y-6">
+<div class="bg-background-dark border border-primary/20 rounded-xl p-5 shadow-xl">
+<h3 class="text-primary font-display font-bold text-lg mb-4 border-b border-primary/10 pb-2">Version Metadata</h3>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Status</span>
+<span class="flex items-center gap-2 text-slate-300 font-medium">
+<span class="size-2 rounded-full bg-slate-500"></span>
+                                        Retired / Superseded
+                                    </span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Archived On</span>
+<span class="text-slate-300 font-medium">Jan 12, 2023</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Author</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="size-6 rounded-full bg-primary/20 flex items-center justify-center text-[10px] text-primary font-bold border border-primary/30">RW</div>
+<span class="text-slate-300 font-medium">Robert Wilson</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Approved By</span>
+<span class="text-slate-300 font-medium">Legal Compliance Committee</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Archive ID</span>
+<span class="text-xs font-mono text-primary/70">ARCH-2023-HR-024</span>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 border border-primary/10 rounded-xl p-5">
+<h3 class="text-slate-100 font-display font-bold text-sm mb-3">Quick Actions</h3>
+<div class="flex flex-col gap-2">
+<button class="w-full flex items-center justify-between px-3 py-2 bg-background-dark hover:bg-primary/10 text-slate-300 hover:text-primary rounded-lg border border-primary/10 transition-colors text-sm">
+<span>Compare with v3.0</span>
+<span class="material-symbols-outlined text-sm">compare_arrows</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-2 bg-background-dark hover:bg-primary/10 text-slate-300 hover:text-primary rounded-lg border border-primary/10 transition-colors text-sm">
+<span>View Audit Trail</span>
+<span class="material-symbols-outlined text-sm">timeline</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-2 bg-background-dark hover:bg-primary/10 text-slate-300 hover:text-primary rounded-lg border border-primary/10 transition-colors text-sm">
+<span>Request Restoration</span>
+<span class="material-symbols-outlined text-sm">restore_page</span>
+</button>
+</div>
+</div>
+<div class="p-4 flex flex-col items-center text-center gap-2">
+<span class="material-symbols-outlined text-slate-600 text-4xl">verified_user</span>
+<p class="text-xs text-slate-500">This document is cryptographically signed and stored in the secure archive vault.</p>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk Distribution Overview | Jean Edwards</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+        }
+        .risk-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            transition: transform 0.2s;
+        }
+        .risk-cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar Component -->
+<aside class="w-64 flex-shrink-0 bg-background-dark border-r border-primary/20 flex flex-col justify-between p-6">
+<div class="flex flex-col gap-8">
+<!-- Profile Section -->
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 border border-primary/40 overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-sm font-semibold font-display">Jean Edwards</h1>
+<p class="text-primary/70 text-xs font-medium">Premium Risk Suite</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span class="text-sm font-medium">Risk Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">article</span>
+<span class="text-sm font-medium">Audit logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Footer Action -->
+<button class="w-full flex items-center justify-center gap-2 rounded-lg py-2.5 bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>New Assessment</span>
+</button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-[#1a160d]">
+<!-- Header -->
+<header class="flex items-center justify-between px-8 py-4 border-b border-primary/10 sticky top-0 bg-[#1a160d]/90 backdrop-blur-md z-20">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h2 class="text-xl font-bold font-display tracking-tight">Risk Distribution Overview</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 text-[20px]">search</span>
+<input class="bg-primary/5 border border-primary/20 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-primary focus:border-primary w-64" placeholder="Search audits..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-primary/5 text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+</button>
+<div class="h-8 w-[1px] bg-primary/20"></div>
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full overflow-hidden border border-primary/40 bg-primary/10 flex items-center justify-center" data-alt="User profile avatar icon">
+<span class="material-symbols-outlined text-primary text-[20px]">person</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Breadcrumbs & Actions -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<nav class="flex items-center gap-2 text-xs font-medium text-primary/60 mb-2 uppercase tracking-widest">
+<span>Risk Management</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary">Distribution Overview</span>
+</nav>
+<h1 class="text-4xl font-black font-display text-slate-100">Risk Analysis</h1>
+<p class="text-slate-400 mt-2 text-lg">Detailed visualization of inherent vs. residual risk postures for the Q4 audit cycle.</p>
+</div>
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-lg border border-primary/30 bg-primary/5 text-primary text-sm font-bold hover:bg-primary/10 transition-all uppercase tracking-wider">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+<span>Export Audit Report</span>
+</button>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-primary/10 mb-8">
+<button class="px-8 py-4 text-sm font-bold text-slate-400 border-b-2 border-transparent hover:text-slate-200 transition-all">
+                        Inherent Risk Profile
+                    </button>
+<button class="px-8 py-4 text-sm font-bold text-primary border-b-2 border-primary">
+                        Residual Risk Overview
+                    </button>
+</div>
+<!-- Heatmaps Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Current Risk Heatmap -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl p-6 shadow-2xl relative overflow-hidden group">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold font-display text-slate-100">Current Risk Matrix</h3>
+<p class="text-xs text-slate-400 uppercase tracking-tighter">Pre-Mitigation Strategy</p>
+</div>
+<span class="text-xs font-bold text-red-500 bg-red-500/10 px-2 py-1 rounded">HIGH EXPOSURE</span>
+</div>
+<div class="flex">
+<!-- Y-Axis label -->
+<div class="flex flex-col justify-between py-2 pr-4 text-[10px] font-bold text-slate-500 uppercase [writing-mode:vertical-lr] rotate-180">
+                                Impact
+                            </div>
+<div class="flex-1">
+<div class="risk-grid">
+<!-- Row 5 (Critical) -->
+<div class="risk-cell bg-orange-700/40 border border-orange-500/20"></div>
+<div class="risk-cell bg-red-700/60 border border-red-500/20"></div>
+<div class="risk-cell bg-red-800/80 border border-red-500/30"></div>
+<div class="risk-cell bg-red-900 border border-red-500/40 relative">
+<div class="size-3 bg-white rounded-full shadow-lg ring-4 ring-white/20 animate-pulse"></div>
+</div>
+<div class="risk-cell bg-red-950 border border-red-500/50"></div>
+<!-- Row 4 -->
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20"></div>
+<div class="risk-cell bg-orange-700/60 border border-orange-500/20 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<div class="risk-cell bg-red-800/80 border border-red-500/30"></div>
+<div class="risk-cell bg-red-900 border border-red-500/40"></div>
+<!-- Row 3 -->
+<div class="risk-cell bg-green-700/30 border border-green-500/10"></div>
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20"></div>
+<div class="risk-cell bg-orange-700/60 border border-orange-500/20"></div>
+<div class="risk-cell bg-red-800/80 border border-red-500/30 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<!-- Row 2 -->
+<div class="risk-cell bg-green-800/40 border border-green-500/10"></div>
+<div class="risk-cell bg-green-700/30 border border-green-500/10"></div>
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<div class="risk-cell bg-orange-700/60 border border-orange-500/20"></div>
+<!-- Row 1 -->
+<div class="risk-cell bg-green-900/50 border border-green-500/10"></div>
+<div class="risk-cell bg-green-800/40 border border-green-500/10"></div>
+<div class="risk-cell bg-green-700/30 border border-green-500/10"></div>
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20"></div>
+</div>
+<!-- X-Axis label -->
+<div class="mt-4 flex justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">
+<span>Low Likelihood</span>
+<span>Likelihood</span>
+<span>High Likelihood</span>
+</div>
+</div>
+</div>
+<!-- Tooltip Overlay (Detailed) -->
+<div class="mt-8 bg-background-dark/80 backdrop-blur rounded-lg border border-primary/20 p-4">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">Active Risk Instance</span>
+<span class="text-xs text-slate-400">ID: #R-9042</span>
+</div>
+<h4 class="text-sm font-bold text-slate-100">Critical Infrastructure Failure</h4>
+<p class="text-xs text-slate-400 mt-1">Probability of major service disruption in Western regions.</p>
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="bg-primary/10 p-2 rounded">
+<p class="text-[10px] text-primary uppercase font-bold">Severity Score</p>
+<p class="text-lg font-bold text-slate-100">9.2 / 10</p>
+</div>
+<div class="bg-primary/10 p-2 rounded">
+<p class="text-[10px] text-primary uppercase font-bold">Velocity</p>
+<p class="text-lg font-bold text-slate-100">Immediate</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Residual Risk Heatmap -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl p-6 shadow-2xl relative overflow-hidden group">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold font-display text-slate-100">Residual Risk Matrix</h3>
+<p class="text-xs text-slate-400 uppercase tracking-tighter">Post-Mitigation Forecast</p>
+</div>
+<span class="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded">MITIGATED STATE</span>
+</div>
+<div class="flex">
+<div class="flex flex-col justify-between py-2 pr-4 text-[10px] font-bold text-slate-500 uppercase [writing-mode:vertical-lr] rotate-180">
+                                Impact
+                            </div>
+<div class="flex-1">
+<div class="risk-grid">
+<!-- Row 5 -->
+<div class="risk-cell bg-orange-700/40 border border-orange-500/20"></div>
+<div class="risk-cell bg-red-700/60 border border-red-500/20"></div>
+<div class="risk-cell bg-red-800/80 border border-red-500/30"></div>
+<div class="risk-cell bg-red-900 border border-red-500/40"></div>
+<div class="risk-cell bg-red-950 border border-red-500/50"></div>
+<!-- Row 4 -->
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20"></div>
+<div class="risk-cell bg-orange-700/60 border border-orange-500/20"></div>
+<div class="risk-cell bg-red-800/80 border border-red-500/30"></div>
+<div class="risk-cell bg-red-900 border border-red-500/40"></div>
+<!-- Row 3 -->
+<div class="risk-cell bg-green-700/30 border border-green-500/10"></div>
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20"></div>
+<div class="risk-cell bg-orange-700/60 border border-orange-500/20"></div>
+<div class="risk-cell bg-red-800/80 border border-red-500/30"></div>
+<!-- Row 2 -->
+<div class="risk-cell bg-green-800/40 border border-green-500/10 relative">
+<div class="size-3 bg-white rounded-full shadow-lg ring-4 ring-white/20"></div>
+</div>
+<div class="risk-cell bg-green-700/30 border border-green-500/10"></div>
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20"></div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20"></div>
+<div class="risk-cell bg-orange-700/60 border border-orange-500/20"></div>
+<!-- Row 1 -->
+<div class="risk-cell bg-green-900/50 border border-green-500/10 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<div class="risk-cell bg-green-800/40 border border-green-500/10 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<div class="risk-cell bg-green-700/30 border border-green-500/10 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<div class="risk-cell bg-yellow-600/40 border border-yellow-500/20 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+<div class="risk-cell bg-orange-600/50 border border-orange-500/20 relative">
+<div class="size-2 bg-white/80 rounded-full"></div>
+</div>
+</div>
+<div class="mt-4 flex justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">
+<span>Low Likelihood</span>
+<span>Likelihood</span>
+<span>High Likelihood</span>
+</div>
+</div>
+</div>
+<!-- Post-Control Stats -->
+<div class="mt-8 bg-background-dark/80 backdrop-blur rounded-lg border border-primary/20 p-4">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">Residual Impact Summary</span>
+<span class="text-xs text-green-500 font-bold">-65% Risk Reduction</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs">
+<span class="text-slate-400">Total Mitigations Applied</span>
+<span class="text-slate-100 font-bold">14 Controls</span>
+</div>
+<div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-bold text-primary/60 uppercase">
+<span>Target Confidence</span>
+<span>98%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Insight Cards -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-6 bg-primary/5 border border-primary/10 rounded-xl">
+<span class="material-symbols-outlined text-primary mb-2">shield_with_heart</span>
+<h4 class="text-sm font-bold text-slate-100">Top Mitigator</h4>
+<p class="text-xs text-slate-400 mt-1">Multi-factor authentication rollout decreased vulnerability likelihood by 40%.</p>
+</div>
+<div class="p-6 bg-primary/5 border border-primary/10 rounded-xl">
+<span class="material-symbols-outlined text-primary mb-2">warning</span>
+<h4 class="text-sm font-bold text-slate-100">Attention Required</h4>
+<p class="text-xs text-slate-400 mt-1">3 risks remain in the critical zone post-mitigation. Re-evaluating controls.</p>
+</div>
+<div class="p-6 bg-primary/5 border border-primary/10 rounded-xl">
+<span class="material-symbols-outlined text-primary mb-2">history</span>
+<h4 class="text-sm font-bold text-slate-100">Historical Trend</h4>
+<p class="text-xs text-slate-400 mt-1">Overall residual risk is down 12% compared to the previous audit cycle.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

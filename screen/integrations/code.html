@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Integrations | Jean Edwards Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#1a1614",
+                        "sidebar-dark": "#120d0b",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .serif-heading { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-72 bg-sidebar-dark text-white flex flex-col border-r border-white/10">
+<div class="p-6 flex flex-col h-full">
+<!-- Profile/Logo Section -->
+<div class="flex items-center gap-3 mb-10">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold italic serif-heading shadow-lg" data-alt="Jean Edwards brand logo monogram">
+                    JE
+                </div>
+<div class="flex flex-col">
+<h1 class="serif-heading text-lg font-semibold leading-tight">Jean Edwards</h1>
+<p class="text-white/50 text-xs font-medium tracking-wider uppercase">Enterprise Platform</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-white/70">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-white/70">analytics</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-md shadow-primary/20" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="text-sm font-medium">Integrations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-white/70">shield_with_heart</span>
+<span class="text-sm font-medium">Security</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-white/70">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<!-- Bottom Action -->
+<div class="mt-auto pt-6 border-t border-white/10">
+<button class="w-full bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl text-sm font-bold transition-all border border-white/5">
+                    Upgrade Plan
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<!-- Header Section -->
+<header class="p-8 lg:p-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<h2 class="serif-heading text-4xl lg:text-5xl font-black tracking-tight mb-3">Integrations</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-xl text-lg">
+                        Seamlessly connect and orchestrate your enterprise workflows and cloud infrastructure from a single pane of glass.
+                    </p>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Connect New Integration</span>
+</button>
+</div>
+<!-- Search and Filter -->
+<div class="flex flex-col sm:flex-row items-center gap-4 mb-8">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-12 pr-4 py-3 rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Search available integrations..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto w-full sm:w-auto no-scrollbar">
+<button class="px-5 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold">All</button>
+<button class="px-5 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Connected</button>
+<button class="px-5 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Infrastructure</button>
+<button class="px-5 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Productivity</button>
+</div>
+</div>
+<!-- Integrations Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Slack Card -->
+<div class="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="size-14 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700" data-alt="Slack brand integration logo">
+<span class="material-symbols-outlined text-slate-700 dark:text-white text-3xl">chat</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs font-bold uppercase tracking-wider">Connected</span>
+</div>
+<h3 class="serif-heading text-xl font-bold mb-1">Slack</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">Sync your team communication and receive real-time enterprise alerts.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-400 dark:text-slate-500 font-medium italic">Last sync: 2 mins ago</span>
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 group">
+                            Manage <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- AWS Card -->
+<div class="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="size-14 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700" data-alt="AWS cloud integration logo">
+<span class="material-symbols-outlined text-slate-700 dark:text-white text-3xl">cloud</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">Action Required</span>
+</div>
+<h3 class="serif-heading text-xl font-bold mb-1">AWS Cloud</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">Manage scalable infrastructure and cloud computing resources.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-xs text-amber-500 font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span> API Key Expired
+                        </span>
+<button class="bg-primary/10 text-primary px-4 py-2 rounded-lg font-bold text-sm hover:bg-primary hover:text-white transition-all">
+                            Resolve
+                        </button>
+</div>
+</div>
+<!-- Salesforce Card -->
+<div class="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="size-14 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700" data-alt="Salesforce CRM integration logo">
+<span class="material-symbols-outlined text-slate-700 dark:text-white text-3xl">hub</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs font-bold uppercase tracking-wider">Connected</span>
+</div>
+<h3 class="serif-heading text-xl font-bold mb-1">Salesforce</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">Synchronize customer relationships and sales performance data.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-400 dark:text-slate-500 font-medium italic">Active pipeline sync</span>
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 group">
+                            Manage <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Google Cloud Card -->
+<div class="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300 opacity-80 hover:opacity-100">
+<div class="flex justify-between items-start mb-6">
+<div class="size-14 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700" data-alt="Google Cloud integration logo">
+<span class="material-symbols-outlined text-slate-700 dark:text-white text-3xl">storage</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Not Connected</span>
+</div>
+<h3 class="serif-heading text-xl font-bold mb-1">Google Cloud</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">Integrate BigQuery, Compute Engine, and Kubernetes workflows.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-400 font-medium">Enterprise Tier Ready</span>
+<button class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-2 rounded-lg font-bold text-sm transition-all">
+                            Setup
+                        </button>
+</div>
+</div>
+<!-- Okta Card -->
+<div class="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="size-14 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700" data-alt="Okta identity management logo">
+<span class="material-symbols-outlined text-slate-700 dark:text-white text-3xl">security</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs font-bold uppercase tracking-wider">Connected</span>
+</div>
+<h3 class="serif-heading text-xl font-bold mb-1">Okta Identity</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">Single Sign-On and sophisticated identity lifecycle management.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-400 dark:text-slate-500 font-medium italic">240 Active Users</span>
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 group">
+                            Manage <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Placeholder / Add More Card -->
+<div class="p-6 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all cursor-pointer">
+<div class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<p class="serif-heading font-bold text-lg mb-1">Request Integration</p>
+<p class="text-xs text-slate-400 px-8">Can't find what you need? We can build custom connectors for your stack.</p>
+</div>
+</div>
+</header>
+<!-- Footer Info -->
+<footer class="p-8 lg:p-12 mt-12 border-t border-slate-200 dark:border-slate-800">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4">
+<div class="size-3 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-sm text-slate-500 dark:text-slate-400 font-medium tracking-wide">All systems operational — Global API connectivity 99.99%</span>
+</div>
+<div class="flex gap-8 text-sm font-semibold text-slate-400 dark:text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">API Keys</a>
+<a class="hover:text-primary transition-colors" href="#">Webhook Logs</a>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

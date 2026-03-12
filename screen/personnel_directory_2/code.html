@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Personnel Directory | Jean Edwards Enterprise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                        "enterprise-dark": "#1a110b",
+                        "enterprise-accent": "#ce8db1",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Georgia", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .serif-font { font-family: 'Georgia', serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex min-h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-enterprise-dark border-r border-slate-800 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<h1 class="text-white text-lg font-bold tracking-tight">Jean Edwards</h1>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Assets</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white bg-primary/20 border border-primary/30 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">group</span>
+<span class="text-sm font-medium">Personnel</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-white/5 rounded-xl p-4 border border-white/10">
+<div class="flex items-center gap-3 mb-3">
+<div class="size-8 rounded-full bg-slate-700" data-alt="User profile avatar of Jean Edwards" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxFkGf0w3Q5DJ0kjfRY3U9_oKXnvym5CJko6HOei9NWqzNPoCGHKwWEz_mKKjrrz6bUr3wGtTTSJqpvyXyZZYZIGx_f4CBQzEdVAdAGbvqZjw-DbFCpU3bq0LflhX7raPn5XLXdigZLgAoM2-WajEpH9PgHHSrm4lYlwAaioCYWjBqnzW_tXZ-peiGIM_kjL_aK5j1EXmZz09rfiba6MhNpfiAQq_Z-KmTsYvV1F8ksAvU3JVYU27MMKvUwRwOG6Kwi9IpQAqx-w8')"></div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-white truncate">Admin Portal</p>
+<p class="text-[10px] text-slate-500 truncate">j.edwards@enterprise.com</p>
+</div>
+</div>
+<button class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all">
+                        Logout
+                    </button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Header Section -->
+<header class="p-8 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-enterprise-dark/30">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="max-w-2xl">
+<h2 class="serif-font text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Personnel Directory</h2>
+<p class="text-slate-500 dark:text-enterprise-accent/80 text-base leading-relaxed">
+                            Manage and monitor team member access and compliance status across global departments.
+                        </p>
+</div>
+<div>
+<button class="flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-primary text-white dark:text-white font-bold rounded-xl shadow-lg hover:shadow-primary/20 transition-all border border-slate-700 dark:border-primary/50">
+<span class="material-symbols-outlined text-sm">person_add</span>
+<span>Add Team Member</span>
+</button>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+<div class="bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-sm">
+<p class="text-slate-500 dark:text-enterprise-accent/60 text-xs font-bold uppercase tracking-widest mb-1">Total Personnel</p>
+<div class="flex items-end justify-between">
+<p class="text-4xl font-black text-slate-900 dark:text-white">142</p>
+<span class="text-primary text-xs font-bold">+12 this month</span>
+</div>
+</div>
+<div class="bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-sm">
+<p class="text-slate-500 dark:text-enterprise-accent/60 text-xs font-bold uppercase tracking-widest mb-1">Compliance Rate</p>
+<div class="flex items-end justify-between">
+<p class="text-4xl font-black text-slate-900 dark:text-white">98%</p>
+<span class="text-green-500 text-xs font-bold">Stable</span>
+</div>
+</div>
+<div class="bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-sm">
+<p class="text-slate-500 dark:text-enterprise-accent/60 text-xs font-bold uppercase tracking-widest mb-1">Pending Reviews</p>
+<div class="flex items-end justify-between">
+<p class="text-4xl font-black text-slate-900 dark:text-white">04</p>
+<span class="text-orange-500 text-xs font-bold italic">Urgent action</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Table Section -->
+<div class="p-8">
+<!-- Search and Filters -->
+<div class="flex flex-col md:flex-row gap-4 mb-6">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none text-sm transition-all" placeholder="Search directory by name, role, or department..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-3 bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-enterprise-dark transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                            Filter
+                        </button>
+<button class="flex items-center gap-2 px-4 py-3 bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-enterprise-dark transition-colors">
+<span class="material-symbols-outlined text-sm">file_download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-white dark:bg-enterprise-dark/50 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-400 tracking-wider">Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-400 tracking-wider">Role</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-400 tracking-wider">Department</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-400 tracking-wider">Compliance Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase text-slate-400 tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full overflow-hidden bg-slate-200" data-alt="Portrait of Sarah Jenkins" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAvsmtzjj1Ol_5pCpOZ90i3aaNmeItqalRiL3h5VZrWkxz_ggqGFr0OLVH-QCvehZUrQMwIBHXHzVKLep7qBbVQkjYwDmjLojiOHmzLjoDHCyyUwsIzKN3NUk89DjmhkuF10bpU7I5fxqB20LNx5yKRmqI_F1Dd10GB3vfZQRvlKLvEqGIdgxuHF0MGEY8rk01cxnXDLRYu-8RFKCEqTCJG4_fYONpww4aNaxQIyOCU7-KsO4u4HL2uK588kuEBqcQVVVrEWyxzDFE')"></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Sarah Jenkins</p>
+<p class="text-xs text-slate-500">sarah.j@enterprise.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Director of Security</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Operations</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/50">
+                                        Compliant
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full overflow-hidden bg-slate-200" data-alt="Portrait of David Chen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBduAXketAySaNS7c-MBchkR5vRqDd-94VeWW3Tf_sNNlF7IdvehVI8utQ6pooWDb3oeqcOzJffTJCitbVjD9MgELLJqH27DJ0Mqf1gS6gMAAtZbXreeFN94iWk1VCou0frzjpb-e5734Jlx6YOx2jwXE0d-HiT6bqeHzQv5kav59PAhhS1IPU-UYzUjHfwq986bhpIFZIWUZ0DBdppBxsAMnu8zBOQFLo5kFekpo_6U1WAXnBxevHL7DtPG3daa6s5bruFfDgjjZk')"></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">David Chen</p>
+<p class="text-xs text-slate-500">d.chen@enterprise.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Lead Developer</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Engineering</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50">
+                                        Review Needed
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full overflow-hidden bg-slate-200" data-alt="Portrait of Amina Okafor" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxMXVJ6a4vxgzpTCZnF9Pl2EHWouTc0huKC2rLeV3O8wr9DfRnHKTTr8ItCj2IqZxULYV0aX74Xgl9HtdK3dEtyqrE1J0oO-VExbFh2kKMAFM3Cpr274tfqFdoGFyG3fmdVuyha6NwwBi5FhUwN-idj6_00UcBrPHixIKGlVtgHiMByEfVHNEzZuQiO238E0GwEmWwGJSDRgLnWpOJz9veLZLt3HveaVetBaUluEJzGfkx0LTCryB6sTRZuc8oV2M4do9dN_DhTVw')"></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Amina Okafor</p>
+<p class="text-xs text-slate-500">a.okafor@enterprise.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">HR Manager</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Human Resources</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/50">
+                                        Out of Sync
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full overflow-hidden bg-slate-200" data-alt="Portrait of Michael Ross" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBi8_8iAXubOLNm_9_crjDpuQKiGUXTBRBf90pMWdJ2lEqf9XezNWZIGg1G4GiZz5DB4NyY6OGVhedLIR3Be_qrfL-gIGrM4KGTUVaxwDhKe8koRHzb0ukGk1ywyDaqG_3B2s1whZAqQVdBT1vr-Yae-z_FPGXdMFepXRKambgV7r8v74u2gXOttREHMDDbCFymGCDJu8ss2IWhDrAuWLuVB-spCHgBhKqLw1w8x5AAu61eGg58396fKllb-gMtTpz7LstcMsl0Z6k')"></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Michael Ross</p>
+<p class="text-xs text-slate-500">m.ross@enterprise.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Compliance Officer</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">Legal</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/50">
+                                        Compliant
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 bg-slate-50 dark:bg-white/5 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-xs text-slate-500 dark:text-slate-400">Showing 1 to 10 of 142 personnel</p>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-enterprise-dark/30 text-slate-400 hover:text-slate-600 transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="size-8 rounded-lg bg-primary text-white text-xs font-bold">1</button>
+<button class="size-8 rounded-lg text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10 text-xs font-bold transition-colors">2</button>
+<button class="size-8 rounded-lg text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10 text-xs font-bold transition-colors">3</button>
+<span class="text-slate-400 px-1">...</span>
+<button class="size-8 rounded-lg text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10 text-xs font-bold transition-colors">15</button>
+</div>
+<button class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-enterprise-dark/30 text-slate-400 hover:text-slate-600 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

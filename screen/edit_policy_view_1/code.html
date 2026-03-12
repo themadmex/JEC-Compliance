@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(236, 182, 19, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(236, 182, 19, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Component -->
+<aside class="w-64 flex-shrink-0 bg-background-dark border-r border-primary/10 flex flex-col">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-10">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div>
+<h1 class="text-slate-100 text-base font-bold leading-tight">Jean Edwards</h1>
+<p class="text-primary/70 text-xs font-medium uppercase tracking-wider">Compliance Platform</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined text-[20px] fill-current">verified_user</span>
+<span class="text-sm font-medium">Policies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+<span class="text-sm font-medium">Risk Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<div class="pt-10">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-primary/10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-700" data-alt="Portrait of Jean Edwards" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCBIj8SJZ_-_Qzz5P1PkcJh862CD-Mx3G67HBJ-lL3vg-wzuv_7qBpFfWt51rzROK17taSEB4wkWTwWojTnE2nh-XCrQZukDUHrZXzNJr5b6ByK3R0hFIyLokDMlvNaruT4c8rwLay4yAsp6F0TzBVq8sWmVpFi4KL5pYvYrvL1oer58D7BWQGu4dSSZn-k5BRuD-sSgNS23GlBneQab2jbuHel0mTcIm8JdMCOid6BvZqNOyWro-Ai2F1cvfYjS3NNZJVDppzL010')"></div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-200">Admin User</span>
+<span class="text-[10px] text-slate-500 uppercase">Administrator</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Header Section -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 bg-background-light dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<a class="text-primary hover:bg-primary/10 p-1 rounded transition-colors" href="#">
+<span class="material-symbols-outlined">arrow_back</span>
+</a>
+<nav class="flex items-center text-xs font-medium text-slate-500 gap-2">
+<span>Compliance</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Policies</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary">Edit Policy</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
+                        Cancel
+                    </button>
+<button class="px-4 py-2 text-sm font-bold bg-primary/20 text-primary border border-primary/30 rounded-lg hover:bg-primary/30 transition-all">
+                        Save Draft
+                    </button>
+<button class="px-6 py-2 text-sm font-bold bg-primary text-background-dark rounded-lg shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                        Publish New Version
+                    </button>
+</div>
+</header>
+<!-- Scrollable Body -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<div class="max-w-6xl mx-auto p-8 grid grid-cols-12 gap-8">
+<!-- Left Column: Form Fields -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<div>
+<h2 class="text-3xl font-display font-bold mb-2">Human Resource Security Policy</h2>
+<div class="flex items-center gap-3 text-sm text-slate-500">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/20 font-mono text-xs">v2.4.0</span>
+<span>•</span>
+<span>Last updated by Marcus V. 2 days ago</span>
+</div>
+</div>
+<!-- Main Form Section -->
+<div class="bg-white dark:bg-slate-800/20 rounded-xl border border-primary/10 p-6 space-y-6">
+<div class="space-y-2">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Policy Title</label>
+<input class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all font-display text-lg" type="text" value="Human Resource Security Policy"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Scope</label>
+<select class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+<option>Full Organization</option>
+<option>EMEA Region Only</option>
+<option>Engineering Dept</option>
+<option>External Contractors</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Review Cycle</label>
+<select class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+<option>Quarterly</option>
+<option selected="">Bi-Annually</option>
+<option>Annually</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Description</label>
+<textarea class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all resize-none" rows="3">To ensure that employees and contractors understand their responsibilities and are suitable for the roles they are considered for.</textarea>
+</div>
+</div>
+<!-- Content Editor Section -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Policy Content</label>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-primary/10 rounded transition-colors" title="Import Template">
+<span class="material-symbols-outlined text-[20px]">file_upload</span>
+</button>
+<button class="p-2 hover:bg-primary/10 rounded transition-colors" title="Full Screen">
+<span class="material-symbols-outlined text-[20px]">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="border border-primary/10 rounded-xl overflow-hidden bg-white dark:bg-slate-800/10">
+<!-- Mock Text Editor Toolbar -->
+<div class="flex items-center gap-1 p-2 border-b border-primary/10 bg-slate-50 dark:bg-slate-800/40">
+<button class="p-1.5 hover:bg-primary/20 rounded font-bold">B</button>
+<button class="p-1.5 hover:bg-primary/20 rounded italic font-serif">I</button>
+<button class="p-1.5 hover:bg-primary/20 rounded underline">U</button>
+<div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
+<button class="p-1.5 hover:bg-primary/20 rounded"><span class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+<button class="p-1.5 hover:bg-primary/20 rounded"><span class="material-symbols-outlined text-[18px]">format_list_numbered</span></button>
+<div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
+<button class="p-1.5 hover:bg-primary/20 rounded"><span class="material-symbols-outlined text-[18px]">link</span></button>
+<button class="p-1.5 hover:bg-primary/20 rounded"><span class="material-symbols-outlined text-[18px]">image</span></button>
+<div class="ml-auto flex items-center gap-2 px-2 text-xs text-slate-400">
+<span>Last saved: 12:45 PM</span>
+</div>
+</div>
+<div class="p-8 min-h-[500px] font-display text-lg leading-relaxed text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900/20">
+<h3 class="text-2xl font-bold mb-4">1. Objective</h3>
+<p class="mb-6">The objective of this policy is to ensure that employees and contractors understand their responsibilities and are suitable for the roles they are considered for. This reduces the risk of fraud, theft, or misuse of facilities.</p>
+<h3 class="text-2xl font-bold mb-4">2. Prior to Employment</h3>
+<p class="mb-4">Background verification checks for all candidates for employment should be carried out in accordance with relevant laws, regulations and ethics and should be proportional to the business requirements, the classification of the information to be accessed and the perceived risks.</p>
+<ul class="list-disc pl-6 space-y-2 mb-6">
+<li>Identity verification using government-issued documents.</li>
+<li>Verification of claimed academic and professional qualifications.</li>
+<li>Reference checks from previous employers (minimum 3 years).</li>
+</ul>
+<h3 class="text-2xl font-bold mb-4">3. During Employment</h3>
+<p class="mb-6">Management should require all employees and contractors to apply information security in accordance with the established policies and procedures of the organization.</p>
+<div class="h-32 bg-slate-50 dark:bg-slate-800/30 border-2 border-dashed border-primary/20 rounded-lg flex items-center justify-center text-slate-400 italic">
+                                        Continue writing here...
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Meta & Sidebar Info -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Approval Status Card -->
+<div class="bg-white dark:bg-slate-800/20 rounded-xl border border-primary/10 overflow-hidden">
+<div class="p-4 border-b border-primary/10 bg-primary/5">
+<h3 class="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment_turned_in</span>
+                                    Approval Status
+                                </h3>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm text-slate-500">Current Status</span>
+<span class="bg-amber-500/10 text-amber-500 px-3 py-1 rounded-full text-xs font-bold border border-amber-500/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+                                        Drafting
+                                    </span>
+</div>
+<p class="text-xs text-slate-500 italic">This version has not been submitted for review yet.</p>
+<div class="pt-2 space-y-2">
+<button class="w-full py-2 bg-primary text-background-dark rounded-lg text-sm font-bold">
+                                        Request Review
+                                    </button>
+<button class="w-full py-2 bg-primary/10 text-primary border border-primary/30 rounded-lg text-sm font-bold">
+                                        Mark as Approved
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Version History Card -->
+<div class="bg-white dark:bg-slate-800/20 rounded-xl border border-primary/10 overflow-hidden">
+<div class="p-4 border-b border-primary/10 flex justify-between items-center">
+<h3 class="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span>
+                                    Version History
+                                </h3>
+<a class="text-xs text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="p-0">
+<!-- History List -->
+<div class="divide-y divide-primary/5">
+<div class="p-4 hover:bg-primary/5 transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold font-display">v2.4.0 <span class="text-xs font-sans text-slate-500 ml-1">(Current)</span></span>
+<span class="text-[10px] text-slate-500">Oct 24, 2023</span>
+</div>
+<p class="text-xs text-slate-400 mb-2 truncate">Updated background check procedures...</p>
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-slate-600" data-alt="User avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdkBbpQ9tipgjRnvPVhaDOBfxoLgici5f2HUBkDGPHwQd4Sq5FEwNSDSjgNAbNQOWKvkPGfdCb4tNsd-Nq7oIRAlFUCMK9j-x8XYIJmJbbG-i56JMkxndlK13GC2H2h49QerGlIydNLxvNRjWJwSmayfqYfkV9wZS_ucf88xfhXw5MYmpElOWTfxVUKkyM5-hShoyvBLbwnfTUE6e-PZRdjunoeoa9zwpNdzf32sjqWZ7h73Bd-Rt09ZZHFKSyUNy1UPxleIbAYNU')"></div>
+<span class="text-[11px] font-medium">Marcus Valerius</span>
+</div>
+</div>
+<div class="p-4 hover:bg-primary/5 transition-colors cursor-pointer bg-slate-50/50 dark:bg-transparent">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold font-display">v2.3.0</span>
+<span class="text-[10px] text-slate-500">Aug 12, 2023</span>
+</div>
+<p class="text-xs text-slate-400 mb-2 truncate">Annual review and minor typo fixes.</p>
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-slate-600" data-alt="User avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVh8Dp_ht37416uc4k_BfVFPnbwaZDfE6fWZlfYR-W32sE-cSU0JiBCxB78fVJJDngR3osnEAZgZLdYL72Ny-9Y8s85052SzquH83HsbmXaGi_BjWa9S0EVJbIVyiLy5Zy0D9ut_KvxyagLaFjgLegBK3RbD8lEBZz2q3fgJnY5V77YVh9Wc5Re_UZjiYMdE989_UFhV4eTKCuTqpCR8wfGPBSpdHIOFBB1pB0M57-peQEztRJvDjf7u1yDMz1wtz-BrC4ColDPYM')"></div>
+<span class="text-[11px] font-medium">Elena Rodriguez</span>
+</div>
+</div>
+<div class="p-4 hover:bg-primary/5 transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold font-display">v2.2.0</span>
+<span class="text-[10px] text-slate-500">Jan 15, 2023</span>
+</div>
+<p class="text-xs text-slate-400 mb-2 truncate">Added section for remote hire identity verification.</p>
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-slate-600" data-alt="User avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBAmu0GdMYKjmFO9hpYaNBODfBqJL89ZqRH5K16R-Y61oWUqowCerZXT6pRfrQtO-QPsraflO2DG6MKJuA8tkqAp_3oB-Y1oJGF9RCPGLEdciuRMG3_sFkMnqeYM07TX7ZLBLEEvC6r_sdQayP9MKGfxlrVcz0XFkkyXx5zA8dJxTVAqBTzEd7V5qQZ2wmUzWKvIrJPE4MyoKq2MV3c50Zezww7L7hrKYRgOIUb4yK-JZvUijVMSVsYwRVdQVu8sJ99RJ6ds_NKw8o')"></div>
+<span class="text-[11px] font-medium">David Chen</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Attachments Card -->
+<div class="bg-white dark:bg-slate-800/20 rounded-xl border border-primary/10 overflow-hidden">
+<div class="p-4 border-b border-primary/10 flex justify-between items-center">
+<h3 class="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">attach_file</span>
+                                    Related Files
+                                </h3>
+<button class="material-symbols-outlined text-[18px] text-primary hover:bg-primary/10 rounded">add</button>
+</div>
+<div class="p-4 space-y-3">
+<div class="flex items-center gap-3 p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-primary/40 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-red-500">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="text-xs font-medium truncate w-40">ISO_27001_Compliance.pdf</span>
+<span class="text-[10px] text-slate-500">1.2 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-primary/40 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-blue-500">description</span>
+<div class="flex flex-col">
+<span class="text-xs font-medium truncate w-40">Employee_Handbook_Draft.docx</span>
+<span class="text-[10px] text-slate-500">842 KB</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jean Edwards Compliance Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-background-dark border-r border-primary/10 flex flex-col justify-between p-6">
+<div class="space-y-8">
+<!-- Brand Profile -->
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJN0gPBO_qVZDome_ylds4dn55wYhQ0467HdexWq6UMBX6c43kpTkt84yooR4TwyKYS_8fzEHMAd2zKd2qxnRysJh2-WCqzNlNgSHycZCPPteEHM2DPJHyAr-cEOD9SD8lxuAHpS8b8ZeUidOhgi6TA9O9ndKYu3e6hhBZSj2jWRGB8dTO3NJFl_5R0bX7F_YSf2-8Xd5VlHpWPIMEiEVAuy5b99nEu_Dd1zWRu_7FUdpG2eOhYz8_Q8jUd-nYNIMcjCQLR3bL3R0"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-sm font-display font-bold leading-tight">Jean Edwards</h1>
+<p class="text-primary text-xs font-medium">Premium Compliance</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] fill-current">shield_with_heart</span>
+<span class="text-sm font-medium">Compliance Policies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+<span class="text-sm font-medium">Risk Assessment</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="text-sm font-medium">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Upgrade Section -->
+<div class="mt-auto">
+<button class="w-full bg-primary text-background-dark py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                    Upgrade Plan
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 bg-background-dark/50 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<h2 class="text-lg font-display font-bold tracking-tight">Compliance Management</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full bg-primary/5 border border-primary/10 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-primary/40 text-slate-200" placeholder="Search policies..." type="text"/>
+</div>
+<button class="bg-primary text-background-dark px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Add Policy
+                    </button>
+<div class="size-8 rounded-full border border-primary/20 p-0.5">
+<img class="w-full h-full object-cover rounded-full" data-alt="Small profile thumbnail of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOhkNxzCSzR3UvI7HhHV0JT_RwYfuBktFVuv3ipAE82gsdQyLnf-i4NYbPfiVRIzy53xCOgcjmPJMtVQpDh_jWIWxQcJY2Egl61zKgZ2UDDqvkqSbAiygBG0ZK0P7ECa8iJfngzybWVNNdXO1eupWgXGA8YsE4KUOVLKy7_1BZdpfyUbB1F1_YAmlLoOlhpcvovi6CJVaikSFGH57ZKCrwMQenpBlh8vvSpPJTBDGb2FTTgfXNIFGe70AD_JHBB3wscCEKbpaOW0Y"/>
+</div>
+</div>
+</header>
+<!-- Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-sm text-slate-400 mb-6">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-slate-100 font-medium">Policies</span>
+</nav>
+<!-- Page Intro -->
+<div class="mb-10">
+<h3 class="text-4xl font-display font-bold text-slate-100 mb-2 italic">Organizational Policies</h3>
+<p class="text-slate-400 max-w-2xl">Refined oversight for your corporate compliance framework. Manage, update, and audit documentation with precision.</p>
+</div>
+<!-- Policy Table Container -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl overflow-hidden shadow-2xl">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary/10 border-b border-primary/10">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/80">Policy Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/80">Overall Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/80 text-center">Last Updated</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/80">Progress</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-primary/80 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-medium font-display text-base">Human Resource Security Policy</span>
+<span class="text-xs text-slate-500">v2.4 • Corporate Standard</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Approved
+                                        </span>
+</td>
+<td class="px-6 py-5 text-center text-sm text-slate-400">Oct 12, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(236,182,19,0.4)]" style="width: 100%"></div>
+</div>
+<span class="text-xs font-bold text-slate-300">100%</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/70 font-bold text-xs uppercase tracking-tighter flex items-center gap-1 ml-auto group-hover:underline">
+                                            Edit <span class="material-symbols-outlined text-[16px]">edit_note</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-medium font-display text-base">Code of Conduct</span>
+<span class="text-xs text-slate-500">v1.0 • Employee Ethics</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Approved
+                                        </span>
+</td>
+<td class="px-6 py-5 text-center text-sm text-slate-400">Sep 28, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(236,182,19,0.4)]" style="width: 100%"></div>
+</div>
+<span class="text-xs font-bold text-slate-300">100%</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/70 font-bold text-xs uppercase tracking-tighter flex items-center gap-1 ml-auto group-hover:underline">
+                                            Edit <span class="material-symbols-outlined text-[16px]">edit_note</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-medium font-display text-base">Third-Party Management Policy</span>
+<span class="text-xs text-slate-500">v3.1 • Vendor Compliance</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="size-1.5 rounded-full bg-primary"></span>
+                                            Needs Review
+                                        </span>
+</td>
+<td class="px-6 py-5 text-center text-sm text-slate-400">Nov 05, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(236,182,19,0.4)]" style="width: 65%"></div>
+</div>
+<span class="text-xs font-bold text-slate-300">65%</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/70 font-bold text-xs uppercase tracking-tighter flex items-center gap-1 ml-auto group-hover:underline">
+                                            Review <span class="material-symbols-outlined text-[16px]">rate_review</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-medium font-display text-base">Information Security Policy</span>
+<span class="text-xs text-slate-500">v4.2 • Cyber Defense</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Approved
+                                        </span>
+</td>
+<td class="px-6 py-5 text-center text-sm text-slate-400">Aug 15, 2023</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(236,182,19,0.4)]" style="width: 100%"></div>
+</div>
+<span class="text-xs font-bold text-slate-300">100%</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/70 font-bold text-xs uppercase tracking-tighter flex items-center gap-1 ml-auto group-hover:underline">
+                                            Edit <span class="material-symbols-outlined text-[16px]">edit_note</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Summary -->
+<div class="mt-8 flex justify-between items-center text-slate-500 text-sm">
+<p>Showing 4 of 28 organizational policies</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition-colors">Previous</button>
+<button class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded font-bold">1</button>
+<button class="px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition-colors">2</button>
+<button class="px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition-colors">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

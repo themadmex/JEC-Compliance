@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk Management | Jean Edwards</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts for Serif Typography -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#C5A059',
+              darkBlue: '#0A1931',
+              navy: '#102341',
+              mutedGold: '#D4AF37',
+              bgGray: '#F8FAFC',
+              danger: '#B91C1C',
+              warning: '#D97706',
+              success: '#059669'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="typography">
+    h1, h2, h3, .brand-font {
+      font-family: 'Playfair Display', serif;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<style data-purpose="layout">
+    .sidebar-active {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-left: 3px solid #C5A059;
+    }
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+    .risk-cell {
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-brand-bgGray text-slate-800">
+<div class="flex min-h-screen">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-brand-darkBlue text-white flex flex-col fixed h-full" data-purpose="navigation-sidebar">
+<div class="p-6">
+<div class="flex items-center gap-2 mb-8">
+<span class="text-2xl font-bold text-brand-gold brand-font">JE</span>
+<span class="text-xl font-medium brand-font">Jean Edwards</span>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-sm opacity-70 hover:opacity-100 transition-all" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Home
+          </a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm opacity-70 hover:opacity-100 transition-all" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            My work
+          </a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm opacity-70 hover:opacity-100 transition-all" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Compliance
+          </a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm bg-white/10 border-l-4 border-brand-gold" href="#">
+<svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Risk
+          </a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm opacity-70 hover:opacity-100 transition-all" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Vendors
+          </a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm opacity-70 hover:opacity-100 transition-all" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01m-.01 4h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            Reports
+          </a>
+</nav>
+</div>
+<div class="mt-auto p-4 border-t border-white/10">
+<div class="relative">
+<input class="w-full bg-white/5 border-none rounded-md py-2 pl-10 pr-4 text-xs focus:ring-1 focus:ring-brand-gold" placeholder="Search" type="text"/>
+<svg class="w-4 h-4 absolute left-3 top-2.5 opacity-40" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content -->
+<main class="flex-1 ml-64 p-10" data-purpose="main-content-area">
+<header class="mb-10">
+<h1 class="text-4xl font-semibold text-slate-900 mb-2">Risk Management</h1>
+<p class="text-slate-500 max-w-2xl">Monitor and mitigate organizational risks through our integrated risk assessment framework and real-time Heat Map visualization.</p>
+</header>
+<!-- BEGIN: Risk Heat Map Section -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12" data-purpose="risk-overview-section">
+<!-- Heat Map Card -->
+<div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-xl font-semibold brand-font">Risk Heat Map</h2>
+<div class="flex gap-4 text-xs font-medium text-slate-400">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-brand-danger"></span> High</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-brand-warning"></span> Medium</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-brand-gold"></span> Low</span>
+</div>
+</div>
+<div class="flex">
+<!-- Y-Axis Label -->
+<div class="w-8 flex items-center justify-center">
+<span class="transform -rotate-90 text-[10px] uppercase tracking-widest font-bold text-slate-400 whitespace-nowrap">Likelihood</span>
+</div>
+<!-- Grid Container -->
+<div class="flex-1">
+<div class="risk-grid">
+<!-- Row 5 (Critical/High) -->
+<div class="risk-cell bg-orange-100 text-orange-800">M</div>
+<div class="risk-cell bg-orange-200 text-orange-900">H</div>
+<div class="risk-cell bg-red-400 text-white">H</div>
+<div class="risk-cell bg-red-600 text-white">C</div>
+<div class="risk-cell bg-red-800 text-white">C</div>
+<!-- Row 4 -->
+<div class="risk-cell bg-brand-gold/20 text-brand-gold">L</div>
+<div class="risk-cell bg-orange-100 text-orange-800">M</div>
+<div class="risk-cell bg-orange-300 text-orange-900">H</div>
+<div class="risk-cell bg-red-400 text-white">H</div>
+<div class="risk-cell bg-red-600 text-white">C</div>
+<!-- Row 3 -->
+<div class="risk-cell bg-brand-gold/20 text-brand-gold">L</div>
+<div class="risk-cell bg-brand-gold/30 text-brand-gold">L</div>
+<div class="risk-cell bg-orange-100 text-orange-800 relative">
+                  M
+                  <div class="absolute -top-1 -right-1 w-5 h-5 bg-brand-darkBlue text-white rounded-full flex items-center justify-center text-[8px] ring-2 ring-white">3</div>
+</div>
+<div class="risk-cell bg-orange-200 text-orange-900">H</div>
+<div class="risk-cell bg-red-400 text-white">H</div>
+<!-- Row 2 -->
+<div class="risk-cell bg-brand-gold/10 text-brand-gold">L</div>
+<div class="risk-cell bg-brand-gold/20 text-brand-gold">L</div>
+<div class="risk-cell bg-brand-gold/30 text-brand-gold">L</div>
+<div class="risk-cell bg-orange-100 text-orange-800">M</div>
+<div class="risk-cell bg-orange-200 text-orange-900">H</div>
+<!-- Row 1 (Negligible/Low) -->
+<div class="risk-cell bg-brand-gold/5 text-brand-gold">L</div>
+<div class="risk-cell bg-brand-gold/10 text-brand-gold">L</div>
+<div class="risk-cell bg-brand-gold/20 text-brand-gold">L</div>
+<div class="risk-cell bg-brand-gold/30 text-brand-gold">L</div>
+<div class="risk-cell bg-orange-100 text-orange-800">M</div>
+</div>
+<!-- X-Axis Labels -->
+<div class="grid grid-cols-5 mt-4 text-[10px] uppercase tracking-widest font-bold text-slate-400 text-center">
+<span>Insignificant</span>
+<span>Minor</span>
+<span>Moderate</span>
+<span>Major</span>
+<span>Severe</span>
+</div>
+<div class="text-center mt-2 text-[10px] uppercase tracking-widest font-bold text-slate-400">Impact</div>
+</div>
+</div>
+</div>
+<!-- Summary Stats Card -->
+<div class="bg-brand-darkBlue text-white rounded-xl shadow-sm p-8 flex flex-col justify-between">
+<div>
+<h3 class="text-lg font-medium brand-font mb-6 border-b border-white/10 pb-4">Assessment Summary</h3>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<span class="text-sm opacity-60">Total Risks Tracked</span>
+<span class="text-2xl font-semibold">24</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm opacity-60">Critical Issues</span>
+<span class="text-2xl font-semibold text-red-400">02</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm opacity-60">Mitigated this month</span>
+<span class="text-2xl font-semibold text-brand-gold">11</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-brand-gold hover:bg-brand-mutedGold text-brand-darkBlue font-semibold py-3 rounded-lg transition-colors text-sm uppercase tracking-wider">
+            Generate Risk Report
+          </button>
+</div>
+</section>
+<!-- END: Risk Heat Map Section -->
+<!-- BEGIN: Risk Inventory Table -->
+<section data-purpose="risk-table-section">
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+<div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center">
+<h2 class="text-xl font-semibold brand-font">Risk Inventory</h2>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-xs font-medium border border-slate-200 rounded-md hover:bg-slate-50">Filter</button>
+<button class="px-4 py-2 text-xs font-medium bg-brand-darkBlue text-white rounded-md">Add New Risk</button>
+</div>
+</div>
+<table class="w-full text-left border-collapse" id="risk-inventory-table">
+<thead>
+<tr class="bg-slate-50/50 text-slate-500 text-[11px] uppercase tracking-widest">
+<th class="px-8 py-4 font-bold">Risk Description</th>
+<th class="px-6 py-4 font-bold text-center">Impact</th>
+<th class="px-6 py-4 font-bold text-center">Likelihood</th>
+<th class="px-8 py-4 font-bold text-right">Mitigation Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-sm">
+<!-- Risk Row 1 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-5">
+<div class="font-medium text-slate-900">Unauthorized data access via API</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Category: Cybersecurity</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-red-50 text-red-700 text-[10px] font-bold uppercase">Severe</span>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-orange-50 text-orange-700 text-[10px] font-bold uppercase">Moderate</span>
+</td>
+<td class="px-8 py-5 text-right">
+<span class="inline-flex items-center gap-1.5 text-brand-success font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-success"></span>
+                    In Progress
+                  </span>
+</td>
+</tr>
+<!-- Risk Row 2 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-5">
+<div class="font-medium text-slate-900">Physical security breach at data center</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Category: Operations</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-orange-50 text-orange-700 text-[10px] font-bold uppercase">Major</span>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-brand-gold/10 text-brand-gold text-[10px] font-bold uppercase">Low</span>
+</td>
+<td class="px-8 py-5 text-right">
+<span class="inline-flex items-center gap-1.5 text-brand-gold font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
+                    Under Review
+                  </span>
+</td>
+</tr>
+<!-- Risk Row 3 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-5">
+<div class="font-medium text-slate-900">Failure of cloud service provider</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Category: Vendor Risk</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-red-50 text-red-700 text-[10px] font-bold uppercase">Severe</span>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-brand-gold/5 text-brand-gold opacity-60 text-[10px] font-bold uppercase">Negligible</span>
+</td>
+<td class="px-8 py-5 text-right">
+<span class="inline-flex items-center gap-1.5 text-slate-400 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                    Monitored
+                  </span>
+</td>
+</tr>
+<!-- Risk Row 4 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-5">
+<div class="font-medium text-slate-900">Internal phishing campaign failure</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Category: Personnel</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-brand-gold/20 text-brand-gold text-[10px] font-bold uppercase">Moderate</span>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-2.5 py-1 rounded bg-orange-50 text-orange-700 text-[10px] font-bold uppercase">Frequent</span>
+</td>
+<td class="px-8 py-5 text-right">
+<span class="inline-flex items-center gap-1.5 text-brand-danger font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-danger animate-pulse"></span>
+                    Needs Action
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-8 py-4 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+<span>Showing 4 of 24 risks</span>
+<div class="flex gap-4">
+<button class="hover:text-brand-darkBlue">Previous</button>
+<button class="hover:text-brand-darkBlue">Next</button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Risk Inventory Table -->
+</main>
+<!-- END: Main Content -->
+</div>
+</body></html>

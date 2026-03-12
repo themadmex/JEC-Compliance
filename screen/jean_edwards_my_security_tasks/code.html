@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>My Security Tasks - Jean Edwards Compliance</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 bg-background-dark text-slate-100 flex flex-col border-r border-primary/10">
+<div class="p-8">
+<div class="flex items-center gap-3 mb-10">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-bold text-xl" data-alt="Jean Edwards corporate logo icon">
+                        JE
+                    </div>
+<div class="flex flex-col">
+<h1 class="text-lg font-semibold leading-tight">Jean Edwards</h1>
+<p class="text-primary text-xs uppercase tracking-widest font-medium">Compliance Platform</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-background-dark font-semibold" href="#">
+<span class="material-symbols-outlined text-xl">shield_person</span>
+<span class="text-sm">Security Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm font-medium">Compliance Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">report_problem</span>
+<span class="text-sm font-medium">Risk Assessment</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-8 border-t border-white/5">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light p-10">
+<!-- Header Section -->
+<header class="mb-10">
+<h2 class="text-4xl font-bold text-slate-900 mb-2">My Security Tasks</h2>
+<p class="text-slate-600 text-lg">Manage and track your compliance obligations for the current fiscal quarter.</p>
+</header>
+<!-- Summary Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-white p-6 rounded-xl border border-primary/20 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-4">
+<p class="text-slate-500 font-medium uppercase tracking-wider text-xs">Total Tasks</p>
+<span class="material-symbols-outlined text-primary">assignment</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-bold text-slate-900">24</p>
+<p class="text-emerald-600 text-sm font-semibold flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span> 2%
+                        </p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-primary/20 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-4">
+<p class="text-slate-500 font-medium uppercase tracking-wider text-xs">Overdue</p>
+<span class="material-symbols-outlined text-red-500">error</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-bold text-slate-900">3</p>
+<p class="text-emerald-600 text-sm font-semibold flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span> 1%
+                        </p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-primary/20 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-4">
+<p class="text-slate-500 font-medium uppercase tracking-wider text-xs">Due Soon</p>
+<span class="material-symbols-outlined text-primary">schedule</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-4xl font-bold text-slate-900">8</p>
+<p class="text-red-500 text-sm font-semibold flex items-center">
+<span class="material-symbols-outlined text-sm">trending_down</span> 5%
+                        </p>
+</div>
+</div>
+</div>
+<!-- Tasks Table -->
+<div class="bg-white rounded-xl border border-primary/10 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-primary/10 flex justify-between items-center bg-white/50">
+<h3 class="font-bold text-xl text-slate-800 tracking-tight">Active Obligations</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 border border-primary/30 rounded-lg text-sm font-medium text-slate-700 hover:bg-primary/5 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">filter_list</span> Filter
+                        </button>
+<button class="px-4 py-2 bg-primary text-background-dark rounded-lg text-sm font-bold hover:brightness-110 transition-all shadow-sm">
+                            Export PDF
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-background-light/50 border-b border-primary/10">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Task Name</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Due Date</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900">Quarterly Access Review</span>
+<span class="text-xs text-slate-500 italic">Financial Controls Section 4.2</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 font-medium">Oct 15, 2023</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">Pending</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline tracking-wide group-hover:translate-x-[-4px] transition-transform flex items-center justify-end gap-1 ml-auto">
+                                        Review <span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900">Firewall Log Analysis</span>
+<span class="text-xs text-slate-500 italic">Network Infrastructure Security</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 font-medium">Oct 12, 2023</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200">In Progress</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline tracking-wide group-hover:translate-x-[-4px] transition-transform flex items-center justify-end gap-1 ml-auto">
+                                        Continue <span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/[0.02] transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900">Employee Security Training</span>
+<span class="text-xs text-slate-500 italic">Corporate Awareness Program</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 font-medium">Oct 01, 2023</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Completed</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline tracking-wide group-hover:translate-x-[-4px] transition-transform flex items-center justify-end gap-1 ml-auto">
+                                        View <span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/[0.02] transition-colors group border-b-0">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900">Penetration Test Remediation</span>
+<span class="text-xs text-slate-500 italic">Vulnerability Management</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-600 font-medium">Nov 05, 2023</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">Pending</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline tracking-wide group-hover:translate-x-[-4px] transition-transform flex items-center justify-end gap-1 ml-auto">
+                                        Start <span class="material-symbols-outlined text-base">play_circle</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 bg-background-light/30 border-t border-primary/10 flex items-center justify-between">
+<p class="text-xs text-slate-500 font-medium">Showing 4 of 24 active tasks</p>
+<div class="flex gap-1">
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-400 hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded bg-primary text-background-dark font-bold text-xs">1</button>
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-600 font-bold text-xs hover:bg-white transition-colors">2</button>
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-600 font-bold text-xs hover:bg-white transition-colors">3</button>
+<button class="size-8 flex items-center justify-center rounded border border-primary/20 text-slate-400 hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<footer class="mt-12 text-center text-slate-400 text-sm">
+                © 2023 Jean Edwards &amp; Associates. All security protocols active.
+            </footer>
+</main>
+</div>
+</body></html>

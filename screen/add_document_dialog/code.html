@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Document - Jean Edwards Compliance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ecb613",
+              "background-light": "#f8f8f6",
+              "background-dark": "#221d10",
+            },
+            fontFamily: {
+              "display": ["Noto Serif", "serif"],
+              "sans": ["Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+<!-- Background Content (Dimmed) -->
+<div class="relative flex h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-hidden brightness-[0.3] grayscale-[0.2]">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined text-3xl">flag</span>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em] font-display">Jean Edwards</h2>
+</div>
+<div class="flex items-center gap-9">
+<a class="text-slate-300 text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-primary text-sm font-medium leading-normal border-b-2 border-primary pb-1" href="#">Documents</a>
+<a class="text-slate-300 text-sm font-medium leading-normal" href="#">Reports</a>
+<a class="text-slate-300 text-sm font-medium leading-normal" href="#">Settings</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="bg-primary/10 rounded-full size-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-40 py-10">
+<div class="flex flex-wrap justify-between gap-3 mb-8">
+<div class="flex flex-col gap-1">
+<h1 class="text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em] font-display">Documents</h1>
+<p class="text-slate-400 text-base font-normal">Manage your compliance documentation and frameworks.</p>
+</div>
+</div>
+<div class="overflow-hidden rounded-xl border border-primary/20 bg-background-dark/50">
+<table class="w-full text-left">
+<thead class="bg-primary/5">
+<tr class="text-slate-100 text-sm font-medium">
+<th class="px-6 py-4">Name</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4">Framework</th>
+<th class="px-6 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/10">
+<tr class="text-slate-300">
+<td class="px-6 py-4">Employee Handbook</td>
+<td class="px-6 py-4"><span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs">HR</span></td>
+<td class="px-6 py-4">ISO 27001</td>
+<td class="px-6 py-4">Active</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background-dark/60 backdrop-blur-sm">
+<!-- Modal Dialog -->
+<div class="w-full max-w-2xl bg-background-dark border border-primary/30 rounded-xl shadow-2xl shadow-black/50 overflow-hidden">
+<!-- Modal Header -->
+<div class="px-8 py-6 border-b border-primary/20 flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-bold text-slate-100 font-display">Add Document</h2>
+<p class="text-slate-400 text-sm">Upload and categorize a new compliance document</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<form class="p-8 space-y-6">
+<!-- Document Name -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-slate-300 font-display">Document Name</label>
+<input class="w-full bg-primary/5 border border-primary/20 rounded-lg px-4 py-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder:text-slate-600" placeholder="e.g. Annual Security Audit 2024" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Category Dropdown -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-slate-300 font-display">Category</label>
+<div class="relative">
+<select class="w-full appearance-none bg-primary/5 border border-primary/20 rounded-lg px-4 py-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all">
+<option disabled="" selected="" value="">Select Category</option>
+<option value="legal">Legal</option>
+<option value="hr">HR</option>
+<option value="security">Security</option>
+<option value="operations">Operations</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Framework Multi-select (Simplified for UI) -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-slate-300 font-display">Framework</label>
+<div class="relative">
+<div class="w-full bg-primary/5 border border-primary/20 rounded-lg px-4 py-3 text-slate-100 flex items-center justify-between cursor-pointer">
+<span class="text-slate-500">Select Frameworks</span>
+<span class="material-symbols-outlined text-primary">add_circle</span>
+</div>
+<!-- Selection Tags Simulation -->
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="bg-primary/20 text-primary text-[10px] uppercase font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                    ISO 27001 <span class="material-symbols-outlined text-xs">close</span>
+</span>
+<span class="bg-primary/20 text-primary text-[10px] uppercase font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                    SOC2 <span class="material-symbols-outlined text-xs">close</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Upload Area -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-slate-300 font-display">Document File</label>
+<div class="group relative flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-primary/30 rounded-xl bg-primary/5 hover:bg-primary/10 hover:border-primary transition-all cursor-pointer">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-primary text-5xl mb-3 group-hover:scale-110 transition-transform">cloud_upload</span>
+<p class="mb-2 text-sm text-slate-200"><span class="font-bold">Click to upload</span> or drag and drop</p>
+<p class="text-xs text-slate-400">PDF, DOCX or XLS (MAX. 25MB)</p>
+</div>
+<input class="hidden" type="file"/>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-end gap-4 pt-4 border-t border-primary/20">
+<button class="px-6 py-2.5 rounded-lg text-slate-300 hover:text-slate-100 hover:bg-white/5 transition-all text-sm font-medium" type="button">
+                        Cancel
+                    </button>
+<button class="bg-primary hover:bg-primary/90 text-background-dark px-8 py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-primary/20 transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-sm">description</span>
+                        Add Document
+                    </button>
+</div>
+</form>
+</div>
+</div>
+</body></html>

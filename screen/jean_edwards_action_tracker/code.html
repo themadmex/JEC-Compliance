@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Action Tracker | Jean Edwards Compliance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;family=Newsreader:opsz,wght@6..72,400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                        "gold-accent": "#d4af37"
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Newsreader", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab {
+            border-bottom: 2px solid #ec5b13;
+            color: #ec5b13;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="w-72 bg-[#1a110b] dark:bg-[#120a07] text-slate-200 flex flex-col fixed h-full border-r border-primary/10">
+<div class="p-6 flex flex-col h-full justify-between">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-full border-2 border-primary/40 bg-cover bg-center" data-alt="Portrait of Jean Edwards professional profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpxPg-6KZZh2GKJ6tEcrcqxjDBepSQtcFqyKAKx0-rHjeZI_kJUThIVF5gW3SPNp-wVmNo3hX3mW-vfmf09NXZTnPRqAitIRxhlA6SObVHysBKXvt19bHWDKrWljUyPhrSj0uVQa2pjEfcqv4ifRekB2CZNwYI94SRWIErkvYkrshFaftimwtyfeQIMrESBeA0s8jvo-h-F65ZI4Y66p15Zz4SBhwHz0Gg8Igym7tZbna6IFjkCcHos7PgQ3FKtawKNzEfPlfolOI");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-lg font-serif font-semibold leading-tight">Jean Edwards</h1>
+<p class="text-primary text-xs font-medium tracking-wider uppercase">Compliance Platform</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-primary">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span class="text-sm font-bold">Action Tracker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-slate-400">policy</span>
+<span class="text-sm font-medium">Policies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-slate-400">gavel</span>
+<span class="text-sm font-medium">Audits</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-white/5 mt-4" href="#">
+<span class="material-symbols-outlined text-slate-400">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+<span class="text-sm">New Task</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-72 flex-1 p-8">
+<!-- Header -->
+<header class="flex items-center justify-between mb-8 pb-6 border-b border-slate-200 dark:border-slate-800">
+<div>
+<h2 class="text-4xl font-serif font-bold text-slate-900 dark:text-white mb-2">Action Tracker</h2>
+<p class="text-slate-500 dark:text-slate-400">Manage remediation tasks and security reviews.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary text-sm w-64" placeholder="Search tasks..." type="text"/>
+</div>
+<button class="p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Filters & Tabs -->
+<div class="flex flex-col gap-6 mb-8">
+<div class="flex items-center justify-between">
+<div class="flex gap-8 border-b border-slate-200 dark:border-slate-800 w-full">
+<button class="pb-4 text-sm font-bold active-tab px-2">All Tasks (24)</button>
+<button class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 px-2 transition-colors">Policy Reviews (8)</button>
+<button class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 px-2 transition-colors">Security Tests (12)</button>
+<button class="pb-4 text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 px-2 transition-colors">Remediation (4)</button>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-medium hover:border-primary transition-colors">
+<span>Status: Open</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-medium hover:border-primary transition-colors">
+<span>Priority: All</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-medium hover:border-primary transition-colors">
+<span>Assigned To: Me</span>
+<span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+</button>
+<div class="ml-auto flex gap-2">
+<button class="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400">
+<span class="material-symbols-outlined">view_list</span>
+</button>
+<button class="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-400">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Task Table -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+<th class="px-6 py-4">Task Description</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Priority</th>
+<th class="px-6 py-4">Due Date</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Task Item 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-white">Annual Privacy Policy Update</span>
+<span class="text-xs text-slate-500">Legal &amp; Compliance • Ref: POL-2024-01</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex items-center w-fit gap-1">
+<span class="size-1.5 bg-amber-500 rounded-full"></span>
+                                In Progress
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold text-red-600 dark:text-red-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+                                HIGH
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm text-slate-600 dark:text-slate-400 font-medium">Oct 24, 2024</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Task Item 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-white">Internal Penetration Test Findings</span>
+<span class="text-xs text-slate-500">Security • Ref: SEC-AUD-09</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary flex items-center w-fit gap-1">
+<span class="size-1.5 bg-primary rounded-full"></span>
+                                Open
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold text-red-600 dark:text-red-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+                                HIGH
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm text-red-500 font-bold">Overdue (2 days)</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Task Item 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-white">Quarterly SOC2 Review</span>
+<span class="text-xs text-slate-500">Audit Readiness • Ref: SOC-Q3</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 flex items-center w-fit gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                                Resolved
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">low_priority</span>
+                                MEDIUM
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm text-slate-400 font-medium italic line-through">Oct 12, 2024</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Task Item 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-white">Update Vendor Risk Assessment - CloudCore</span>
+<span class="text-xs text-slate-500">Third-Party Risk • Ref: TPRM-24</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary flex items-center w-fit gap-1">
+<span class="size-1.5 bg-primary rounded-full"></span>
+                                Open
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">drag_handle</span>
+                                LOW
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm text-slate-600 dark:text-slate-400 font-medium">Nov 05, 2024</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Task Item 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-slate-900 dark:text-white">Employee Security Awareness Training</span>
+<span class="text-xs text-slate-500">HR &amp; Compliance • Ref: EDU-99</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 flex items-center w-fit gap-1">
+<span class="size-1.5 bg-amber-500 rounded-full"></span>
+                                In Progress
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-bold text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">low_priority</span>
+                                MEDIUM
+                            </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm text-slate-600 dark:text-slate-400 font-medium">Oct 30, 2024</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
+<p class="text-xs text-slate-500">Showing 5 of 24 active tasks</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Previous</button>
+<button class="px-3 py-1 rounded border border-primary text-primary bg-primary/5 font-bold">1</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">2</button>
+<button class="px-3 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Next</button>
+</div>
+</div>
+</div>
+<!-- Dashboard Widgets Summary -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">priority_high</span>
+<h3 class="font-serif font-bold text-lg">Critical Actions</h3>
+</div>
+<p class="text-3xl font-black text-slate-900 dark:text-white">03</p>
+<p class="text-xs text-red-500 font-bold mt-1 tracking-wide uppercase">Immediate Attention Needed</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-gold-accent bg-gold-accent/10 p-2 rounded-lg">pending_actions</span>
+<h3 class="font-serif font-bold text-lg">In Review</h3>
+</div>
+<p class="text-3xl font-black text-slate-900 dark:text-white">08</p>
+<p class="text-xs text-slate-500 mt-1 tracking-wide uppercase">Awaiting verification</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-green-500 bg-green-500/10 p-2 rounded-lg">task_alt</span>
+<h3 class="font-serif font-bold text-lg">Completed</h3>
+</div>
+<p class="text-3xl font-black text-slate-900 dark:text-white">142</p>
+<p class="text-xs text-slate-500 mt-1 tracking-wide uppercase">Current fiscal year</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+data/
+artifacts/
+uvicorn*.log
+.env
+*.env

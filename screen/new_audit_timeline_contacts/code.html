@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create New Audit - Step 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex flex-col w-full min-h-screen overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header/NavBar -->
+<header class="flex items-center justify-between border-b border-primary/20 px-6 py-4 lg:px-40">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight font-display">Audit Manager</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-primary/30 overflow-hidden bg-cover bg-center" data-alt="Professional user profile portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCisyxHWCOF3ofG05RlEq2JYlDhSgfbaDnHY8KPo988Fjw3aPsEh3stl9uO8Jru-nhnG9uxyw7ZFwEthL8B0aJe7qYTfXlYr_RWpaO2sT3Deg6tytLailJkr3lixQ0C7pEGqnDwHDXDfN31V62sZd3bUAhM4iN2oGpArI_66aNip3aOBDnUTArd-w7yekXmKBDyhQK1LUTTfc29KKDZotkMFH85o1j6jGkkrsyF3PAXa7Oa7BYBUXGP1DwBHtGbvouwXxNxB8hyFNI")'></div>
+</div>
+</header>
+<main class="flex-1 px-6 lg:px-40 py-8">
+<div class="max-w-[960px] mx-auto flex flex-col gap-8">
+<!-- Progress Section -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="text-primary font-bold text-sm tracking-widest uppercase">Step 3 of 4</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">75% Complete</span>
+</div>
+<div class="h-2 w-full bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 75%;"></div>
+</div>
+<div>
+<h1 class="text-4xl font-black leading-tight tracking-tight font-display text-slate-900 dark:text-slate-100">Create New Audit</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Step 3: Set timeline and primary contacts</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+<!-- Timeline Section -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+<h3 class="text-xl font-bold font-display">Audit Period</h3>
+</div>
+<div class="bg-primary/5 border border-primary/20 p-6 rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<button class="p-2 hover:bg-primary/10 rounded-lg text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<p class="text-lg font-bold font-display">October 2023</p>
+<button class="p-2 hover:bg-primary/10 rounded-lg text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-7 text-center gap-y-2">
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">S</div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">M</div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">T</div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">W</div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">T</div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">F</div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">S</div>
+<!-- Calendar Days Example -->
+<div class="h-10 flex items-center justify-center col-start-1 text-slate-400">24</div>
+<div class="h-10 flex items-center justify-center text-slate-400">25</div>
+<div class="h-10 flex items-center justify-center text-slate-400">26</div>
+<div class="h-10 flex items-center justify-center text-slate-400">27</div>
+<div class="h-10 flex items-center justify-center text-slate-400">28</div>
+<div class="h-10 flex items-center justify-center text-slate-400">29</div>
+<div class="h-10 flex items-center justify-center text-slate-400">30</div>
+<div class="h-10 flex items-center justify-center">1</div>
+<div class="h-10 flex items-center justify-center">2</div>
+<div class="h-10 flex items-center justify-center">3</div>
+<div class="h-10 flex items-center justify-center">4</div>
+<div class="h-10 flex items-center justify-center bg-primary rounded-l-full text-background-dark font-bold relative cursor-pointer group">
+                                        5
+                                        <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded hidden group-hover:block whitespace-nowrap">Start Date</span>
+</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">6</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">7</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">8</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">9</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">10</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">11</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">12</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">13</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">14</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">15</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">16</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">17</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">18</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">19</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">20</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">21</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">22</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">23</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">24</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">25</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">26</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">27</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">28</div>
+<div class="h-10 flex items-center justify-center bg-primary/20 text-primary">29</div>
+<div class="h-10 flex items-center justify-center bg-primary rounded-r-full text-background-dark font-bold relative cursor-pointer group">
+                                        30
+                                        <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded hidden group-hover:block whitespace-nowrap">End Date</span>
+</div>
+<div class="h-10 flex items-center justify-center text-slate-400">31</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Start Date</label>
+<input class="bg-primary/5 border border-primary/20 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary text-slate-900 dark:text-slate-100" type="date" value="2023-10-05"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">End Date</label>
+<input class="bg-primary/5 border border-primary/20 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary text-slate-900 dark:text-slate-100" type="date" value="2023-10-30"/>
+</div>
+</div>
+</div>
+<!-- Contacts Section -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span>
+<h3 class="text-xl font-bold font-display">Primary Points of Contact</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Lead Auditor</label>
+<div class="relative">
+<select class="w-full bg-primary/5 border border-primary/20 rounded-lg p-3 appearance-none focus:outline-none focus:ring-2 focus:ring-primary text-slate-900 dark:text-slate-100">
+<option selected="">Jean Edwards</option>
+<option>Robert Smith</option>
+<option>Sarah Johnson</option>
+<option>Michael Chen</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-primary">unfold_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Audit Team Members</label>
+<div class="flex flex-wrap gap-2 p-3 bg-primary/5 border border-primary/20 rounded-lg min-h-[100px]">
+<div class="flex items-center gap-2 bg-primary/20 text-primary px-3 py-1.5 rounded-full text-sm font-medium">
+<span>Robert Smith</span>
+<button class="hover:text-slate-900"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+<div class="flex items-center gap-2 bg-primary/20 text-primary px-3 py-1.5 rounded-full text-sm font-medium">
+<span>Sarah Johnson</span>
+<button class="hover:text-slate-900"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+<button class="flex items-center gap-2 text-slate-400 hover:text-primary px-3 py-1.5 rounded-full text-sm border border-dashed border-slate-400 hover:border-primary transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Add Member</span>
+</button>
+</div>
+</div>
+<div class="mt-4 p-4 bg-primary/10 rounded-xl flex gap-4 items-start border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                        Assigned contacts will receive automated notifications for all milestones and deadline reminders during the audit window.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-between pt-10 mt-10 border-t border-primary/20">
+<button class="flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 text-primary font-bold hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+                            Back
+                        </button>
+<button class="flex items-center gap-2 px-8 py-3 rounded-lg bg-primary text-background-dark font-bold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                            Review Audit Details
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer-like space -->
+<footer class="h-20 flex items-center justify-center opacity-30">
+<p class="text-xs uppercase tracking-[0.2em] font-medium">Secured Internal Audit Environment</p>
+</footer>
+</div>
+</div>
+</body></html>

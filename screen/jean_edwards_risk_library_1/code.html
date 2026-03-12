@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk Library | Jean Edwards Risk Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #483f23;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Side Navigation -->
+<aside class="w-64 flex-shrink-0 bg-background-dark border-r border-primary/20 flex flex-col justify-between p-6">
+<div class="space-y-8">
+<!-- User Profile Section -->
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of Jean Edwards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3ZyDZcwMgp7D1p3m6pzpLsOFls0N76XI2IhFpOqOKgGAXOCJ-adlF42weuYfkIIxFBkf0oeLlTMTuWK-72bDg8ipJ02oexpF5N_89l4veRgfCsL_O5wr90KJ23mDsxmEwU6hRje-1RT-au63u_8JOVJ3ej3BrfJyUWFfCwTRU1BDbWueQhXp4vkLrr0lq2ExoxxByIFwu0WiszWXqq31rDlrZkaQmXNcbMaGTRE7ZwP3b2PcyBaX2HwESsJzN95wILXKnU5K-pJs"/>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-100 font-display font-bold text-sm">Jean Edwards</span>
+<span class="text-primary text-xs font-medium">Risk Management</span>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="space-y-2">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg border border-primary/20" href="#">
+<span class="material-symbols-outlined text-[22px]">library_books</span>
+<span class="text-sm font-medium">Risk Library</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined text-[22px]">security</span>
+<span class="text-sm font-medium">Risk Register</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined text-[22px]">content_copy</span>
+<span class="text-sm font-medium">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined text-[22px]">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="text-sm uppercase tracking-wider">New Assessment</span>
+</button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-[#1a160d]">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 bg-background-dark/50 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<h2 class="text-lg font-display font-bold text-slate-100">Enterprise Risk Library</h2>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar -->
+<div class="relative w-64 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-primary/5 border border-primary/20 rounded-lg py-1.5 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-slate-500 text-slate-100" placeholder="Search scenarios..." type="text"/>
+</div>
+<!-- Top Actions -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-primary/20 mx-2"></div>
+<div class="size-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-xs">JE</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8">
+<!-- Page Title & Top Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div class="max-w-2xl">
+<h1 class="text-4xl font-display font-bold text-slate-100 mb-2 leading-tight">Standard Risk Scenarios</h1>
+<p class="text-slate-400 text-lg">Comprehensive library of predefined enterprise risks for rapid register population and standardization.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 font-bold px-6 py-2.5 rounded-lg transition-all whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+<span>Export Library</span>
+</button>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<button class="flex items-center gap-2 px-4 py-1.5 bg-primary text-background-dark rounded-full text-sm font-bold transition-all">
+<span>All Categories</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-slate-300 hover:text-primary hover:bg-primary/20 rounded-full text-sm font-medium transition-all border border-primary/10">
+<span>Operational</span>
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-slate-300 hover:text-primary hover:bg-primary/20 rounded-full text-sm font-medium transition-all border border-primary/10">
+<span>Financial</span>
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-slate-300 hover:text-primary hover:bg-primary/20 rounded-full text-sm font-medium transition-all border border-primary/10">
+<span>Strategic</span>
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-slate-300 hover:text-primary hover:bg-primary/20 rounded-full text-sm font-medium transition-all border border-primary/10">
+<span>Compliance</span>
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+</div>
+<!-- Table Container -->
+<div class="bg-background-dark/30 rounded-xl border border-primary/10 overflow-hidden backdrop-blur-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary/5">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-primary/70 border-b border-primary/10">Risk Scenario</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-primary/70 border-b border-primary/10">Category</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-primary/70 border-b border-primary/10">Risk Rating</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-primary/70 border-b border-primary/10 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="font-display font-medium text-slate-100">Appropriate contacts are not maintained</div>
+<div class="text-xs text-slate-500 mt-1">Loss of critical business network connectivity</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-primary/10 text-primary border border-primary/20">OPERATIONAL</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full max-w-[120px] overflow-hidden">
+<div class="h-full bg-primary" style="width: 65%;"></div>
+</div>
+<span class="text-sm font-bold text-slate-200">65</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-sm tracking-wide uppercase flex items-center gap-1 justify-end ml-auto group-hover:translate-x-[-4px] transition-transform">
+                                        Add to Register
+                                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="font-display font-medium text-slate-100">Data privacy breach</div>
+<div class="text-xs text-slate-500 mt-1">Unauthorized access to sensitive user data</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-primary/10 text-primary border border-primary/20">COMPLIANCE</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full max-w-[120px] overflow-hidden">
+<div class="h-full bg-red-500" style="width: 90%;"></div>
+</div>
+<span class="text-sm font-bold text-red-500">90</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-sm tracking-wide uppercase flex items-center gap-1 justify-end ml-auto group-hover:translate-x-[-4px] transition-transform">
+                                        Add to Register
+                                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="font-display font-medium text-slate-100">Inadequate financial reporting</div>
+<div class="text-xs text-slate-500 mt-1">Errors in quarterly audit disclosures</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-primary/10 text-primary border border-primary/20">FINANCIAL</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full max-w-[120px] overflow-hidden">
+<div class="h-full bg-primary" style="width: 75%;"></div>
+</div>
+<span class="text-sm font-bold text-slate-200">75</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-sm tracking-wide uppercase flex items-center gap-1 justify-end ml-auto group-hover:translate-x-[-4px] transition-transform">
+                                        Add to Register
+                                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="font-display font-medium text-slate-100">Supply chain disruption</div>
+<div class="text-xs text-slate-500 mt-1">Vendor insolvency affecting core logistics</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-primary/10 text-primary border border-primary/20">STRATEGIC</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full max-w-[120px] overflow-hidden">
+<div class="h-full bg-primary" style="width: 50%;"></div>
+</div>
+<span class="text-sm font-bold text-slate-200">50</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-sm tracking-wide uppercase flex items-center gap-1 justify-end ml-auto group-hover:translate-x-[-4px] transition-transform">
+                                        Add to Register
+                                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5">
+<div class="font-display font-medium text-slate-100">Intellectual property theft</div>
+<div class="text-xs text-slate-500 mt-1">Corporate espionage targeting R&amp;D</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-primary/10 text-primary border border-primary/20">STRATEGIC</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-primary/10 rounded-full max-w-[120px] overflow-hidden">
+<div class="h-full bg-red-500" style="width: 85%;"></div>
+</div>
+<span class="text-sm font-bold text-red-500">85</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:text-primary/80 font-bold text-sm tracking-wide uppercase flex items-center gap-1 justify-end ml-auto group-hover:translate-x-[-4px] transition-transform">
+                                        Add to Register
+                                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Summary -->
+<div class="mt-8 flex justify-between items-center text-slate-500 text-sm">
+<p>Showing 1 to 5 of 142 risk scenarios</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-primary/10 rounded-md hover:bg-primary/20 text-slate-300 disabled:opacity-50">Previous</button>
+<button class="px-3 py-1 bg-primary/20 text-primary rounded-md font-bold">1</button>
+<button class="px-3 py-1 hover:bg-primary/10 text-slate-300 rounded-md">2</button>
+<button class="px-3 py-1 hover:bg-primary/10 text-slate-300 rounded-md">3</button>
+<button class="px-3 py-1 bg-primary/10 rounded-md hover:bg-primary/20 text-slate-300">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

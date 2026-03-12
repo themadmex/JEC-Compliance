@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<title>Remediation Details: AC-01</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-72 bg-background-dark border-r border-primary/10 flex flex-col h-screen sticky top-0">
+<div class="p-6 flex flex-col h-full justify-between">
+<div class="flex flex-col gap-8">
+<!-- Branding -->
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Jean Edwards luxury brand minimalist logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPLEX60zR3b03QuWIpLswKJvzkSwpAPiANLMV1BjgSqUcVTGasMVNuGUhGOc20QHpRg-4n8qoQkiRPM8sgxW91CGvN_fkz_CNk0a42nNUIv4jDU32gctbKiBwRgpptv78oNQtRbGkG0N7U7b0mHnmt5dJArIYQxOOb2o0JD3ODmySrwz0u3YjFsXhQN1urpQZEwerKk1jlKpwgrH38yJyOMBeF_q34i1afJJMcdLvPZGkkAf6TqtYSP82UgwYsbtVChDEd-7txk5M"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-base font-semibold leading-tight">Jean Edwards</h1>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Premium Security Audit</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">shield_lock</span>
+<span class="text-sm font-medium">Security Controls</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="text-sm font-medium">Remediation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<div class="p-4 rounded-xl bg-primary/5 border border-primary/10">
+<p class="text-xs text-primary mb-2 font-medium tracking-wide">COMPLIANCE SCORE</p>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[84%]"></div>
+</div>
+<p class="text-slate-100 text-lg mt-2 font-bold">84% <span class="text-xs font-normal text-slate-400">/ 100%</span></p>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-2.5 rounded-lg text-sm transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                    Export Audit
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header -->
+<header class="border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between sticky top-0 bg-background-light dark:bg-background-dark z-10 backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
+<span>Compliance</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span>Controls</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-primary font-medium">AC-01 Remediation</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
+<span class="text-xs font-bold text-primary">JE</span>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-6xl mx-auto w-full space-y-8">
+<!-- Hero Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800">
+<div class="space-y-2">
+<h2 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50 italic">Remediation: AC-01</h2>
+<p class="text-lg text-slate-500 dark:text-slate-400">Access Control Policy - Data Center Compliance</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-4 py-1.5 rounded-full bg-primary/20 text-primary border border-primary/30 text-sm font-semibold flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                        In Progress
+                    </span>
+<button class="bg-primary text-background-dark font-bold px-6 py-2 rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                        Add Update
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Details & Tasks -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Overview -->
+<section class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span>
+                            Remediation Overview
+                        </h3>
+<div class="space-y-4">
+<div>
+<h4 class="text-xs uppercase font-bold text-primary tracking-widest mb-1">Observation</h4>
+<p class="text-slate-700 dark:text-slate-300">Failure in control AC-01: Incomplete access logs detected for European data center (Region EU-West-1). Administrative sessions were not properly recorded during the audit period of Q3.</p>
+</div>
+<div>
+<h4 class="text-xs uppercase font-bold text-primary tracking-widest mb-1">Planned Resolution</h4>
+<p class="text-slate-700 dark:text-slate-300">Implement centralized LDAP logging across all edge instances in the EU-West-1 region. Retroactively recover available logs and re-verify administrative permission matrices for all regional staff.</p>
+</div>
+</div>
+</section>
+<!-- Action Items -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">task_alt</span>
+                                Action Items
+                            </h3>
+<button class="text-primary text-sm font-bold hover:underline">Manage All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Task 1 -->
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4 group hover:border-primary/40 transition-colors">
+<button class="size-6 rounded border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center group-hover:border-primary">
+<span class="material-symbols-outlined text-transparent group-hover:text-primary/50 text-sm">check</span>
+</button>
+<div class="flex-1">
+<h5 class="font-bold text-slate-900 dark:text-slate-100">Retrieve missing LDAP logs</h5>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm">person</span>
+                                            Mark Sterling
+                                        </div>
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                            Oct 24, 2023
+                                        </div>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-tight">Pending</span>
+</div>
+<!-- Task 2 -->
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4 border-l-4 border-l-primary shadow-sm">
+<button class="size-6 rounded border-2 border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-background-dark text-sm font-black">check</span>
+</button>
+<div class="flex-1">
+<h5 class="font-bold text-slate-400 dark:text-slate-500 line-through">Establish VPC Flow Logging</h5>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm">person</span>
+                                            Jean Edwards
+                                        </div>
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                            Oct 18, 2023
+                                        </div>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-tight">Completed</span>
+</div>
+<!-- Task 3 -->
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4 group hover:border-primary/40 transition-colors">
+<button class="size-6 rounded border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-transparent text-sm">check</span>
+</button>
+<div class="flex-1">
+<h5 class="font-bold text-slate-900 dark:text-slate-100">Re-verify admin permissions</h5>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm">person</span>
+                                            Sarah Chen
+                                        </div>
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                            Oct 30, 2023
+                                        </div>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-tight">Upcoming</span>
+</div>
+</div>
+<button class="w-full py-3 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl text-slate-500 text-sm font-medium hover:border-primary/30 hover:text-primary transition-all">
+                            + Add new task
+                        </button>
+</section>
+</div>
+<!-- Right Column: Activity & Metadata -->
+<div class="space-y-8">
+<!-- Quick Stats -->
+<div class="bg-primary/5 rounded-xl border border-primary/10 p-6 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold uppercase text-slate-500 tracking-widest">Progress</span>
+<span class="text-sm font-bold text-primary">33% Complete</span>
+</div>
+<div class="h-2 w-full bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-1/3 shadow-[0_0_8px_rgba(236,182,19,0.5)]"></div>
+</div>
+<div class="pt-2 border-t border-primary/10 flex flex-col gap-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Assigned To</span>
+<span class="text-slate-200 font-medium">Platform Engineering</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Priority</span>
+<span class="text-red-400 font-bold uppercase">High</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Target Date</span>
+<span class="text-slate-200 font-medium">Nov 15, 2023</span>
+</div>
+</div>
+</div>
+<!-- Activity Log -->
+<section class="space-y-4">
+<h3 class="text-xl font-bold flex items-center gap-2 px-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                            Activity Log
+                        </h3>
+<div class="relative pl-6 space-y-6 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[1px] before:bg-slate-200 dark:before:bg-slate-800">
+<!-- Entry 1 -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 size-4 rounded-full bg-primary border-4 border-background-dark"></div>
+<div class="space-y-1">
+<p class="text-sm font-bold">Log aggregation started</p>
+<p class="text-xs text-slate-500">Mark Sterling initiated script on EU-West cluster.</p>
+<p class="text-[10px] text-primary/70 uppercase font-bold tracking-tighter">Today, 2:45 PM</p>
+</div>
+</div>
+<!-- Entry 2 -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 size-4 rounded-full bg-slate-700 border-4 border-background-dark"></div>
+<div class="space-y-1">
+<p class="text-sm font-bold">Status changed to 'In Progress'</p>
+<p class="text-xs text-slate-500">Jean Edwards updated compliance status.</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Yesterday, 9:12 AM</p>
+</div>
+</div>
+<!-- Entry 3 -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 size-4 rounded-full bg-slate-700 border-4 border-background-dark"></div>
+<div class="space-y-1">
+<p class="text-sm font-bold">Task completed: Establish VPC Flow Logging</p>
+<p class="text-xs text-slate-500">Jean Edwards finalized AWS configuration.</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Oct 18, 2023</p>
+</div>
+</div>
+</div>
+<button class="w-full text-center text-xs text-slate-500 font-bold hover:text-primary transition-colors py-2 uppercase tracking-widest">
+                            View Full History
+                        </button>
+</section>
+<!-- Documents -->
+<section class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<h4 class="text-sm font-bold mb-3 flex items-center justify-between">
+                            Evidence &amp; Files
+                            <span class="material-symbols-outlined text-sm text-slate-400">upload_file</span>
+</h4>
+<div class="space-y-2">
+<div class="p-2 rounded bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">description</span>
+<span>EU_Data_Center_Logs_Q3.pdf</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-500 cursor-pointer">download</span>
+</div>
+<div class="p-2 rounded bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">description</span>
+<span>IAM_Permission_Audit.csv</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-500 cursor-pointer">download</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Action Bar -->
+<div class="flex items-center justify-between pt-10 pb-20 border-t border-slate-200 dark:border-slate-800">
+<button class="flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-medium">
+<span class="material-symbols-outlined">arrow_back</span>
+                    Back to All Controls
+                </button>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors font-bold text-sm">
+                        Request Audit Review
+                    </button>
+<button class="px-8 py-2.5 rounded-lg bg-primary text-background-dark font-black text-sm shadow-xl shadow-primary/10 hover:scale-[1.02] transition-transform">
+                        Complete Remediation
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
