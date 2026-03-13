@@ -14,6 +14,8 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 from app.db import init_db
 from app.jobs import evidence_monitor
 from app.routes import (
+    audit_log,
+    audits,
     auth,
     controls,
     dashboard,
@@ -21,6 +23,7 @@ from app.routes import (
     integrations,
     jobs,
     sharepoint,
+    tasks,
     workspaces,
 )
 from app.seed import seed_default_framework_and_controls
@@ -72,6 +75,9 @@ app.mount("/branding", StaticFiles(directory=BRANDING_DIR), name="branding")
 app.include_router(auth.router)
 app.include_router(controls.router)
 app.include_router(evidence.router)
+app.include_router(audits.router)
+app.include_router(audit_log.router)
+app.include_router(tasks.router)
 app.include_router(dashboard.router)
 app.include_router(jobs.router)
 app.include_router(integrations.router)

@@ -199,6 +199,19 @@ def get_file_metadata(item_id: str) -> dict[str, Any]:
     }
 
 
+def download_file(item_id: str) -> bytes:
+    """Download raw file bytes for a specific SharePoint file by item ID."""
+    site_id, drive_id = _get_site_and_drive()
+    token = _get_app_token()
+    req = urllib.request.Request(
+        url=f"{GRAPH_BASE}/sites/{site_id}/drives/{drive_id}/items/{item_id}/content",
+        headers={"Authorization": f"Bearer {token}"},
+        method="GET",
+    )
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return resp.read()
+
+
 def get_lists() -> list[dict[str, Any]]:
     """List all visible SharePoint Lists on the site."""
     site_id = _resolve_site_id()
