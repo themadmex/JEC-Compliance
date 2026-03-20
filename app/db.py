@@ -182,12 +182,45 @@ def init_db() -> None:
                 FOREIGN KEY(owner_id) REFERENCES users(id)
             );
 
+            CREATE TABLE IF NOT EXISTS graph_objects (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                object_type TEXT NOT NULL,
+                external_key TEXT NOT NULL,
+                title TEXT NOT NULL,
+                subtitle TEXT,
+                description TEXT,
+                status TEXT,
+                owner TEXT,
+                metadata_json TEXT NOT NULL DEFAULT '{}',
+                created_at TEXT NOT NULL DEFAULT (datetime('now')),
+                updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+                UNIQUE(object_type, external_key)
+            );
+
+            CREATE TABLE IF NOT EXISTS graph_links (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                left_type TEXT NOT NULL,
+                left_id INTEGER NOT NULL,
+                right_type TEXT NOT NULL,
+                right_id INTEGER NOT NULL,
+                link_type TEXT NOT NULL,
+                notes TEXT,
+                created_at TEXT NOT NULL DEFAULT (datetime('now')),
+                UNIQUE(left_type, left_id, right_type, right_id, link_type)
+            );
+
             CREATE INDEX IF NOT EXISTS idx_audit_log_object
                 ON audit_log(object_type, object_id);
             CREATE INDEX IF NOT EXISTS idx_audit_log_actor
                 ON audit_log(actor_id);
             CREATE INDEX IF NOT EXISTS idx_audit_log_time
                 ON audit_log(created_at);
+            CREATE INDEX IF NOT EXISTS idx_graph_objects_lookup
+                ON graph_objects(object_type, external_key);
+            CREATE INDEX IF NOT EXISTS idx_graph_links_left
+                ON graph_links(left_type, left_id);
+            CREATE INDEX IF NOT EXISTS idx_graph_links_right
+                ON graph_links(right_type, right_id);
 
             CREATE TRIGGER IF NOT EXISTS audit_log_no_update
             BEFORE UPDATE ON audit_log

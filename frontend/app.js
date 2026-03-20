@@ -94,6 +94,7 @@ function setRouteSearchParam(name, value) {
 }
 
 function navigateTo(route, params = {}) {
+  _relationshipModal.open = false;
   const url = new URL(window.location.href);
   url.hash = `#${route}`;
   url.search = "";
@@ -428,11 +429,13 @@ function renderVendorRows(items) {
 
 function openControlDetail(controlId) {
   setRouteSearchParam("control", controlId);
+  _relationshipModal.open = false;
   renderCurrentPage();
 }
 
 function backToControls() {
   setRouteSearchParam("control", null);
+  _relationshipModal.open = false;
   renderCurrentPage();
 }
 
@@ -515,6 +518,17 @@ const _mw = {
   typeFilters: new Set(),
   typeSearch: "",
   dropdownOpen: false,
+};
+
+const _relationshipModal = {
+  open: false,
+  sourceType: "",
+  sourceKey: "",
+  options: [],
+  typeFilter: "all",
+  search: "",
+  selectedKey: "",
+  selectedType: "",
 };
 
 const MW_TYPES = [
@@ -2392,6 +2406,658 @@ Object.assign(PAGE_RENDERERS, {
   "screenshot_2026_03_12_140316.png": () => renderReferenceCapture("screenshot_2026_03_12_140316.png"),
 });
 
+const GRAPH_ROUTE_CONFIG = {
+  control: { route: "compliance-controls", param: "control", label: "Controls", detailMode: "drawer" },
+  policy: { route: "compliance-policies", param: "policy", label: "Policies", detailMode: "page" },
+  document: { route: "compliance-documents", param: "document", label: "Documents", detailMode: "page" },
+  audit: { route: "compliance-audits", param: "audit", label: "Audits", detailMode: "page" },
+  risk: { route: "risk-risks", param: "risk", label: "Risk scenarios", detailMode: "page" },
+  vendor: { route: "vendors", param: "vendor", label: "Vendors", detailMode: "page" },
+  test: { route: "tests", param: "test", label: "Tests", detailMode: "page" },
+  integration: { route: "integrations", param: "integration", label: "Integrations", detailMode: "page" },
+  framework: { route: "compliance-frameworks", param: "framework", label: "Frameworks", detailMode: "page" },
+};
+
+async function getGraphList(objectType) {
+  return (await getJson(`/graph/${encodeURIComponent(objectType)}`)).items;
+}
+
+async function getGraphDetail(objectType, objectKey) {
+  return getJson(`/graph/${encodeURIComponent(objectType)}/${encodeURIComponent(objectKey)}`);
+}
+
+async function getGraphOptions(objectType, objectKey) {
+  return (await getJson(`/graph/${encodeURIComponent(objectType)}/${encodeURIComponent(objectKey)}/options`)).items;
+}
+
+function openGraphObject(objectType, objectKey) {
+  _relationshipModal.open = false;
+  const config = GRAPH_ROUTE_CONFIG[objectType];
+  if (!config) return;
+  navigateTo(config.route, { [config.param]: objectKey });
+}
+
+function clearGraphObject(objectType) {
+  const config = GRAPH_ROUTE_CONFIG[objectType];
+  if (!config) return;
+  _relationshipModal.open = false;
+  setRouteSearchParam(config.param, null);
+  renderCurrentPage();
+}
+
+async function openRelationshipModal(sourceType, sourceKey) {
+  const options = await getGraphOptions(sourceType, sourceKey);
+  _relationshipModal.open = true;
+  _relationshipModal.sourceType = sourceType;
+  _relationshipModal.sourceKey = String(sourceKey);
+  _relationshipModal.options = options;
+  _relationshipModal.typeFilter = options[0]?.object_type || "all";
+  _relationshipModal.search = "";
+  _relationshipModal.selectedType = _relationshipModal.typeFilter === "all" ? (options[0]?.object_type || "") : _relationshipModal.typeFilter;
+  _relationshipModal.selectedKey = "";
+  renderCurrentPage();
+}
+
+function closeRelationshipModal() {
+  _relationshipModal.open = false;
+  _relationshipModal.options = [];
+  _relationshipModal.search = "";
+  _relationshipModal.selectedKey = "";
+  _relationshipModal.selectedType = "";
+}
+
+function setRelationshipTypeFilter(value) {
+  _relationshipModal.typeFilter = value;
+  if (value !== "all") {
+    _relationshipModal.selectedType = value;
+  }
+  _relationshipModal.selectedKey = "";
+  renderCurrentPage();
+}
+
+function setRelationshipSearch(value) {
+  _relationshipModal.search = value;
+  renderCurrentPage();
+}
+
+function selectRelationshipTarget(objectType, objectKey) {
+  _relationshipModal.selectedType = objectType;
+  _relationshipModal.selectedKey = String(objectKey);
+  renderCurrentPage();
+}
+
+function getFilteredRelationshipOptions() {
+  const query = _relationshipModal.search.trim().toLowerCase();
+  return _relationshipModal.options.filter((item) => {
+    if (_relationshipModal.typeFilter !== "all" && item.object_type !== _relationshipModal.typeFilter) {
+      return false;
+    }
+    if (!query) return true;
+    return [item.title, item.subtitle, item.external_key, item.object_type]
+      .filter(Boolean)
+      .some((value) => String(value).toLowerCase().includes(query));
+  });
+}
+
+function renderRelationshipModal() {
+  if (!_relationshipModal.open) return "";
+  const options = getFilteredRelationshipOptions();
+  const types = ["all", ...new Set(_relationshipModal.options.map((item) => item.object_type))];
+  return `
+    <div class="relationship-modal-shell">
+      <div class="relationship-modal-backdrop" data-close-relationship="1"></div>
+      <div class="relationship-modal">
+        <div class="relationship-modal-head">
+          <div>
+            <p class="mapped-elements-kicker">Create relationship</p>
+            <h3 class="serif-text section-title" style="margin-bottom:4px;">Add connection</h3>
+            <p class="graph-detail-subtitle">Link this ${escapeHtml(_relationshipModal.sourceType)} to another object anywhere in the program.</p>
+          </div>
+          <button class="detail-drawer-close" data-close-relationship="1">Close</button>
+        </div>
+        <div class="relationship-toolbar">
+          <select id="relationship-type-filter" class="relationship-select">
+            ${types.map((type) => `<option value="${escapeHtml(type)}" ${_relationshipModal.typeFilter === type ? "selected" : ""}>${escapeHtml(type === "all" ? "All object types" : GRAPH_ROUTE_CONFIG[type]?.label || type)}</option>`).join("")}
+          </select>
+          <input id="relationship-search" class="relationship-search" type="search" placeholder="Search by name or key" value="${escapeHtml(_relationshipModal.search)}" />
+        </div>
+        <div class="relationship-option-list">
+          ${
+            options.length
+              ? options.map((item) => `
+                  <button class="relationship-option ${_relationshipModal.selectedKey === String(item.external_key) && _relationshipModal.selectedType === item.object_type ? "active" : ""}" data-relationship-option="1" data-target-type="${escapeHtml(item.object_type)}" data-target-key="${escapeHtml(item.external_key)}">
+                    <span class="relationship-option-title">${escapeHtml(item.title)}</span>
+                    <span class="relationship-option-meta">${escapeHtml((GRAPH_ROUTE_CONFIG[item.object_type] || {}).label || item.object_type)} · ${escapeHtml(item.external_key)}${item.subtitle ? ` · ${escapeHtml(item.subtitle)}` : ""}</span>
+                  </button>
+                `).join("")
+              : `<p class="status-gray">No objects match this filter.</p>`
+          }
+        </div>
+        <div class="relationship-modal-actions">
+          <button class="btn btn-outline" data-close-relationship="1">Cancel</button>
+          <button class="btn btn-primary" id="relationship-submit" ${!_relationshipModal.selectedKey ? "disabled" : ""}>Add connection</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderGraphMetric(label, value, note = "") {
+  return `
+    <div class="card graph-metric-card">
+      <p class="graph-metric-label">${escapeHtml(label)}</p>
+      <div class="metric-value">${escapeHtml(value)}</div>
+      ${note ? `<p class="graph-metric-note">${escapeHtml(note)}</p>` : ""}
+    </div>
+  `;
+}
+
+function renderGraphSummaryGrid(detail) {
+  const metadata = detail.metadata || {};
+  const entries = [
+    ["Status", detail.status || "-"],
+    ["Owner", detail.owner || "-"],
+    ["Subtitle", detail.subtitle || "-"],
+  ];
+
+  if (detail.object_type === "control") {
+    entries.push(["Control ID", metadata.control_id || detail.subtitle || "-"]);
+    entries.push(["Type I", metadata.type1_ready ? "Ready" : "Not ready"]);
+    entries.push(["Type II", metadata.type2_ready ? "Ready" : "Not ready"]);
+    entries.push(["Next review", formatDate(metadata.next_review_at)]);
+  } else if (detail.object_type === "policy") {
+    entries.push(["Renewal", metadata.renewal_frequency || "-"]);
+    entries.push(["Frameworks", (metadata.frameworks || []).join(", ") || "-"]);
+    entries.push(["Latest version", metadata.latest_version_label || "-"]);
+  } else if (detail.object_type === "document") {
+    entries.push(["Source", detail.subtitle || "-"]);
+    entries.push(["Collected", formatDate(metadata.collected_at)]);
+    entries.push(["Artifact", metadata.artifact_path || "-"]);
+  } else if (detail.object_type === "risk") {
+    entries.push(["Inherent risk", metadata.inherent_risk ?? "-"]);
+    entries.push(["Residual risk", metadata.residual_risk ?? "-"]);
+    entries.push(["Treatment", metadata.treatment_plan || "-"]);
+    entries.push(["Category", metadata.category || "-"]);
+  } else if (detail.object_type === "vendor") {
+    entries.push(["Category", metadata.category || "-"]);
+    entries.push(["Inherent risk", metadata.inherent_risk || "-"]);
+    entries.push(["Security review", metadata.security_review_status || "-"]);
+  } else if (detail.object_type === "audit") {
+    entries.push(["Audit type", metadata.audit_type || "-"]);
+    entries.push(["Firm", metadata.firm_name || "-"]);
+    entries.push(["Period", metadata.audit_period_id || "-"]);
+  } else if (detail.object_type === "test") {
+    entries.push(["SLA", metadata.sla_days ? `${metadata.sla_days} days` : "-"]);
+    entries.push(["Integration", metadata.integration_name || "-"]);
+  } else if (detail.object_type === "integration") {
+    entries.push(["Capabilities", (metadata.capabilities || []).join(", ") || "-"]);
+  }
+
+  return `
+    <div class="card graph-summary-card">
+      <div class="graph-summary-grid">
+        ${entries
+          .map(
+            ([label, value]) => `
+              <div class="graph-summary-item">
+                <p class="graph-summary-label">${escapeHtml(label)}</p>
+                <p class="graph-summary-value">${escapeHtml(value || "-")}</p>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderMappedElements(detail, compact = false) {
+  const sections = detail.mapped_elements || [];
+  const headerClass = compact ? "mapped-elements-header compact" : "mapped-elements-header";
+  return `
+    <div class="card mapped-elements-card ${compact ? "compact" : ""}">
+      <div class="${headerClass}">
+        <div>
+          <p class="mapped-elements-kicker">Connected objects</p>
+          <h3 class="serif-text section-title" style="margin-bottom:4px;">Mapped elements</h3>
+        </div>
+        <button class="btn btn-outline relationship-add" data-source-type="${escapeHtml(detail.object_type)}" data-source-key="${escapeHtml(detail.external_key)}">Add connection</button>
+      </div>
+      <div class="mapped-elements-sections">
+        ${
+          sections.length
+            ? sections
+                .map(
+                  (section) => `
+                    <section class="mapped-section">
+                      <div class="mapped-section-head">
+                        <h4>${escapeHtml(section.section)}</h4>
+                        <span>${section.items.length}</span>
+                      </div>
+                      <div class="mapped-list">
+                        ${section.items
+                          .map(
+                            (item) => `
+                              <article class="mapped-item">
+                                <button class="mapped-item-main" data-open-object="1" data-object-type="${escapeHtml(item.object_type)}" data-object-key="${escapeHtml(item.external_key)}">
+                                  <span class="mapped-item-title">${escapeHtml(item.title)}</span>
+                                  <span class="mapped-item-sub">${escapeHtml(item.subtitle || item.status || item.link_type || "")}</span>
+                                </button>
+                                <div class="mapped-item-meta">
+                                  ${item.status ? `<span class="mapped-pill">${escapeHtml(item.status)}</span>` : ""}
+                                  <button class="mapped-item-remove relationship-remove" data-relationship-id="${item.relationship_id}" title="Remove connection">Remove</button>
+                                </div>
+                              </article>
+                            `
+                          )
+                          .join("")}
+                      </div>
+                    </section>
+                  `
+                )
+                .join("")
+            : `<p class="status-gray">No mapped elements yet.</p>`
+        }
+      </div>
+    </div>
+  `;
+}
+
+function renderGraphPageFrame(detail, backRoute, backLabel, body) {
+  return `
+    <div class="graph-detail-page">
+      <button class="graph-back-link" data-route-target="${escapeHtml(backRoute)}">${escapeHtml(backLabel)}</button>
+      <header class="graph-detail-header">
+        <div>
+          <p class="graph-detail-eyebrow">${escapeHtml((GRAPH_ROUTE_CONFIG[detail.object_type] || {}).label || detail.object_type)}</p>
+          <h1 class="page-title serif-text" style="margin-bottom:8px;">${escapeHtml(detail.title)}</h1>
+          <p class="graph-detail-subtitle">${escapeHtml(detail.description || detail.subtitle || "")}</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-outline relationship-add" data-source-type="${escapeHtml(detail.object_type)}" data-source-key="${escapeHtml(detail.external_key)}">Add connection</button>
+        </div>
+      </header>
+      ${body}
+    </div>
+  `;
+}
+
+function renderAuditWorkspaceTable(workspace) {
+  if (!workspace?.controls?.length) {
+    return `<div class="card"><p class="status-gray">No controls are in scope for this audit yet.</p></div>`;
+  }
+  return renderTable(
+    ["Control", "Title", "State", "Evidence", "Finding"],
+    workspace.controls.map(
+      (control) => `
+        <tr>
+          <td style="font-weight:500;">${escapeHtml(control.control_id)}</td>
+          <td>${escapeHtml(control.title)}</td>
+          <td>${getStatusHtml(control.audit_state)}</td>
+          <td>${getStatusHtml(control.latest_evidence_status || "missing")}</td>
+          <td>${escapeHtml(control.issue || "-")}</td>
+        </tr>
+      `
+    )
+  );
+}
+
+function renderAuditReadinessBar(workspace) {
+  const controls = workspace?.controls || [];
+  if (!controls.length) return "";
+  const segments = [
+    { label: "Ready", count: controls.filter((item) => item.audit_state === "ready").length, className: "good" },
+    { label: "Attention", count: controls.filter((item) => item.audit_state !== "ready").length, className: "alert" },
+  ];
+  const total = Math.max(segments.reduce((sum, segment) => sum + segment.count, 0), 1);
+  return `
+    <div class="card graph-story-card">
+      <h3 class="serif-text section-title">Evidence tracker</h3>
+      <div class="audit-readiness-bar">
+        ${segments
+          .map((segment) => `<span class="audit-readiness-segment ${segment.className}" style="width:${(segment.count / total) * 100}%"></span>`)
+          .join("")}
+      </div>
+      <div class="audit-readiness-legend">
+        ${segments
+          .map((segment) => `<span><strong>${segment.count}</strong> ${escapeHtml(segment.label)}</span>`)
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderDocumentHistory(detail) {
+  const metadata = detail.metadata || {};
+  const currentCollected = metadata.collected_at ? formatDate(metadata.collected_at) : "-";
+  const rows = [
+    `<tr>
+      <td style="font-weight:500;">${escapeHtml(detail.title)}</td>
+      <td>${escapeHtml(detail.subtitle || "manual")}</td>
+      <td>${currentCollected}</td>
+      <td>${getStatusHtml(detail.status || "submitted")}</td>
+    </tr>`,
+  ];
+  return renderTable(["Version", "Source", "Collected", "Status"], rows);
+}
+
+function renderObjectSpecificPanels(detail) {
+  const metadata = detail.metadata || {};
+  if (detail.object_type === "policy") {
+    return `
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Version status</h3>
+        <p class="graph-story-title">${escapeHtml(metadata.latest_version_label || "Approved version")}</p>
+        <p class="status-gray">Renew ${escapeHtml(metadata.renewal_frequency || "annually")} with linked controls and audit references kept in sync.</p>
+      </div>
+    `;
+  }
+  if (detail.object_type === "document") {
+    const evidence = detail.evidence || {};
+    return `
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Document instructions</h3>
+        <p class="graph-story-title">${escapeHtml(detail.title)}</p>
+        <p class="status-gray">${escapeHtml(detail.description || "This document supports linked controls and audit evidence flows.")}</p>
+      </div>
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Latest version</h3>
+        <p class="graph-story-title">${escapeHtml(evidence.name || detail.title)}</p>
+        <p class="status-gray">Collected ${formatDate((detail.metadata || {}).collected_at)} from ${escapeHtml(detail.subtitle || "manual")}. Artifact path: ${escapeHtml((detail.metadata || {}).artifact_path || "-")}</p>
+      </div>
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Version history</h3>
+        ${renderDocumentHistory(detail)}
+      </div>
+    `;
+  }
+  if (detail.object_type === "risk") {
+    return `
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Treatment plan</h3>
+        <p class="graph-story-title">${escapeHtml(metadata.treatment_plan || "Mitigate")}</p>
+        <p class="status-gray">Treatment status: ${escapeHtml(metadata.treatment_status || "incomplete")}. This view keeps controls, tasks, and policies connected to the scenario.</p>
+      </div>
+    `;
+  }
+  if (detail.object_type === "vendor") {
+    return `
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Security review</h3>
+        <p class="graph-story-title">${escapeHtml(metadata.security_review_status || "needs_review")}</p>
+        <p class="status-gray">Linked integrations, risks, and documents keep the vendor record connected to the rest of the program.</p>
+      </div>
+    `;
+  }
+  if (detail.object_type === "audit") {
+    return `
+      <div class="grid-3" style="margin-bottom:24px;">
+        ${renderGraphMetric("Controls in scope", detail.workspace?.summary?.controls_in_scope || 0, "Current audit scope")}
+        ${renderGraphMetric("Evidence items", detail.workspace?.summary?.evidence_items || 0, "Collected artifacts")}
+        ${renderGraphMetric("Open findings", detail.workspace?.summary?.open_findings || 0, "Needs follow-up")}
+      </div>
+      ${renderAuditReadinessBar(detail.workspace)}
+      ${renderAuditWorkspaceTable(detail.workspace)}
+    `;
+  }
+  if (detail.object_type === "test") {
+    return `
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Test result</h3>
+        <p class="graph-story-title">${escapeHtml(detail.status || "attention")}</p>
+        <p class="status-gray">This test stays linked to controls, documents, and audits so remediation has context rather than living in a separate screen.</p>
+      </div>
+    `;
+  }
+  if (detail.object_type === "integration") {
+    return `
+      <div class="card graph-story-card">
+        <h3 class="serif-text section-title">Connection scope</h3>
+        <p class="graph-story-title">${escapeHtml(detail.status || "review")}</p>
+        <p class="status-gray">Capabilities: ${escapeHtml((metadata.capabilities || []).join(", ") || "access")}</p>
+      </div>
+    `;
+  }
+  return "";
+}
+
+async function renderGraphDetailPage(objectType, objectKey) {
+  const detail = await getGraphDetail(objectType, objectKey);
+  const config = GRAPH_ROUTE_CONFIG[objectType];
+  return renderGraphPageFrame(
+    detail,
+    config.route,
+    `Back to ${config.label}`,
+    `
+      <div class="grid-2 audit-layout graph-detail-layout">
+        <div class="graph-main-stack">
+          ${renderGraphSummaryGrid(detail)}
+          ${renderObjectSpecificPanels(detail)}
+        </div>
+        <div class="graph-side-stack">
+          ${renderMappedElements(detail)}
+        </div>
+      </div>
+    `
+  );
+}
+
+function renderControlDrawer(detail) {
+  return `
+    <aside class="detail-drawer-shell">
+      <div class="detail-drawer-backdrop" onclick="backToControls()"></div>
+      <div class="detail-drawer">
+        <div class="detail-drawer-head">
+          <div>
+            <p class="graph-detail-eyebrow">Control</p>
+            <h2 class="serif-text">${escapeHtml(detail.title)}</h2>
+            <p class="graph-detail-subtitle">${escapeHtml(detail.description || "")}</p>
+          </div>
+          <button class="detail-drawer-close" onclick="backToControls()">Close</button>
+        </div>
+        ${renderGraphSummaryGrid(detail)}
+        ${renderMappedElements(detail, true)}
+        <div class="card mapped-elements-card compact">
+          <div class="mapped-elements-header compact">
+            <div>
+              <p class="mapped-elements-kicker">Evidence</p>
+              <h3 class="serif-text section-title" style="margin-bottom:4px;">Recent evidence</h3>
+            </div>
+            <button class="btn btn-outline" data-route-target="evidence" data-param-control_id="${escapeHtml(detail.external_key)}">Add evidence</button>
+          </div>
+          ${
+            detail.evidence?.length
+              ? renderTable(
+                  ["Name", "Source", "Status"],
+                  detail.evidence.slice(0, 8).map(
+                    (item) => `
+                      <tr>
+                        <td style="font-weight:500;">${escapeHtml(item.name)}</td>
+                        <td>${escapeHtml(item.source)}</td>
+                        <td>${getStatusHtml(item.status)}</td>
+                      </tr>
+                    `
+                  )
+                )
+              : `<p class="status-gray">No evidence attached yet.</p>`
+          }
+        </div>
+      </div>
+    </aside>
+  `;
+}
+
+async function renderControlsGraph() {
+  const controlKey = getSearchParam("control");
+  const controls = await getGraphList("control");
+  const selectedDetail = controlKey ? await getGraphDetail("control", controlKey) : null;
+
+  const implementedCount = controls.filter((item) => item.status === "implemented").length;
+  const readyCount = controls.filter((item) => (item.metadata || {}).type1_ready).length;
+  const rows = controls.map(
+    (control) => `
+      <tr>
+        <td style="font-weight:500;">${escapeHtml(control.subtitle || control.external_key)}</td>
+        <td>
+          <div style="font-weight:500; color:var(--text-primary);">${escapeHtml(control.title)}</div>
+          <div class="status-gray" style="font-size:0.85rem; margin-top:4px;">${escapeHtml(control.description || "")}</div>
+        </td>
+        <td>${escapeHtml(control.owner || "Unassigned")}</td>
+        <td>${getStatusHtml(control.status || "draft")}</td>
+        <td>${(control.metadata || {}).type1_ready ? `<span class="status-green">ready</span>` : `<span class="status-gray">pending</span>`}</td>
+        <td><button class="btn btn-outline" onclick="openControlDetail('${escapeHtml(control.external_key)}')">View</button></td>
+      </tr>
+    `
+  );
+
+  return `
+    ${shell("Controls", "")}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Total controls", controls.length, "Live graph-backed records")}
+      ${renderGraphMetric("Implemented", implementedCount, "Controls marked implemented")}
+      ${renderGraphMetric("Type I ready", readyCount, "Controls with readiness evidence")}
+    </div>
+    <div class="graph-list-layout ${selectedDetail ? "has-drawer" : ""}">
+      ${renderTable(["ID", "Control", "Owner", "Status", "Readiness", ""], rows)}
+      ${selectedDetail ? renderControlDrawer(selectedDetail) : ""}
+    </div>
+  `;
+}
+
+function renderGraphListTable(items, columns, objectType) {
+  const rows = items.map((item) => {
+    const metadata = item.metadata || {};
+    const values = columns.map((column) => {
+      if (column === "__open") {
+        return `<td><button class="btn btn-outline" data-open-object="1" data-object-type="${escapeHtml(objectType)}" data-object-key="${escapeHtml(item.external_key)}">Open</button></td>`;
+      }
+      if (column === "title") return `<td style="font-weight:500;">${escapeHtml(item.title)}</td>`;
+      if (column === "status") return `<td>${getStatusHtml(item.status || "draft")}</td>`;
+      if (column === "owner") return `<td>${escapeHtml(item.owner || "-")}</td>`;
+      if (column === "subtitle") return `<td>${escapeHtml(item.subtitle || "-")}</td>`;
+      return `<td>${escapeHtml(metadata[column] ?? "-")}</td>`;
+    });
+    return `<tr>${values.join("")}</tr>`;
+  });
+  const headers = columns.map((column) => {
+    if (column === "__open") return "";
+    if (column === "title") return "Name";
+    if (column === "status") return "Status";
+    if (column === "owner") return "Owner";
+    if (column === "subtitle") return "Subtitle";
+    return column
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, (match) => match.toUpperCase());
+  });
+  return renderTable(headers, rows);
+}
+
+async function renderPoliciesGraph() {
+  const key = getSearchParam("policy");
+  if (key) return renderGraphDetailPage("policy", key);
+  const items = await getGraphList("policy");
+  return `
+    ${shell("Policies", "", routeButton("Add connection-rich policy", "compliance-policies"))}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Policies", items.length, "Graph-backed policy records")}
+      ${renderGraphMetric("Approved", items.filter((item) => item.status === "approved").length, "Ready for audits")}
+      ${renderGraphMetric("Need review", items.filter((item) => item.status !== "approved").length, "Requires owner attention")}
+    </div>
+    ${renderGraphListTable(items, ["title", "status", "owner", "subtitle", "__open"], "policy")}
+  `;
+}
+
+async function renderDocumentsGraph() {
+  const key = getSearchParam("document");
+  if (key) return renderGraphDetailPage("document", key);
+  const items = await getGraphList("document");
+  return `
+    ${shell("Documents", "", routeButton("Upload document", "evidence"))}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Documents", items.length, "Evidence and reference documents")}
+      ${renderGraphMetric("Locked", items.filter((item) => item.status === "locked").length, "Immutable audit-ready artifacts")}
+      ${renderGraphMetric("Attention", items.filter((item) => ["rejected", "stale", "pending"].includes(item.status)).length, "Requires follow-up")}
+    </div>
+    ${renderGraphListTable(items, ["title", "status", "subtitle", "collected_at", "__open"], "document")}
+  `;
+}
+
+async function renderAuditsGraph() {
+  const key = getSearchParam("audit");
+  if (key) return renderGraphDetailPage("audit", key);
+  const items = await getGraphList("audit");
+  const workspace = await getJson("/workspaces/audits");
+  return `
+    ${shell("Audits", "", routeButton("Start audit", "new_audit_firm_selection"))}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Controls in scope", workspace.summary.controls_in_scope, "Current audit scope")}
+      ${renderGraphMetric("Open findings", workspace.summary.open_findings, "Needs remediation")}
+      ${renderGraphMetric("Evidence items", workspace.summary.evidence_items, "Collected artifacts")}
+    </div>
+    ${items.length ? renderGraphListTable(items, ["title", "status", "subtitle", "__open"], "audit") : `<div class="card"><p class="status-gray">No audit records exist yet. Start one to open the full workspace view.</p></div>`}
+  `;
+}
+
+async function renderRisksGraph() {
+  const key = getSearchParam("risk");
+  if (key) return renderGraphDetailPage("risk", key);
+  const items = await getGraphList("risk");
+  return `
+    ${shell("Risk scenarios", "", routeButton("Open risk library", "risk-library"))}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Open risks", items.length, "Connected risk scenarios")}
+      ${renderGraphMetric("High severity", items.filter((item) => ((item.metadata || {}).severity || "") === "high").length, "Needs priority mitigation")}
+      ${renderGraphMetric("Approved", items.filter((item) => item.status === "approved").length, "Reviewed scenarios")}
+    </div>
+    ${renderGraphListTable(items, ["subtitle", "title", "owner", "severity", "status", "__open"], "risk")}
+  `;
+}
+
+async function renderVendorsGraph() {
+  const key = getSearchParam("vendor");
+  if (key) return renderGraphDetailPage("vendor", key);
+  const items = await getGraphList("vendor");
+  return `
+    ${shell("Vendors", "", routeButton("Open integrations", "integrations", {}, "outline"))}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Vendors", items.length, "Third-party records")}
+      ${renderGraphMetric("Active", items.filter((item) => item.status === "active").length, "Operational vendors")}
+      ${renderGraphMetric("Need review", items.filter((item) => item.status !== "active").length, "Relationship follow-up")}
+    </div>
+    ${renderGraphListTable(items, ["title", "status", "category", "inherent_risk", "security_review_status", "__open"], "vendor")}
+  `;
+}
+
+async function renderTestsGraph() {
+  const key = getSearchParam("test");
+  if (key) return renderGraphDetailPage("test", key);
+  const items = await getGraphList("test");
+  return `
+    ${shell("Tests", "")}
+    <div class="grid-3" style="margin-bottom:24px;">
+      ${renderGraphMetric("Tests", items.length, "Connected test records")}
+      ${renderGraphMetric("Passing", items.filter((item) => item.status === "ok").length, "Healthy validation coverage")}
+      ${renderGraphMetric("Attention", items.filter((item) => item.status !== "ok").length, "Needs remediation")}
+    </div>
+    ${renderGraphListTable(items, ["title", "status", "owner", "integration_name", "__open"], "test")}
+  `;
+}
+
+async function renderIntegrationsGraph() {
+  const key = getSearchParam("integration");
+  if (key) return renderGraphDetailPage("integration", key);
+  return renderIntegrations();
+}
+
+PAGE_RENDERERS.tests = renderTestsGraph;
+PAGE_RENDERERS["compliance-controls"] = renderControlsGraph;
+PAGE_RENDERERS["compliance-policies"] = renderPoliciesGraph;
+PAGE_RENDERERS["compliance-documents"] = renderDocumentsGraph;
+PAGE_RENDERERS["compliance-audits"] = renderAuditsGraph;
+PAGE_RENDERERS["risk-risks"] = renderRisksGraph;
+PAGE_RENDERERS.vendors = renderVendorsGraph;
+PAGE_RENDERERS.integrations = renderIntegrationsGraph;
+
 async function setupActions() {
   document.querySelectorAll("[data-route-target]").forEach((element) => {
     if (element.dataset.boundClick === "1") return;
@@ -2489,6 +3155,97 @@ async function setupActions() {
     });
   }
 
+  document.querySelectorAll("[data-open-object]").forEach((element) => {
+    if (element.dataset.boundGraphOpen === "1") return;
+    element.dataset.boundGraphOpen = "1";
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      openGraphObject(element.dataset.objectType, element.dataset.objectKey);
+    });
+  });
+
+  document.querySelectorAll(".relationship-add").forEach((element) => {
+    if (element.dataset.boundRelationshipAdd === "1") return;
+    element.dataset.boundRelationshipAdd = "1";
+    element.addEventListener("click", async () => {
+      try {
+        await openRelationshipModal(element.dataset.sourceType, element.dataset.sourceKey);
+      } catch (error) {
+        alert(`Unable to open relationship picker: ${error.message}`);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-close-relationship]").forEach((element) => {
+    if (element.dataset.boundRelationshipClose === "1") return;
+    element.dataset.boundRelationshipClose = "1";
+    element.addEventListener("click", () => {
+      closeRelationshipModal();
+      renderCurrentPage();
+    });
+  });
+
+  const relationshipTypeFilter = document.getElementById("relationship-type-filter");
+  if (relationshipTypeFilter && relationshipTypeFilter.dataset.boundChange !== "1") {
+    relationshipTypeFilter.dataset.boundChange = "1";
+    relationshipTypeFilter.addEventListener("change", (event) => {
+      setRelationshipTypeFilter(event.target.value);
+    });
+  }
+
+  const relationshipSearch = document.getElementById("relationship-search");
+  if (relationshipSearch && relationshipSearch.dataset.boundInput !== "1") {
+    relationshipSearch.dataset.boundInput = "1";
+    relationshipSearch.addEventListener("input", (event) => {
+      setRelationshipSearch(event.target.value);
+    });
+  }
+
+  document.querySelectorAll("[data-relationship-option]").forEach((element) => {
+    if (element.dataset.boundRelationshipPick === "1") return;
+    element.dataset.boundRelationshipPick = "1";
+    element.addEventListener("click", () => {
+      selectRelationshipTarget(element.dataset.targetType, element.dataset.targetKey);
+    });
+  });
+
+  const relationshipSubmit = document.getElementById("relationship-submit");
+  if (relationshipSubmit && relationshipSubmit.dataset.boundSubmit !== "1") {
+    relationshipSubmit.dataset.boundSubmit = "1";
+    relationshipSubmit.addEventListener("click", async () => {
+      try {
+        await getJson("/graph/relationships", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            source_type: _relationshipModal.sourceType,
+            source_key: _relationshipModal.sourceKey,
+            target_type: _relationshipModal.selectedType,
+            target_key: _relationshipModal.selectedKey,
+          }),
+        });
+        closeRelationshipModal();
+        renderCurrentPage();
+      } catch (error) {
+        alert(`Unable to create relationship: ${error.message}`);
+      }
+    });
+  }
+
+  document.querySelectorAll(".relationship-remove").forEach((element) => {
+    if (element.dataset.boundRelationshipRemove === "1") return;
+    element.dataset.boundRelationshipRemove = "1";
+    element.addEventListener("click", async () => {
+      if (!confirm("Remove this connection?")) return;
+      try {
+        await fetch(`/graph/relationships/${encodeURIComponent(element.dataset.relationshipId)}`, { method: "DELETE" });
+        renderCurrentPage();
+      } catch (error) {
+        alert(`Unable to remove relationship: ${error.message}`);
+      }
+    });
+  });
+
   const uploadForm = document.getElementById("upload-form");
   if (uploadForm) {
     const presetControlId = getSearchParam("control_id");
@@ -2542,7 +3299,7 @@ async function renderCurrentPage() {
   const root = document.getElementById("page-root");
 
   try {
-    root.innerHTML = await PAGE_RENDERERS[route]();
+    root.innerHTML = `${await PAGE_RENDERERS[route]()}${renderRelationshipModal()}`;
   } catch (error) {
     root.innerHTML = `
       ${shell("Screen Error", "Unable to load this screen")}

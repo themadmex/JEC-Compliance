@@ -20,6 +20,7 @@ from app.routes import (
     controls,
     dashboard,
     evidence,
+    graph,
     integrations,
     jobs,
     sharepoint,
@@ -75,6 +76,7 @@ app.mount("/branding", StaticFiles(directory=BRANDING_DIR), name="branding")
 app.include_router(auth.router)
 app.include_router(controls.router)
 app.include_router(evidence.router)
+app.include_router(graph.router)
 app.include_router(audits.router)
 app.include_router(audit_log.router)
 app.include_router(tasks.router)
