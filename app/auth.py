@@ -18,10 +18,11 @@ AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
 SCOPES = ["User.Read"]
 ROLE_ORDER = {
     "viewer": 0,
-    "contributor": 1,
-    "security_reviewer": 2,
-    "compliance_manager": 3,
-    "admin": 4,
+    "auditor": 1,
+    "contributor": 2,
+    "security_reviewer": 3,
+    "compliance_manager": 4,
+    "admin": 5,
 }
 
 _msal_app: msal.ConfidentialClientApplication | None = None
@@ -56,7 +57,26 @@ def decode_session_token(token: str) -> dict[str, Any]:
     return _get_serializer().loads(token, salt="session", max_age=86400 * 7)
 
 
-def get_current_user(session: str | None = Cookie(default=None)) -> dict[str, Any]:
+def get_current_user(
+    session: str | None = Cookie(default=None),
+    x_auditor_token: str | None = None
+) -> dict[str, Any]:
+    # 1. Check for scoped auditor token first
+    if x_auditor_token:
+        with get_connection() as conn:
+            row = conn.execute(
+                "SELECT id, oid, email, name, role, token_expires_at FROM users WHERE scoped_token = ?",
+                (x_auditor_token,),
+            ).fetchone()
+            if row:
+                user_dict = dict(row)
+                if user_dict.get("token_expires_at"):
+                    expiry = datetime.fromisoformat(user_dict["token_expires_at"])
+                    if datetime.now(timezone.utc) > expiry:
+                        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Auditor token expired")
+                return user_dict
+
+    # 2. Regular session cookie auth
     if not session:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
     try:

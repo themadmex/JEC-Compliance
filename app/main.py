@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
@@ -28,6 +28,8 @@ from app.routes import (
     workspaces,
 )
 from app.seed import seed_default_framework_and_controls
+from app.services.checks.runner import initialize_engine, run_all_automated_checks
+from app.db import get_db_session
 
 
 app = FastAPI(
@@ -36,20 +38,30 @@ app = FastAPI(
     description="Internal SOC 2 Type 1/Type 2 readiness tracker for Jean Edwards Consulting.",
 )
 
-_scheduler: BackgroundScheduler | None = None
+_scheduler: AsyncIOScheduler | None = None
 FRONTEND_DIR = Path("frontend")
 BRANDING_DIR = Path("branding")
 
 
 @app.on_event("startup")
-def startup() -> None:
+async def startup() -> None:
     global _scheduler
     init_db()
     seed_default_framework_and_controls()
+    initialize_engine()
 
     if _scheduler is None:
-        _scheduler = BackgroundScheduler(timezone="UTC")
+        _scheduler = AsyncIOScheduler(timezone="UTC")
+        # Legacy monitor
         _scheduler.add_job(evidence_monitor.run, "interval", hours=1, id="evidence-health")
+        
+        # New Compliance Engine Poll loop
+        async def scan_job():
+            # Get a fresh session for the background job
+            session = next(get_db_session())
+            await run_all_automated_checks(session)
+
+        _scheduler.add_job(scan_job, "interval", hours=2, id="compliance-sync")
         _scheduler.start()
 
 

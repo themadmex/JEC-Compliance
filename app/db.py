@@ -1,247 +1,85 @@
 from __future__ import annotations
 
+import os
 import sqlite3
 from pathlib import Path
+from typing import Any
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.pool import StaticPool
+
+# --- Configuration ---
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///data/jec_soc2.db")
+
+# Setup for SQLite specifics (like foreign keys)
+connect_args = {}
+if DATABASE_URL.startswith("sqlite"):
+    connect_args["check_same_thread"] = False
+
+# Create engine with pooling logic
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=connect_args,
+    # Use StaticPool for SQLite to keep the connection open in memory if needed
+    poolclass=StaticPool if DATABASE_URL.startswith("sqlite") else None,
+)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-DB_DIR = Path("data")
-DB_PATH = DB_DIR / "jec_soc2.db"
+class _LegacyConnection:
+    def __init__(self, conn: Any) -> None:
+        self._conn = conn
 
+    def __enter__(self) -> "_LegacyConnection":
+        return self
 
-def get_connection() -> sqlite3.Connection:
-    DB_DIR.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON;")
-    return conn
+    def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> bool:
+        try:
+            if exc_type is None:
+                self._conn.commit()
+            else:
+                self._conn.rollback()
+        finally:
+            self._conn.close()
+        return False
 
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._conn, name)
 
-def _table_columns(conn: sqlite3.Connection, table_name: str) -> set[str]:
-    rows = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
-    return {str(row["name"]) for row in rows}
+def get_db_session() -> Session:
+    """Dependency for FastAPI routes to get a DB session."""
+    db = SessionLocal()
+    try:
+        if DATABASE_URL.startswith("sqlite"):
+            db.execute(text("PRAGMA foreign_keys = ON;"))
+        yield db
+    finally:
+        db.close()
 
-
-def _ensure_column(
-    conn: sqlite3.Connection,
-    table_name: str,
-    column_name: str,
-    definition: str,
-) -> None:
-    if column_name in _table_columns(conn, table_name):
-        return
-    conn.execute(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {definition}")
-
+def get_connection():
+    """Legacy support for raw SQL execution during transition."""
+    # This returns a raw DB-API connection from the engine.
+    conn = engine.raw_connection()
+    if DATABASE_URL.startswith("sqlite"):
+        conn.driver_connection.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON;")
+    return _LegacyConnection(conn)
 
 def init_db() -> None:
-    with get_connection() as conn:
-        conn.executescript(
-            """
-            CREATE TABLE IF NOT EXISTS frameworks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                version TEXT NOT NULL,
-                UNIQUE(name, version)
-            );
-
-            CREATE TABLE IF NOT EXISTS controls (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                framework_id INTEGER NOT NULL,
-                control_id TEXT NOT NULL,
-                title TEXT NOT NULL,
-                description TEXT NOT NULL,
-                owner TEXT,
-                implementation_status TEXT NOT NULL DEFAULT 'draft',
-                type1_ready INTEGER NOT NULL DEFAULT 0,
-                type2_ready INTEGER NOT NULL DEFAULT 0,
-                last_tested_at TEXT,
-                next_review_at TEXT,
-                FOREIGN KEY(framework_id) REFERENCES frameworks(id) ON DELETE CASCADE,
-                UNIQUE(framework_id, control_id)
-            );
-
-            CREATE TABLE IF NOT EXISTS evidence (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                control_id INTEGER NOT NULL,
-                name TEXT NOT NULL,
-                source TEXT NOT NULL,
-                artifact_path TEXT NOT NULL,
-                collected_at TEXT NOT NULL,
-                period_start TEXT,
-                period_end TEXT,
-                status TEXT NOT NULL DEFAULT 'accepted',
-                notes TEXT,
-                FOREIGN KEY(control_id) REFERENCES controls(id) ON DELETE CASCADE
-            );
-
-            CREATE TABLE IF NOT EXISTS control_checks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                control_id INTEGER NOT NULL,
-                checked_at TEXT NOT NULL,
-                result TEXT NOT NULL,
-                details TEXT NOT NULL,
-                FOREIGN KEY(control_id) REFERENCES controls(id) ON DELETE CASCADE
-            );
-
-            CREATE TABLE IF NOT EXISTS integration_runs (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                source TEXT NOT NULL,
-                started_at TEXT NOT NULL,
-                finished_at TEXT NOT NULL,
-                status TEXT NOT NULL,
-                details TEXT NOT NULL
-            );
-
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                oid TEXT NOT NULL UNIQUE,
-                email TEXT NOT NULL,
-                name TEXT,
-                role TEXT NOT NULL DEFAULT 'viewer',
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                last_login_at TEXT NOT NULL DEFAULT (datetime('now'))
-            );
-
-            CREATE TABLE IF NOT EXISTS audit_log (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                actor_id INTEGER,
-                action TEXT NOT NULL,
-                object_type TEXT NOT NULL,
-                object_id INTEGER NOT NULL,
-                previous_state TEXT,
-                new_state TEXT,
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                FOREIGN KEY(actor_id) REFERENCES users(id)
-            );
-
-            CREATE TABLE IF NOT EXISTS audit_periods (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                period_start TEXT NOT NULL,
-                period_end TEXT NOT NULL,
-                type TEXT NOT NULL,
-                created_by INTEGER,
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                FOREIGN KEY(created_by) REFERENCES users(id)
-            );
-
-            CREATE TABLE IF NOT EXISTS tasks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                type TEXT NOT NULL,
-                source_object_type TEXT NOT NULL,
-                source_object_id INTEGER NOT NULL,
-                title TEXT NOT NULL,
-                description TEXT,
-                owner_id INTEGER NOT NULL,
-                due_date TEXT,
-                status TEXT NOT NULL DEFAULT 'open',
-                priority TEXT NOT NULL DEFAULT 'medium',
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                completed_at TEXT,
-                FOREIGN KEY(owner_id) REFERENCES users(id)
-            );
-
-            CREATE TABLE IF NOT EXISTS audits (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                audit_period_id INTEGER NOT NULL,
-                type TEXT NOT NULL,
-                firm_name TEXT NOT NULL,
-                status TEXT NOT NULL DEFAULT 'draft',
-                scope_notes TEXT,
-                created_by INTEGER,
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                closed_at TEXT,
-                FOREIGN KEY(created_by) REFERENCES users(id)
-            );
-
-            CREATE TABLE IF NOT EXISTS audit_controls (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                audit_id INTEGER NOT NULL,
-                control_id INTEGER NOT NULL,
-                evidence_status TEXT NOT NULL DEFAULT 'missing',
-                assigned_to INTEGER,
-                notes TEXT,
-                FOREIGN KEY(audit_id) REFERENCES audits(id) ON DELETE CASCADE,
-                FOREIGN KEY(control_id) REFERENCES controls(id) ON DELETE CASCADE,
-                FOREIGN KEY(assigned_to) REFERENCES users(id)
-            );
-
-            CREATE TABLE IF NOT EXISTS audit_findings (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                audit_id INTEGER NOT NULL,
-                control_id INTEGER NOT NULL,
-                title TEXT NOT NULL,
-                description TEXT NOT NULL,
-                severity TEXT NOT NULL,
-                status TEXT NOT NULL DEFAULT 'open',
-                owner_id INTEGER NOT NULL,
-                due_date TEXT,
-                closed_at TEXT,
-                remediation_notes TEXT,
-                FOREIGN KEY(audit_id) REFERENCES audits(id) ON DELETE CASCADE,
-                FOREIGN KEY(control_id) REFERENCES controls(id) ON DELETE CASCADE,
-                FOREIGN KEY(owner_id) REFERENCES users(id)
-            );
-
-            CREATE TABLE IF NOT EXISTS graph_objects (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                object_type TEXT NOT NULL,
-                external_key TEXT NOT NULL,
-                title TEXT NOT NULL,
-                subtitle TEXT,
-                description TEXT,
-                status TEXT,
-                owner TEXT,
-                metadata_json TEXT NOT NULL DEFAULT '{}',
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-                UNIQUE(object_type, external_key)
-            );
-
-            CREATE TABLE IF NOT EXISTS graph_links (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                left_type TEXT NOT NULL,
-                left_id INTEGER NOT NULL,
-                right_type TEXT NOT NULL,
-                right_id INTEGER NOT NULL,
-                link_type TEXT NOT NULL,
-                notes TEXT,
-                created_at TEXT NOT NULL DEFAULT (datetime('now')),
-                UNIQUE(left_type, left_id, right_type, right_id, link_type)
-            );
-
-            CREATE INDEX IF NOT EXISTS idx_audit_log_object
-                ON audit_log(object_type, object_id);
-            CREATE INDEX IF NOT EXISTS idx_audit_log_actor
-                ON audit_log(actor_id);
-            CREATE INDEX IF NOT EXISTS idx_audit_log_time
-                ON audit_log(created_at);
-            CREATE INDEX IF NOT EXISTS idx_graph_objects_lookup
-                ON graph_objects(object_type, external_key);
-            CREATE INDEX IF NOT EXISTS idx_graph_links_left
-                ON graph_links(left_type, left_id);
-            CREATE INDEX IF NOT EXISTS idx_graph_links_right
-                ON graph_links(right_type, right_id);
-
-            CREATE TRIGGER IF NOT EXISTS audit_log_no_update
-            BEFORE UPDATE ON audit_log
-            BEGIN
-                SELECT RAISE(ABORT, 'audit_log rows are immutable');
-            END;
-
-            CREATE TRIGGER IF NOT EXISTS audit_log_no_delete
-            BEFORE DELETE ON audit_log
-            BEGIN
-                SELECT RAISE(ABORT, 'audit_log rows are immutable');
-            END;
-            """
-        )
-
-        _ensure_column(conn, "evidence", "submitter_id", "INTEGER")
-        _ensure_column(conn, "evidence", "approver_id", "INTEGER")
-        _ensure_column(conn, "evidence", "approved_at", "TEXT")
-        _ensure_column(conn, "evidence", "rejected_reason", "TEXT")
-        _ensure_column(conn, "evidence", "locked_at", "TEXT")
-        _ensure_column(conn, "evidence", "sha256_hash", "TEXT")
-        _ensure_column(conn, "evidence", "sharepoint_id", "TEXT")
-        _ensure_column(conn, "evidence", "audit_period_id", "INTEGER")
-        _ensure_column(conn, "evidence", "collection_due_date", "TEXT")
+    """Initialize the schema using raw SQL (preserving the existing init_db logic)."""
+    # Note: In a full Postgres migration, we would use Alembic for this.
+    # For Milestone 1, we keep the existing raw SQL schema for compatibility.
+    db_dir = Path("data")
+    db_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Use a one-off connection to run the bootstrap script
+    from app.db_schema import BOOTSTRAP_SQL # We will move the SQL to a separate file
+    
+    with engine.connect() as conn:
+        # Split by semicolon for Postgres compatibility if needed, 
+        # but for now we use the existing sqlite executescript style
+        for statement in BOOTSTRAP_SQL.split(";"):
+            if statement.strip():
+                conn.execute(text(statement))
+        conn.commit()
