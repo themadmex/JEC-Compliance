@@ -6,7 +6,8 @@ from pathlib import Path
 from alembic import context
 from sqlalchemy import create_engine, pool
 
-from app.db import DB_PATH
+from app.core.config import get_settings
+from app.models import Base
 
 
 config = context.config
@@ -14,17 +15,23 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = None
+target_metadata = Base.metadata
 
 
 def _database_url() -> str:
-    if DB_PATH.is_absolute():
-        return f"sqlite:///{DB_PATH.as_posix()}"
-    absolute = Path.cwd() / DB_PATH
-    return f"sqlite:///{absolute.as_posix()}"
+    return get_settings().database_url
 
 
 config.set_main_option("sqlalchemy.url", _database_url())
+
+
+def _ensure_sqlite_parent(url: str) -> None:
+    if not url.startswith("sqlite:///"):
+        return
+    db_path = Path(url.replace("sqlite:///", "", 1))
+    if not db_path.is_absolute():
+        db_path = Path.cwd() / db_path
+    db_path.parent.mkdir(parents=True, exist_ok=True)
 
 
 def run_migrations_offline() -> None:
@@ -40,8 +47,10 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
+    database_url = config.get_main_option("sqlalchemy.url")
+    _ensure_sqlite_parent(database_url)
     connectable = create_engine(
-        config.get_main_option("sqlalchemy.url"),
+        database_url,
         poolclass=pool.NullPool,
     )
 
