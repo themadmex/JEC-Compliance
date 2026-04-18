@@ -14,22 +14,30 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 from app.db import init_db
 from app.jobs import evidence_monitor
 from app.routes import (
+    access_reviews,
     audit_log,
     audits,
     auth,
+    checks,
     controls,
     dashboard,
     evidence,
     graph,
     integrations,
     jobs,
+    personnel,
+    policies,
+    risks,
     sharepoint,
     tasks,
     workspaces,
 )
 from app.seed import seed_default_framework_and_controls
 from app.services.checks.runner import initialize_engine, run_all_automated_checks
-from app.db import get_db_session
+from app.services.policy_service import run_consistency_scan
+from app.services.personnel_service import scan_overdue as personnel_scan_overdue
+from app.services.audit_service import scan_overdue_audit_requests
+from app.db import SessionLocal
 
 
 app = FastAPI(
@@ -57,11 +65,45 @@ async def startup() -> None:
         
         # New Compliance Engine Poll loop
         async def scan_job():
-            # Get a fresh session for the background job
-            session = next(get_db_session())
-            await run_all_automated_checks(session)
+            session = SessionLocal()
+            try:
+                await run_all_automated_checks(session)
+            finally:
+                session.close()
 
         _scheduler.add_job(scan_job, "interval", hours=2, id="compliance-sync")
+
+        # Phase 3b: daily policy consistency scan
+        def policy_scan_job():
+            session = SessionLocal()
+            try:
+                run_consistency_scan(session)
+                session.commit()
+            except Exception:
+                session.rollback()
+            finally:
+                session.close()
+
+        _scheduler.add_job(policy_scan_job, "interval", hours=24, id="policy-consistency")
+
+        # Phase 3d: daily personnel overdue scan
+        def personnel_overdue_job():
+            session = SessionLocal()
+            try:
+                personnel_scan_overdue(session)
+                session.commit()
+            except Exception:
+                session.rollback()
+            finally:
+                session.close()
+
+        _scheduler.add_job(personnel_overdue_job, "interval", hours=24, id="personnel-overdue")
+
+        def audit_request_overdue_job():
+            scan_overdue_audit_requests()
+
+        _scheduler.add_job(audit_request_overdue_job, "interval", hours=24, id="audit-request-overdue")
+
         _scheduler.start()
 
 
@@ -86,6 +128,7 @@ def root() -> FileResponse:
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 app.mount("/branding", StaticFiles(directory=BRANDING_DIR), name="branding")
 app.include_router(auth.router)
+app.include_router(checks.router)
 app.include_router(controls.router)
 app.include_router(evidence.router)
 app.include_router(graph.router)
@@ -95,5 +138,10 @@ app.include_router(tasks.router)
 app.include_router(dashboard.router)
 app.include_router(jobs.router)
 app.include_router(integrations.router)
+app.include_router(integrations.router, prefix="/api/v1")
 app.include_router(sharepoint.router)
 app.include_router(workspaces.router)
+app.include_router(policies.router)
+app.include_router(access_reviews.router)
+app.include_router(personnel.router)
+app.include_router(risks.router)

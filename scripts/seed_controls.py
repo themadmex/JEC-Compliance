@@ -4,12 +4,14 @@ from dataclasses import dataclass
 from pathlib import Path
 import sys
 
+from sqlalchemy import inspect, text
+
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.db import get_connection
+from app.db import engine
 
 
 FRAMEWORK_NAME = "SOC 2"
@@ -111,28 +113,46 @@ SEED_CONTROLS = [
 
 
 def _columns(conn, table_name: str) -> set[str]:
-    return {row["name"] for row in conn.execute(f"PRAGMA table_info({table_name})")}
+    return {column["name"] for column in inspect(conn).get_columns(table_name)}
 
 
 def _ensure_framework(conn) -> int:
     framework_columns = _columns(conn, "frameworks")
     if "description" in framework_columns:
         conn.execute(
-            """
-            INSERT OR IGNORE INTO frameworks (name, version, description)
-            VALUES (?, ?, ?)
-            """,
-            (FRAMEWORK_NAME, FRAMEWORK_VERSION, "SOC 2 Trust Services Criteria"),
+            text(
+                """
+                INSERT INTO frameworks (name, version, description)
+                VALUES (:name, :version, :description)
+                ON CONFLICT(name, version) DO NOTHING
+                """
+            ),
+            {
+                "name": FRAMEWORK_NAME,
+                "version": FRAMEWORK_VERSION,
+                "description": "SOC 2 Trust Services Criteria",
+            },
         )
     else:
         conn.execute(
-            "INSERT OR IGNORE INTO frameworks (name, version) VALUES (?, ?)",
-            (FRAMEWORK_NAME, FRAMEWORK_VERSION),
+            text(
+                """
+                INSERT INTO frameworks (name, version)
+                VALUES (:name, :version)
+                ON CONFLICT(name, version) DO NOTHING
+                """
+            ),
+            {"name": FRAMEWORK_NAME, "version": FRAMEWORK_VERSION},
         )
     row = conn.execute(
-        "SELECT id FROM frameworks WHERE name = ? AND version = ?",
-        (FRAMEWORK_NAME, FRAMEWORK_VERSION),
-    ).fetchone()
+        text(
+            """
+            SELECT id FROM frameworks
+            WHERE name = :name AND version = :version
+            """
+        ),
+        {"name": FRAMEWORK_NAME, "version": FRAMEWORK_VERSION},
+    ).mappings().one()
     return int(row["id"])
 
 
@@ -141,7 +161,7 @@ def _automation_flag(value: str) -> int:
 
 
 def seed_controls() -> int:
-    with get_connection() as conn:
+    with engine.begin() as conn:
         framework_id = _ensure_framework(conn)
         control_columns = _columns(conn, "controls")
         phase1_schema = "control_code" in control_columns
@@ -149,73 +169,92 @@ def seed_controls() -> int:
         for control in SEED_CONTROLS:
             if phase1_schema:
                 conn.execute(
-                    """
-                    INSERT OR IGNORE INTO controls (
-                        framework_id, control_id, control_code, title, description,
-                        category, owner, frequency, is_automated, implementation_status,
-                        type1_ready, type2_ready, type1_status, type2_status,
-                        evidence_requirements
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        framework_id,
-                        control.code,
-                        control.code,
-                        control.title,
-                        control.evidence_requirements,
-                        control.category,
-                        "Compliance Lead",
-                        control.frequency,
-                        _automation_flag(control.automated),
-                        "draft",
-                        0,
-                        0,
-                        "not_started",
-                        "not_started",
-                        control.evidence_requirements,
+                    text(
+                        """
+                        INSERT INTO controls (
+                            framework_id, control_id, control_code, title, description,
+                            category, owner, frequency, is_automated, implementation_status,
+                            type1_ready, type2_ready, type1_status, type2_status,
+                            evidence_requirements
+                        )
+                        VALUES (
+                            :framework_id, :control_id, :control_code, :title, :description,
+                            :category, :owner, :frequency, :is_automated, :implementation_status,
+                            :type1_ready, :type2_ready, :type1_status, :type2_status,
+                            :evidence_requirements
+                        )
+                        ON CONFLICT(framework_id, control_id) DO NOTHING
+                        """
                     ),
+                    {
+                        "framework_id": framework_id,
+                        "control_id": control.code,
+                        "control_code": control.code,
+                        "title": control.title,
+                        "description": control.evidence_requirements,
+                        "category": control.category,
+                        "owner": "Compliance Lead",
+                        "frequency": control.frequency,
+                        "is_automated": _automation_flag(control.automated),
+                        "implementation_status": "draft",
+                        "type1_ready": 0,
+                        "type2_ready": 0,
+                        "type1_status": "not_started",
+                        "type2_status": "not_started",
+                        "evidence_requirements": control.evidence_requirements,
+                    },
                 )
                 conn.execute(
-                    """
-                    UPDATE controls
-                    SET title = ?, description = ?, category = ?, frequency = ?,
-                        is_automated = ?, type1_status = 'not_started',
-                        type2_status = 'not_started', evidence_requirements = ?,
-                        control_code = ?
-                    WHERE framework_id = ? AND control_id = ?
-                    """,
-                    (
-                        control.title,
-                        control.evidence_requirements,
-                        control.category,
-                        control.frequency,
-                        _automation_flag(control.automated),
-                        control.evidence_requirements,
-                        control.code,
-                        framework_id,
-                        control.code,
+                    text(
+                        """
+                        UPDATE controls
+                        SET title = :title, description = :description,
+                            category = :category, frequency = :frequency,
+                            is_automated = :is_automated,
+                            type1_status = 'not_started',
+                            type2_status = 'not_started',
+                            evidence_requirements = :evidence_requirements,
+                            control_code = :control_code
+                        WHERE framework_id = :framework_id AND control_id = :control_id
+                        """
                     ),
+                    {
+                        "title": control.title,
+                        "description": control.evidence_requirements,
+                        "category": control.category,
+                        "frequency": control.frequency,
+                        "is_automated": _automation_flag(control.automated),
+                        "evidence_requirements": control.evidence_requirements,
+                        "control_code": control.code,
+                        "framework_id": framework_id,
+                        "control_id": control.code,
+                    },
                 )
             else:
                 conn.execute(
-                    """
-                    INSERT OR IGNORE INTO controls (
-                        framework_id, control_id, title, description, owner,
-                        implementation_status, type1_ready, type2_ready
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        framework_id,
-                        control.code,
-                        control.title,
-                        control.evidence_requirements,
-                        "Compliance Lead",
-                        "draft",
-                        0,
-                        0,
+                    text(
+                        """
+                        INSERT INTO controls (
+                            framework_id, control_id, title, description, owner,
+                            implementation_status, type1_ready, type2_ready
+                        )
+                        VALUES (
+                            :framework_id, :control_id, :title, :description, :owner,
+                            :implementation_status, :type1_ready, :type2_ready
+                        )
+                        ON CONFLICT(framework_id, control_id) DO NOTHING
+                        """
                     ),
+                    {
+                        "framework_id": framework_id,
+                        "control_id": control.code,
+                        "title": control.title,
+                        "description": control.evidence_requirements,
+                        "owner": "Compliance Lead",
+                        "implementation_status": "draft",
+                        "type1_ready": 0,
+                        "type2_ready": 0,
+                    },
                 )
 
         return len(SEED_CONTROLS)

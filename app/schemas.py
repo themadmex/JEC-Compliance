@@ -8,18 +8,19 @@ from pydantic import BaseModel, Field
 
 ControlStatus = Literal["draft", "implemented", "needs_evidence", "in_review"]
 EvidenceStatus = Literal[
-    "accepted",
     "submitted",
-    "approved",
-    "pending",
+    "accepted",
     "rejected",
     "locked",
     "stale",
+    "expired",
+    "flagged",
+    "not_applicable",
 ]
 TaskStatus = Literal["open", "in_progress", "completed"]
 TaskPriority = Literal["low", "medium", "high"]
 AuditType = Literal["type1", "type2"]
-AuditStatus = Literal["draft", "in_progress", "closed"]
+AuditStatus = Literal["preparation", "in_progress", "fieldwork", "review", "completed", "cancelled"]
 FindingSeverity = Literal["low", "medium", "high", "critical"]
 FindingStatus = Literal["open", "in_progress", "closed"]
 
@@ -55,21 +56,24 @@ class ControlStatusUpdate(BaseModel):
 
 class EvidenceCreate(BaseModel):
     control_id: int
-    name: str = Field(min_length=3, max_length=180)
-    source: str = Field(min_length=2, max_length=120)
-    artifact_path: str = Field(min_length=3, max_length=260)
-    collected_at: datetime
-    period_start: Optional[datetime] = None
-    period_end: Optional[datetime] = None
+    title: str = Field(min_length=3, max_length=180)
+    description: Optional[str] = Field(default=None, max_length=1500)
+    source_type: str = Field(min_length=2, max_length=120)  # manual, integration, policy, system_generated
     status: EvidenceStatus = "submitted"
-    notes: Optional[str] = Field(default=None, max_length=1500)
-    submitter_id: Optional[int] = None
-    approver_id: Optional[int] = None
-    approved_at: Optional[datetime] = None
-    rejected_reason: Optional[str] = Field(default=None, max_length=1500)
-    locked_at: Optional[datetime] = None
+    uploaded_by: Optional[int] = None
+    reviewed_by: Optional[int] = None
+    rejection_reason: Optional[str] = Field(default=None, max_length=1500)
+    valid_from: datetime
+    valid_to: Optional[datetime] = None
     sha256_hash: Optional[str] = Field(default=None, min_length=64, max_length=64)
-    sharepoint_id: Optional[str] = Field(default=None, max_length=255)
+    sharepoint_url: Optional[str] = Field(default=None, max_length=1000)
+    sharepoint_item_id: Optional[str] = Field(default=None, max_length=255)
+    local_path: Optional[str] = Field(default=None, max_length=1000)
+    file_name: str = Field(min_length=1, max_length=255)
+    file_size_bytes: int = Field(gt=0)
+    mime_type: Optional[str] = Field(default=None, max_length=120)
+    locked_at: Optional[datetime] = None
+    locked_by: Optional[int] = None
     audit_period_id: Optional[int] = None
     collection_due_date: Optional[datetime] = None
 
@@ -77,23 +81,28 @@ class EvidenceCreate(BaseModel):
 class EvidenceOut(BaseModel):
     id: int
     control_id: int
-    name: str
-    source: str
-    artifact_path: str
-    collected_at: str
-    period_start: Optional[str]
-    period_end: Optional[str]
+    title: str
+    description: Optional[str]
+    source_type: str
     status: EvidenceStatus
-    notes: Optional[str]
-    submitter_id: Optional[int] = None
-    approver_id: Optional[int] = None
-    approved_at: Optional[str] = None
-    rejected_reason: Optional[str] = None
-    locked_at: Optional[str] = None
+    uploaded_by: Optional[int] = None
+    reviewed_by: Optional[int] = None
+    rejection_reason: Optional[str] = None
+    valid_from: str
+    valid_to: Optional[str] = None
     sha256_hash: Optional[str] = None
-    sharepoint_id: Optional[str] = None
+    sharepoint_url: Optional[str] = None
+    sharepoint_item_id: Optional[str] = None
+    local_path: Optional[str] = None
+    file_name: str
+    file_size_bytes: int
+    mime_type: Optional[str] = None
+    locked_at: Optional[str] = None
+    locked_by: Optional[int] = None
     audit_period_id: Optional[int] = None
     collection_due_date: Optional[str] = None
+    created_at: str
+    updated_at: str
 
 
 class EvidenceRejectRequest(BaseModel):
@@ -101,18 +110,22 @@ class EvidenceRejectRequest(BaseModel):
 
 
 class AuditPeriodCreate(BaseModel):
+    framework_id: int = 1
     name: str = Field(min_length=2, max_length=120)
-    period_start: datetime
-    period_end: datetime
-    type: AuditType
+    report_type: AuditType
+    point_in_time_date: Optional[datetime] = None
+    observation_start: Optional[datetime] = None
+    observation_end: Optional[datetime] = None
 
 
 class AuditPeriodOut(BaseModel):
     id: int
+    framework_id: Optional[int] = None
     name: str
-    period_start: str
-    period_end: str
-    type: AuditType
+    report_type: AuditType
+    point_in_time_date: Optional[str] = None
+    observation_start: Optional[str] = None
+    observation_end: Optional[str] = None
     created_by: Optional[int] = None
     created_at: str
 
@@ -149,30 +162,77 @@ class TaskOut(BaseModel):
 
 
 class AuditCreate(BaseModel):
-    audit_period_id: int
-    type: AuditType
-    firm_name: str = Field(min_length=2, max_length=180)
-    scope_notes: Optional[str] = Field(default=None, max_length=2000)
+    period_id: int
+    audit_firm: str = Field(min_length=2, max_length=180)
+    early_access_date: Optional[datetime] = None
+    fieldwork_start: datetime
+    fieldwork_end: datetime
+    notes: Optional[str] = Field(default=None, max_length=2000)
 
 
 class AuditOut(BaseModel):
     id: int
-    audit_period_id: int
-    type: AuditType
-    firm_name: str
+    period_id: int
+    audit_firm: str
     status: AuditStatus
-    scope_notes: Optional[str]
+    early_access_date: Optional[str] = None
+    fieldwork_start: Optional[str] = None
+    fieldwork_end: Optional[str] = None
+    notes: Optional[str] = None
     created_by: Optional[int] = None
     created_at: str
     closed_at: Optional[str] = None
 
 
+class AuditUpdate(BaseModel):
+    status: Optional[AuditStatus] = None
+    early_access_date: Optional[datetime] = None
+    fieldwork_start: Optional[datetime] = None
+    fieldwork_end: Optional[datetime] = None
+    notes: Optional[str] = Field(default=None, max_length=2000)
+
+
+class AuditControlUpdate(BaseModel):
+    in_scope: Optional[bool] = None
+    auditor_notes: Optional[str] = Field(default=None, max_length=2000)
+
+
+class AuditorAssignmentCreate(BaseModel):
+    user_id: int
+    access_expires_at: Optional[datetime] = None
+
+
+class AuditRequestCreate(BaseModel):
+    title: str = Field(min_length=3, max_length=180)
+    description: Optional[str] = Field(default=None, max_length=2000)
+    control_id: Optional[int] = None
+    request_type: str = Field(default="evidence_request", min_length=3, max_length=60)
+    sample_size: Optional[int] = Field(default=None, ge=1)
+    due_date: Optional[datetime] = None
+
+
+class AuditRequestUpdate(BaseModel):
+    status: Optional[str] = Field(default=None, max_length=40)
+    assigned_to: Optional[int] = None
+
+
+class AuditRequestEvidenceCreate(BaseModel):
+    evidence_id: int
+
+
+class AuditCommentCreate(BaseModel):
+    body: str = Field(min_length=1, max_length=4000)
+    is_internal: bool = False
+    parent_id: Optional[int] = None
+
+
 class AuditFindingCreate(BaseModel):
-    control_id: int
+    control_id: Optional[int] = None
+    finding_type: str = Field(default="exception", min_length=3, max_length=60)
     title: str = Field(min_length=3, max_length=180)
     description: str = Field(min_length=3, max_length=2000)
     severity: FindingSeverity
-    owner_id: int
+    owner_id: Optional[int] = None
     due_date: Optional[datetime] = None
 
 
@@ -184,12 +244,12 @@ class AuditFindingUpdate(BaseModel):
 class AuditFindingOut(BaseModel):
     id: int
     audit_id: int
-    control_id: int
+    control_id: Optional[int]
     title: str
-    description: str
+    description: Optional[str]
     severity: FindingSeverity
     status: FindingStatus
-    owner_id: int
+    owner_id: Optional[int]
     due_date: Optional[str] = None
     closed_at: Optional[str] = None
     remediation_notes: Optional[str] = None

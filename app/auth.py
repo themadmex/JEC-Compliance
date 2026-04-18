@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Any, Callable
 
 import msal
-from fastapi import Cookie, HTTPException, status
+from fastapi import Cookie, Header, HTTPException, status
 from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 
 from app.db import get_connection
@@ -60,7 +60,7 @@ def decode_session_token(token: str) -> dict[str, Any]:
 
 def get_current_user(
     session: str | None = Cookie(default=None),
-    x_auditor_token: str | None = None
+    x_auditor_token: str | None = Header(default=None),
 ) -> dict[str, Any]:
     # 1. Check for scoped auditor token first
     if x_auditor_token:
@@ -104,8 +104,11 @@ def require_role(min_role: str) -> Callable[[dict[str, Any]], dict[str, Any]]:
     if min_role not in ROLE_ORDER:
         raise ValueError(f"Unsupported role: {min_role}")
 
-    def dependency(session: str | None = Cookie(default=None)) -> dict[str, Any]:
-        user = get_current_user(session)
+    def dependency(
+        session: str | None = Cookie(default=None),
+        x_auditor_token: str | None = Header(default=None),
+    ) -> dict[str, Any]:
+        user = get_current_user(session=session, x_auditor_token=x_auditor_token)
         if ROLE_ORDER.get(user["role"], -1) < ROLE_ORDER[min_role]:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
         return user

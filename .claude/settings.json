@@ -15,7 +15,13 @@
       "Bash(node .claude/*)",
       "mcp__claude-flow__:*",
       "Bash(venv/Scripts/pip install msal itsdangerous python-dotenv)",
-      "Read(//c/Devs/**)"
+      "Read(//c/Devs/**)",
+      "Bash(python -c \"from app.main import app; print\\('OK'\\)\")",
+      "Bash(python -m pytest tests/test_phase1_foundation.py -x -q)",
+      "Bash(pip install *)",
+      "Bash(python -m pytest tests/ -x -q)",
+      "Bash(sqlite3 \"c:/Devs/vanta replica for jec/data/jec_soc2.db\" \"PRAGMA table_info\\(audits\\);\")",
+      "Bash(python -c ' *)"
     ],
     "deny": [
       "Read(./.env)",

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from typing import Any
+from typing import Any, Mapping
 
 from app.db import get_connection
 from app.services import (
@@ -144,6 +144,14 @@ def _graph_metadata(row: sqlite3.Row | dict[str, Any]) -> dict[str, Any]:
         return {}
 
 
+def _first_present(row: Mapping[str, Any], *keys: str, default: Any = None) -> Any:
+    for key in keys:
+        value = row.get(key)
+        if value not in (None, ""):
+            return value
+    return default
+
+
 def sync_relationship_graph(statuses: list[dict[str, Any]] | None = None) -> None:
     controls = controls_service.list_controls()
     evidence = evidence_service.list_evidence()
@@ -265,22 +273,44 @@ def sync_relationship_graph(statuses: list[dict[str, Any]] | None = None) -> Non
             _ensure_graph_link(conn, "control", graph_id, "test", test_graph, "validated_by")
 
         for item in evidence:
+            evidence_title = _first_present(item, "name", "title", "file_name", default=f"Evidence #{item['id']}")
+            evidence_source = _first_present(item, "source", "source_type", default="manual")
+            artifact_path = _first_present(
+                item,
+                "artifact_path",
+                "local_path",
+                "sharepoint_url",
+                "file_name",
+                default="",
+            )
+            collected_at = _first_present(item, "collected_at", "valid_from", "created_at")
+            description = _first_present(
+                item,
+                "notes",
+                "description",
+                default=f"Evidence collected from {evidence_source}.",
+            )
             document_graph = _upsert_graph_object(
                 conn,
                 _graph_object_payload(
                     "document",
                     item["id"],
-                    item["name"],
-                    item["source"],
-                    item.get("notes") or f"Evidence collected from {item['source']}.",
+                    evidence_title,
+                    evidence_source,
+                    description,
                     item["status"],
                     None,
                     {
-                        "artifact_path": item["artifact_path"],
-                        "collected_at": item["collected_at"],
+                        "artifact_path": artifact_path,
+                        "collected_at": collected_at,
                         "collection_due_date": item.get("collection_due_date"),
                         "audit_period_id": item.get("audit_period_id"),
+                        "file_name": item.get("file_name"),
+                        "source_type": item.get("source_type"),
+                        "valid_from": item.get("valid_from"),
+                        "valid_to": item.get("valid_to"),
                         "sharepoint_id": item.get("sharepoint_id"),
+                        "sharepoint_item_id": item.get("sharepoint_item_id"),
                         "type": "document",
                     },
                 ),

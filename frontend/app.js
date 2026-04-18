@@ -41,6 +41,7 @@ const ROUTES = new Set([
   // Other
   "integrations",
   "evidence",
+  "auditor-portal",
   "my-security-tasks",
   // Legacy aliases kept for backwards compat
   "policies",
@@ -58,9 +59,27 @@ const NAV_GROUP_MAP = {
 };
 
 async function getJson(url, options = {}) {
-  const res = await fetch(url, options);
+  const headers = new Headers(options.headers || {});
+  const auditorToken = shouldUseAuditorToken() ? getAuditorToken() : null;
+  if (auditorToken && !headers.has("X-Auditor-Token")) {
+    headers.set("X-Auditor-Token", auditorToken);
+  }
+  const res = await fetch(url, { ...options, headers });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json();
+}
+
+function shouldUseAuditorToken() {
+  return Boolean(getSearchParam("token")) || window.location.hash.replace("#", "") === "auditor-portal";
+}
+
+function getAuditorToken() {
+  const urlToken = getSearchParam("token");
+  if (urlToken) {
+    window.localStorage.setItem("auditorToken", urlToken);
+    return urlToken;
+  }
+  return window.localStorage.getItem("auditorToken");
 }
 
 function escapeHtml(value) {
@@ -175,6 +194,52 @@ function shell(title, subtitle, actions = "") {
       <h1 class="page-title serif-text" style="margin-bottom:0;">${escapeHtml(title)}</h1>
       <div class="head-actions">${actions}</div>
     </header>
+  `;
+}
+
+function vantaHeader(title, subtitle = "", actions = "") {
+  return `
+    <header class="vanta-header">
+      <div>
+        <h1>${escapeHtml(title)}</h1>
+        ${subtitle ? `<p>${escapeHtml(subtitle)}</p>` : ""}
+      </div>
+      <div class="head-actions">${actions}</div>
+    </header>
+  `;
+}
+
+function vantaProgress(percent, className = "") {
+  const safePercent = Math.max(0, Math.min(100, Number(percent) || 0));
+  return `<div class="vanta-progress ${escapeHtml(className)}"><span style="width:${safePercent}%"></span></div>`;
+}
+
+function vantaToolbar(placeholder, filters = []) {
+  return `
+    <div class="vanta-toolbar">
+      <input class="vanta-search" placeholder="${escapeHtml(placeholder)}" />
+      ${filters.map((filter) => `<button class="vanta-filter" type="button">${escapeHtml(filter)} <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;"></i></button>`).join("")}
+      <button class="vanta-filter" type="button">+ Add filter</button>
+    </div>
+  `;
+}
+
+function statusRatio(ok, total) {
+  return total ? Math.round((Number(ok) / Number(total)) * 100) : 0;
+}
+
+function isPositiveStatus(status) {
+  const value = String(status || "").toLowerCase();
+  return value.includes("pass") || value.includes("ok") || value.includes("implemented") || value.includes("accepted") || value.includes("ready") || value.includes("locked");
+}
+
+function vantaTask(icon, title, count = "") {
+  return `
+    <div class="vanta-task">
+      <span class="vanta-mini-icon"><i class="${escapeHtml(icon)}"></i></span>
+      <span>${escapeHtml(title)}</span>
+      <span class="vanta-subtle">${escapeHtml(count)}</span>
+    </div>
   `;
 }
 
@@ -459,54 +524,92 @@ function clearEvidenceControlFilter() {
 }
 
 async function renderHome() {
-  const [overview, integrations] = await Promise.all([
+  const [overview, integrations, gaps] = await Promise.all([
     getJson("/dashboard/overview"),
     getJson("/integrations/status"),
+    getJson("/dashboard/gaps"),
   ]);
+  const policiesPct = statusRatio(overview.policies_ok, overview.policies_total);
+  const testsPct = statusRatio(overview.tests_ok, overview.tests_total);
+  const vendorsPct = statusRatio(overview.vendors_ok, overview.vendors_total);
+  const openIntegrationIssues = integrations.filter((item) => !item.configured).length;
+  const openTasks = [
+    ["fa-regular fa-file-lines", "Update or approve documents", Math.max(overview.policies_total - overview.policies_ok, 0)],
+    ["fa-solid fa-list-check", "Resolve failing tests", Math.max(overview.tests_total - overview.tests_ok, 0)],
+    ["fa-regular fa-calendar", "Follow up on overdue security tasks", gaps.length],
+    ["fa-solid fa-plug", "Reconnect integrations", openIntegrationIssues],
+  ];
 
   return `
-    ${shell("Compliance progress", "", '')}
-    
-    <div class="card" style="margin-bottom: 32px;">
-      <div class="metric-header">
-        <h3 class="metric-title serif-text">SOC 2</h3>
-        <div style="display:flex; align-items:baseline; gap: 12px;">
-          <span class="metric-value">${overview.soc2_progress_percent}%</span>
-          <span class="status-gray" style="font-size: 0.9rem;">Passing</span>
-        </div>
-      </div>
-      <div class="progress-container">
-        <div class="progress-bar" style="width:${overview.soc2_progress_percent}%"></div>
-      </div>
-      <div class="metric-footer">
-        <span class="status-gray" style="font-size: 0.85rem; font-weight: 500;">${overview.controls_passing} controls passing</span>
-        <span class="status-gray" style="font-size: 0.85rem; font-weight: 500;">${overview.controls_total} total</span>
-      </div>
-    </div>
-
-    <div class="grid-3">
-        ${[
-          ["Policies", overview.policies_ok, overview.policies_total, "compliance-policies"],
-          ["Tests", overview.tests_ok, overview.tests_total, "tests"],
-          ["Vendors", overview.vendors_ok, overview.vendors_total, "vendors"],
-        ]
-          .map(
-            ([label, ok, total, route]) => `
-            <div class="card" style="cursor:pointer;" data-route-target="${route}">
-              <h3 class="serif-text" style="font-size: 1.5rem; margin-bottom: 24px;">${label}</h3>
-              <div class="progress-container" style="margin-bottom: 0;">
-                <div class="progress-bar" style="width:${total ? Math.round((ok / total) * 100) : 0}%"></div>
-              </div>
+    <div class="vanta-page wide">
+      ${vantaHeader("Home", "SOC 2 readiness and open program work", '<button class="btn btn-outline">Hide open tasks</button>')}
+      <div class="vanta-main-grid">
+        <div>
+          <h2 class="vanta-card-title" style="margin-bottom:12px;">Compliance progress</h2>
+          <div class="vanta-card" style="max-width:560px;">
+            <div class="vanta-card-head">
+              <h3>SOC 2</h3>
+              <i class="fa-solid fa-chevron-right vanta-subtle"></i>
             </div>
-          `
-          )
-          .join("")}
-    </div>
+            <div class="vanta-big-number">${overview.soc2_progress_percent}%</div>
+            ${vantaProgress(overview.soc2_progress_percent)}
+            <div class="metric-footer" style="margin-top:10px;">
+              <span>${overview.controls_passing} controls passing</span>
+              <span>${overview.controls_total} total</span>
+            </div>
+          </div>
 
-    <div class="trust-center-banner">
-      <h2>Trust Center</h2>
-      <p>High-quality brand image of stand security.</p>
-      ${routeButton("View Trust Center", "trust-center")}
+          <h2 class="vanta-card-title" style="margin-bottom:12px;">Monitoring</h2>
+          <div class="vanta-monitor-grid">
+            ${[
+              ["Policies", overview.policies_ok, overview.policies_total, policiesPct, "compliance-policies", "fa-regular fa-file-lines"],
+              ["Tests", overview.tests_ok, overview.tests_total, testsPct, "tests", "fa-solid fa-flask"],
+              ["Vendors", overview.vendors_ok, overview.vendors_total, vendorsPct, "vendors", "fa-solid fa-store"],
+              ["Documents", overview.controls_passing, overview.controls_total, overview.soc2_progress_percent, "compliance-documents", "fa-regular fa-folder-open"],
+            ].map(([label, ok, total, pct, route, icon]) => `
+              <div class="vanta-card clickable" data-route-target="${route}">
+                <div class="vanta-card-head">
+                  <h3><span class="vanta-mini-icon"><i class="${icon}"></i></span> ${escapeHtml(label)}</h3>
+                  <i class="fa-solid fa-chevron-right vanta-subtle"></i>
+                </div>
+                <p class="vanta-subtle" style="margin-top:14px;">Needs attention</p>
+                <div class="vanta-big-number">${Math.max(total - ok, 0)}</div>
+                ${vantaProgress(pct)}
+                <div class="metric-footer" style="margin-top:10px;">
+                  <span>${ok} OK</span>
+                  <span>${total} total</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+
+          <h2 class="vanta-card-title" style="margin:10px 0 12px;">Client trust workspace</h2>
+          <div class="trust-center-banner">
+            <h2>Stand up your security packet for buyer reviews</h2>
+            <p>Use JEC-approved evidence, policies, and audit status to answer security reviews with consistent source material.</p>
+            ${routeButton("Open Trust Center", "trust-center")}
+            ${routeButton("View evidence", "evidence", {}, "outline")}
+          </div>
+        </div>
+
+        <aside>
+          <div class="vanta-card">
+            <div class="vanta-card-head">
+              <h2>Open program tasks</h2>
+              <span class="vanta-pill">${openTasks.reduce((sum, item) => sum + Number(item[2] || 0), 0)}</span>
+            </div>
+            <p class="vanta-subtle" style="margin:10px 0 8px;">Urgent</p>
+            <div class="vanta-task-list">
+              ${openTasks.map(([icon, title, count]) => vantaTask(icon, title, count)).join("")}
+            </div>
+            <p class="vanta-subtle" style="margin:18px 0 8px;">Due soon</p>
+            <div class="vanta-task-list">
+              ${vantaTask("fa-regular fa-file-lines", "Approve renewal evidence", Math.max(overview.controls_total - overview.controls_passing, 0))}
+              ${vantaTask("fa-solid fa-user-check", "Confirm owners", "1")}
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   `;
 }
@@ -1123,9 +1226,10 @@ async function renderEvidence() {
         <h3 class="serif-text" style="font-size:1.5rem; margin-bottom:16px;">Upload Evidence</h3>
         <form id="upload-form" style="display:flex; flex-direction:column; gap:16px;">
           <input type="number" name="control_id" placeholder="Control DB ID" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;" />
-          <input type="text" name="name" placeholder="Evidence title" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
-          <input type="text" name="source" value="manual" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
-          <textarea name="notes" placeholder="Notes (optional)" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px; min-height:80px;"></textarea>
+          <input type="text" name="title" placeholder="Evidence title" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
+          <input type="text" name="source_type" value="manual" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
+          <input type="date" name="valid_from" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
+          <textarea name="description" placeholder="Notes (optional)" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px; min-height:80px;"></textarea>
           <input type="file" name="file" required style="margin-top:8px;"/>
           <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Upload evidence</button>
         </form>
@@ -1138,7 +1242,7 @@ async function renderEvidence() {
           evidence.slice(0, 12).map(
             (e) =>
               `<tr>
-                <td style="font-weight:500;">${escapeHtml(e.name)}</td>
+                <td style="font-weight:500;">${escapeHtml(e.title || e.name)}</td>
                 <td class="status-gray">${escapeHtml(e.control_id)}</td>
                 <td>${getStatusHtml(e.status)}</td>
                </tr>`
@@ -1219,10 +1323,10 @@ async function renderEnhancedEvidence() {
         .map(
           (item) =>
             `<tr>
-              <td style="font-weight:500;">${escapeHtml(item.name)}</td>
+              <td style="font-weight:500;">${escapeHtml(item.title || item.name)}</td>
               <td class="status-gray">${escapeHtml(controlsById.get(String(item.control_id))?.control_id || item.control_id)}</td>
               <td>${getStatusHtml(item.status)}</td>
-              <td class="status-gray">${formatDate(item.collected_at)}</td>
+              <td class="status-gray">${formatDate(item.valid_from || item.collected_at)}</td>
               <td>
                 <button class="btn btn-outline" onclick="openEvidenceDetail(${item.id}, ${item.control_id})" style="padding: 6px 12px; font-size:0.85rem; border-color:#E0E0E0; color:var(--text-primary);">
                   View
@@ -1238,20 +1342,20 @@ async function renderEnhancedEvidence() {
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:16px;">
           <div>
             <p class="status-gray" style="margin-bottom:6px;">Evidence detail</p>
-            <h3 class="serif-text" style="font-size:1.3rem; margin-bottom:4px;">${escapeHtml(selectedEvidence.name)}</h3>
+            <h3 class="serif-text" style="font-size:1.3rem; margin-bottom:4px;">${escapeHtml(selectedEvidence.title || selectedEvidence.name)}</h3>
             <p class="status-gray">${escapeHtml(controlsById.get(String(selectedEvidence.control_id))?.control_id || selectedEvidence.control_id)} · ${escapeHtml(controlsById.get(String(selectedEvidence.control_id))?.title || "Unknown control")}</p>
           </div>
           <button class="btn btn-outline" onclick="clearEvidenceDetail()">Close</button>
         </div>
         <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px 24px;">
           <div><p class="status-gray" style="margin-bottom:6px;">Status</p><p>${getStatusHtml(selectedEvidence.status)}</p></div>
-          <div><p class="status-gray" style="margin-bottom:6px;">Collected</p><p>${formatDate(selectedEvidence.collected_at)}</p></div>
-          <div><p class="status-gray" style="margin-bottom:6px;">Source</p><p>${escapeHtml(selectedEvidence.source)}</p></div>
-          <div><p class="status-gray" style="margin-bottom:6px;">Artifact</p><p style="word-break:break-word;">${selectedEvidence.artifact_path.startsWith("http") ? `<a href="${escapeHtml(selectedEvidence.artifact_path)}" target="_blank" rel="noopener">${escapeHtml(selectedEvidence.artifact_path)}</a>` : escapeHtml(selectedEvidence.artifact_path)}</p></div>
+          <div><p class="status-gray" style="margin-bottom:6px;">Collected</p><p>${formatDate(selectedEvidence.valid_from || selectedEvidence.collected_at)}</p></div>
+          <div><p class="status-gray" style="margin-bottom:6px;">Source</p><p>${escapeHtml(selectedEvidence.source_type || selectedEvidence.source)}</p></div>
+          <div><p class="status-gray" style="margin-bottom:6px;">Artifact</p><p style="word-break:break-word;">${(selectedEvidence.sharepoint_url || selectedEvidence.local_path || selectedEvidence.artifact_path || "").startsWith("http") ? `<a href="${escapeHtml(selectedEvidence.sharepoint_url || selectedEvidence.local_path || selectedEvidence.artifact_path)}" target="_blank" rel="noopener">${escapeHtml(selectedEvidence.sharepoint_url || selectedEvidence.local_path || selectedEvidence.artifact_path)}</a>` : escapeHtml(selectedEvidence.local_path || selectedEvidence.artifact_path || "-")}</p></div>
         </div>
         <div style="margin-top:16px;">
           <p class="status-gray" style="margin-bottom:6px;">Notes</p>
-          <p>${escapeHtml(selectedEvidence.notes || "No notes added.")}</p>
+          <p>${escapeHtml(selectedEvidence.description || selectedEvidence.notes || "No notes added.")}</p>
         </div>
       </div>`
     : `
@@ -1260,45 +1364,55 @@ async function renderEnhancedEvidence() {
       </div>`;
 
   return `
-    ${shell("Evidence Locker", "")}
-    ${contextCard}
-    <div class="grid-3" style="margin-bottom:24px;">
-      <div class="card">
-        <p class="status-gray" style="margin-bottom:10px;">Visible evidence</p>
-        <div class="metric-value">${filteredEvidence.length}</div>
+    <div class="vanta-page wide">
+      ${vantaHeader("Evidence", selectedControl ? `${selectedControl.control_id} evidence detail` : "Evidence locker and audit-ready artifacts", routeButton("Upload evidence", "evidence"))}
+      ${contextCard}
+      <div class="vanta-card">
+        <div class="vanta-card-head">
+          <div>
+            <h2>Evidence tracker</h2>
+            <p class="vanta-subtle">${filteredEvidence.length} visible artifacts across ${attachedControlCount} controls</p>
+          </div>
+          <span class="vanta-pill">${staleOrPendingCount} need attention</span>
+        </div>
+        <div class="vanta-progress segmented" style="margin-top:16px;">
+          <span class="blue" style="width:${statusRatio(filteredEvidence.length - staleOrPendingCount, Math.max(filteredEvidence.length, 1))}%"></span>
+          <span class="red" style="width:${statusRatio(staleOrPendingCount, Math.max(filteredEvidence.length, 1))}%"></span>
+          <span class="gray" style="width:8%"></span>
+        </div>
+        <div class="audit-readiness-legend">
+          <span><strong>${filteredEvidence.length - staleOrPendingCount}</strong> Ready for audit</span>
+          <span><strong>${staleOrPendingCount}</strong> Not ready</span>
+          <span><strong>${attachedControlCount}</strong> Controls covered</span>
+        </div>
       </div>
-      <div class="card">
-        <p class="status-gray" style="margin-bottom:10px;">Needs attention</p>
-        <div class="metric-value" style="color:var(--status-fail);">${staleOrPendingCount}</div>
-      </div>
-      <div class="card">
-        <p class="status-gray" style="margin-bottom:10px;">Controls covered</p>
-        <div class="metric-value">${attachedControlCount}</div>
-      </div>
-    </div>
-    ${spBrowser}
-    <div class="grid-2">
-      <div class="card">
-        <h3 class="serif-text" style="font-size:1.5rem; margin-bottom:16px;">Upload Evidence</h3>
+      ${vantaToolbar("Search evidence", ["Type", "Created by"])}
+      <div class="grid-2 audit-layout">
+        <div>
+          ${renderTable(["Evidence", "Control", "Status", "Last updated", ""], evidenceRows)}
+        </div>
+        <div class="audit-side-stack">
+          ${evidenceDetailCard}
+          ${spBrowser}
+          <div class="vanta-card">
+            <h3 style="margin-bottom:16px;">Upload evidence</h3>
         <form id="upload-form" style="display:flex; flex-direction:column; gap:16px;">
           <select name="control_id" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;">
             <option value="">Select a control</option>
             ${controlOptions}
           </select>
-          <input type="text" name="name" placeholder="Evidence title" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
-          <input type="text" name="source" value="manual" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
-          <textarea name="notes" placeholder="Notes (optional)" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px; min-height:80px;"></textarea>
+          <input type="text" name="title" placeholder="Evidence title" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
+          <input type="text" name="source_type" value="manual" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
+          <input type="date" name="valid_from" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;"/>
+          <textarea name="description" placeholder="Notes (optional)" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px; min-height:80px;"></textarea>
           <input type="file" name="file" required style="margin-top:8px;"/>
           <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Upload evidence</button>
         </form>
         <p id="upload-status" class="status-gray" style="margin-top:16px;"></p>
-      </div>
-      <div>
-        <h3 class="serif-text" style="font-size:1.5rem; margin-bottom:16px;">Recent Evidence</h3>
-        ${renderTable(["Name", "Control", "Status", "Collected", ""], evidenceRows)}
+          </div>
+        </div>
       </div>
     </div>
-    ${evidenceDetailCard}
   `;
 }
 
@@ -2116,6 +2230,263 @@ function renderPlaceholder(title, subtitle = "") {
   `);
 }
 
+function renderAuditorMetric(label, value, note = "") {
+  return `
+    <div class="card metric-card audit-stat-card">
+      <p class="status-gray audit-stat-label">${escapeHtml(label)}</p>
+      <div class="metric-value">${escapeHtml(value)}</div>
+      ${note ? `<p class="audit-stat-note">${escapeHtml(note)}</p>` : ""}
+    </div>
+  `;
+}
+
+function getControlRef(control) {
+  return control.control_ref || control.control_code || control.control_id || "-";
+}
+
+function renderAuditorAuditPicker(audits, selectedAuditId) {
+  if (audits.length <= 1) return "";
+  return `
+    <div class="audit-chip-row">
+      ${audits
+        .map((audit) =>
+          routeChip(
+            `${audit.audit_firm || "Audit"} #${audit.id}`,
+            "auditor-portal",
+            { audit: audit.id },
+            String(audit.id) === String(selectedAuditId)
+          )
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function renderAuditorControlsTable(controls) {
+  const rows = controls.map(
+    (control) => `
+      <tr>
+        <td style="font-weight:500;">${escapeHtml(getControlRef(control))}</td>
+        <td>
+          <div style="font-weight:500;">${escapeHtml(control.title)}</div>
+          <div class="status-gray" style="font-size:0.82rem; margin-top:4px;">${escapeHtml(control.owner || "Unassigned")}</div>
+        </td>
+        <td>${getStatusHtml(control.evidence_status || "missing")}</td>
+        <td class="status-gray">${escapeHtml(control.auditor_notes || "-")}</td>
+      </tr>
+    `
+  );
+  return renderTable(["Control", "Title", "Evidence", "Auditor notes"], rows);
+}
+
+function renderAuditorEvidenceTable(evidence) {
+  if (!evidence.length) {
+    return `<div class="card"><p class="status-gray">No evidence has been shared for this audit yet.</p></div>`;
+  }
+  return renderTable(
+    ["Control", "Evidence", "Status", "Valid from", "File"],
+    evidence.map(
+      (item) => `
+        <tr>
+          <td style="font-weight:500;">${escapeHtml(item.control_ref || item.control_id)}</td>
+          <td>${escapeHtml(item.title || item.name || "Evidence")}</td>
+          <td>${getStatusHtml(item.status)}</td>
+          <td class="status-gray">${formatDate(item.valid_from || item.collected_at)}</td>
+          <td class="status-gray">${escapeHtml(item.file_name || "-")}</td>
+        </tr>
+      `
+    )
+  );
+}
+
+function renderAuditorRequests(requests, evidence, controls) {
+  if (!requests.length) {
+    return `<div class="card"><p class="status-gray">No auditor requests yet.</p></div>`;
+  }
+  const controlRefs = new Map(controls.map((control) => [String(control.control_id), getControlRef(control)]));
+  const canAttachEvidence = window._currentUser?.role !== "auditor";
+  return requests
+    .map(
+      (request) => {
+        const eligibleEvidence = evidence.filter((item) => !request.control_id || String(item.control_id) === String(request.control_id));
+        return `
+        <div class="card auditor-request-card">
+          <div class="mapped-elements-header compact">
+            <div>
+              <p class="audit-stage-label">Request #${escapeHtml(request.id)}</p>
+              <h3 class="serif-text section-title" style="margin-bottom:4px;">${escapeHtml(request.title)}</h3>
+              <p class="status-gray">${escapeHtml(request.description || "No description provided.")}</p>
+            </div>
+            ${getStatusHtml(request.status || "open")}
+          </div>
+          <div class="grid-3" style="margin-bottom:18px;">
+            <div><p class="status-gray">Control</p><p>${escapeHtml(request.control_id ? controlRefs.get(String(request.control_id)) || request.control_id : "General")}</p></div>
+            <div><p class="status-gray">Due</p><p>${formatDate(request.due_date)}</p></div>
+            <div><p class="status-gray">Evidence attached</p><p>${escapeHtml((request.evidence || []).length)}</p></div>
+          </div>
+          <div class="audit-evidence-list" style="margin-bottom:18px;">
+            ${(request.evidence || [])
+              .map(
+                (item) => `
+                  <div class="audit-evidence-item">
+                    <div>
+                      <p class="audit-evidence-title">${escapeHtml(item.title || item.file_name || `Evidence #${item.id}`)}</p>
+                      <p class="audit-evidence-sub">${escapeHtml(item.file_name || "-")}</p>
+                    </div>
+                    ${getStatusHtml(item.status)}
+                  </div>
+                `
+              )
+              .join("") || `<p class="status-gray">Waiting on evidence attachment.</p>`}
+          </div>
+          <div class="audit-evidence-list" style="margin-bottom:18px;">
+            ${(request.comments || [])
+              .map(
+                (comment) => `
+                  <div class="audit-evidence-item">
+                    <div>
+                      <p class="audit-evidence-title">${escapeHtml(comment.is_internal ? "Internal note" : "Comment")}</p>
+                      <p class="audit-evidence-sub">${escapeHtml(comment.body)}</p>
+                    </div>
+                    <span class="status-gray">${formatDate(comment.created_at)}</span>
+                  </div>
+                `
+              )
+              .join("") || `<p class="status-gray">No comments yet.</p>`}
+          </div>
+          <form class="auditor-status-form" data-request-id="${escapeHtml(request.id)}" style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+            <select name="status" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;">
+              ${["open", "in_progress", "fulfilled", "closed"].map((status) => `<option value="${status}" ${request.status === status ? "selected" : ""}>${escapeHtml(status.replaceAll("_", " "))}</option>`).join("")}
+            </select>
+            <button class="btn btn-outline" type="submit">Update status</button>
+          </form>
+          ${
+            canAttachEvidence
+              ? `<form class="auditor-attach-form" data-request-id="${escapeHtml(request.id)}" style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+                  <select name="evidence_id" required style="flex:1; padding:10px; border:1px solid #EAEAEA; border-radius:4px;">
+                    <option value="">Attach existing evidence</option>
+                    ${eligibleEvidence.map((item) => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.title || item.file_name || `Evidence #${item.id}`)} (${escapeHtml(item.status)})</option>`).join("")}
+                  </select>
+                  <button class="btn btn-outline" type="submit" ${eligibleEvidence.length ? "" : "disabled"}>Attach</button>
+                </form>`
+              : ""
+          }
+          <form class="auditor-comment-form" data-request-id="${escapeHtml(request.id)}" style="display:flex; gap:10px; align-items:flex-start;">
+            <textarea name="body" placeholder="Add a comment" required style="flex:1; min-height:48px; padding:10px; border:1px solid #EAEAEA; border-radius:4px;"></textarea>
+            <button class="btn btn-outline" type="submit">Send</button>
+          </form>
+          <p class="status-gray auditor-form-status" style="margin-top:8px;"></p>
+        </div>
+      `;
+      }
+    )
+    .join("");
+}
+
+function renderAuditorRequestForm(auditId, controls) {
+  return `
+    <div class="card surface-card">
+      <h3 class="serif-text section-title">Request evidence</h3>
+      <form id="auditor-request-form" data-audit-id="${escapeHtml(auditId)}" style="display:flex; flex-direction:column; gap:12px;">
+        <input name="title" type="text" placeholder="Request title" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;" />
+        <textarea name="description" placeholder="Describe the sample, population, or period needed" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px; min-height:90px;"></textarea>
+        <select name="control_id" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;">
+          <option value="">General request</option>
+          ${controls.map((control) => `<option value="${escapeHtml(control.control_id)}">${escapeHtml(getControlRef(control))} - ${escapeHtml(control.title)}</option>`).join("")}
+        </select>
+        <input name="due_date" type="date" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;" />
+        <button class="btn btn-primary" type="submit">Create request</button>
+      </form>
+      <p id="auditor-request-status" class="status-gray" style="margin-top:10px;"></p>
+    </div>
+  `;
+}
+
+async function renderAuditorPortal() {
+  const audits = await getJson("/api/v1/audits");
+  if (!audits.length) {
+    return `
+      ${shell("Auditor portal", "")}
+      <div class="card"><p class="status-gray">No active audits are assigned to this auditor account.</p></div>
+    `;
+  }
+
+  const selectedAuditId = getSearchParam("audit") || audits[0].id;
+  const [workspace, readiness] = await Promise.all([
+    getJson(`/api/v1/audits/${selectedAuditId}`),
+    getJson(`/api/v1/audits/${selectedAuditId}/readiness/type2`),
+  ]);
+  const controls = workspace.controls || [];
+  const evidence = workspace.evidence || [];
+  const requests = workspace.requests || [];
+  const findings = workspace.findings || [];
+
+  return `
+    <div class="vanta-page wide">
+      <div class="auditor-topbar">
+        <div class="vanta-card-head">
+          <div>
+            <h1>Audit: ${escapeHtml(workspace.audit.audit_firm || "Assigned audit")}</h1>
+            <p class="vanta-subtle">${escapeHtml(workspace.period?.name || "Audit workspace")} · ${escapeHtml(workspace.audit.framework || "SOC 2")}</p>
+          </div>
+          <div class="head-actions">
+            <button class="btn btn-outline">View SLAs</button>
+            <button class="btn btn-outline">Export</button>
+          </div>
+        </div>
+      </div>
+      ${renderAuditorAuditPicker(audits, selectedAuditId)}
+      <div class="vanta-card">
+        <div class="vanta-card-head">
+          <div>
+            <h2>Evidence</h2>
+            <p class="vanta-subtle">Review scoped evidence, request updates, and record auditor assessment.</p>
+          </div>
+          <span class="vanta-pill">${readiness.overall_score}% ready</span>
+        </div>
+        <div class="vanta-progress segmented" style="margin-top:16px;">
+          <span class="red" style="width:${statusRatio(requests.filter((item) => item.status !== "closed").length, Math.max(evidence.length + requests.length, 1))}%"></span>
+          <span class="blue" style="width:${statusRatio(readiness.controls_ready || 0, Math.max(controls.length, 1))}%"></span>
+          <span class="gray" style="width:8%"></span>
+        </div>
+        <div class="audit-readiness-legend">
+          <span><strong>${requests.filter((item) => item.status !== "closed").length}</strong> Not ready for audit</span>
+          <span><strong>${readiness.controls_ready}</strong> Ready for audit</span>
+          <span><strong>${evidence.length}</strong> Evidence items</span>
+        </div>
+      </div>
+      ${vantaToolbar("Search evidence", ["Type", "Created by"])}
+      <div class="grid-2 audit-layout">
+        <div>
+          <div class="surface-panel">
+            <h3 class="section-title">Shared evidence</h3>
+            ${renderAuditorEvidenceTable(evidence)}
+          </div>
+          <div class="surface-panel">
+            <h3 class="section-title">Controls</h3>
+            ${renderAuditorControlsTable(controls)}
+          </div>
+          <div class="surface-panel">
+            <h3 class="section-title">Findings</h3>
+            ${
+              findings.length
+                ? renderTable(["Finding", "Severity", "Status"], findings.map((finding) => `<tr><td>${escapeHtml(finding.title)}</td><td>${getStatusHtml(finding.severity)}</td><td>${getStatusHtml(finding.status)}</td></tr>`))
+                : `<p class="status-gray">No findings have been opened.</p>`
+            }
+          </div>
+        </div>
+        <div class="audit-side-stack">
+          ${renderAuditorRequestForm(selectedAuditId, controls)}
+          <div>
+            <h3 class="section-title">Requests and comments</h3>
+            ${renderAuditorRequests(requests, evidence, controls)}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 const PAGE_RENDERERS = {
   home: renderHome,
   "my-work": renderMyWork,
@@ -2159,6 +2530,7 @@ const PAGE_RENDERERS = {
   // Other
   integrations: renderIntegrations,
   evidence: renderEnhancedEvidence,
+  "auditor-portal": renderAuditorPortal,
   "my-security-tasks": renderSecurityTasks,
   // Legacy aliases
   policies: renderPolicies,
@@ -2711,7 +3083,7 @@ function renderAuditReadinessBar(workspace) {
   ];
   const total = Math.max(segments.reduce((sum, segment) => sum + segment.count, 0), 1);
   return `
-    <div class="card graph-story-card">
+    <div class="surface-panel">
       <h3 class="serif-text section-title">Evidence tracker</h3>
       <div class="audit-readiness-bar">
         ${segments
@@ -2741,7 +3113,56 @@ function renderDocumentHistory(detail) {
   return renderTable(["Version", "Source", "Collected", "Status"], rows);
 }
 
-function renderObjectSpecificPanels(detail) {
+function renderAuditAccessManagement(detail, eligibleAuditors) {
+  const workspace = detail.workspace || {};
+  const auditors = workspace.auditors || [];
+  const auditId = detail.external_key;
+  const assignedIds = new Set(auditors.map((item) => String(item.user_id)));
+  const availableAuditors = eligibleAuditors.filter((item) => !assignedIds.has(String(item.id)));
+  const assignedRows = auditors.length
+    ? auditors.map(
+        (auditor) => `
+          <tr>
+            <td>
+              <div style="font-weight:500;">${escapeHtml(auditor.name || auditor.email)}</div>
+              <div class="status-gray" style="font-size:0.82rem;">${escapeHtml(auditor.email)}</div>
+            </td>
+            <td class="status-gray">${formatDate(auditor.access_expires_at || auditor.token_expires_at)}</td>
+            <td>
+              <input readonly value="${escapeHtml(`${window.location.origin}/?token=${auditor.scoped_token || ""}#auditor-portal`)}" style="width:100%; padding:8px; border:1px solid #EAEAEA; border-radius:4px;" />
+            </td>
+            <td><button class="btn btn-outline audit-revoke-btn" data-audit-id="${escapeHtml(auditId)}" data-user-id="${escapeHtml(auditor.user_id)}">Revoke</button></td>
+          </tr>
+        `
+      )
+    : [`<tr><td colspan="4" class="status-gray">No auditors assigned yet.</td></tr>`];
+
+  return `
+    <div class="card graph-story-card">
+      <div class="mapped-elements-header compact">
+        <div>
+          <p class="mapped-elements-kicker">Auditor access</p>
+          <h3 class="serif-text section-title" style="margin-bottom:4px;">Manage external access</h3>
+          <p class="status-gray">Assign auditors, review link expiry, revoke access, and preview their workspace.</p>
+        </div>
+        <button class="btn btn-outline audit-preview-btn" data-audit-id="${escapeHtml(auditId)}">Preview as auditor</button>
+      </div>
+      <form id="audit-auditor-form" data-audit-id="${escapeHtml(auditId)}" style="display:grid; grid-template-columns: minmax(180px, 1fr) 180px auto; gap:10px; align-items:center; margin-bottom:16px;">
+        <select name="user_id" required style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;">
+          <option value="">Select auditor</option>
+          ${availableAuditors.map((auditor) => `<option value="${escapeHtml(auditor.id)}">${escapeHtml(auditor.name || auditor.email)} (${escapeHtml(auditor.email)})</option>`).join("")}
+        </select>
+        <input name="access_expires_at" type="date" style="padding:10px; border:1px solid #EAEAEA; border-radius:4px;" />
+        <button class="btn btn-primary" type="submit" ${availableAuditors.length ? "" : "disabled"}>Assign</button>
+      </form>
+      <p id="audit-auditor-status" class="status-gray" style="margin-bottom:12px;"></p>
+      ${renderTable(["Auditor", "Expires", "Portal link", ""], assignedRows)}
+      <div id="audit-preview-result" class="surface-panel" style="display:none; margin-top:16px;"></div>
+    </div>
+  `;
+}
+
+async function renderObjectSpecificPanels(detail) {
   const metadata = detail.metadata || {};
   if (detail.object_type === "policy") {
     return `
@@ -2790,22 +3211,33 @@ function renderObjectSpecificPanels(detail) {
     `;
   }
   if (detail.object_type === "audit") {
+    const eligibleAuditors = await getJson("/api/v1/auditors").catch(() => []);
     return `
-      <div class="grid-3" style="margin-bottom:24px;">
+      ${renderAuditReadinessBar(detail.workspace)}
+      <div class="grid-3" style="margin-bottom:18px;">
         ${renderGraphMetric("Controls in scope", detail.workspace?.summary?.controls_in_scope || 0, "Current audit scope")}
         ${renderGraphMetric("Evidence items", detail.workspace?.summary?.evidence_items || 0, "Collected artifacts")}
         ${renderGraphMetric("Open findings", detail.workspace?.summary?.open_findings || 0, "Needs follow-up")}
       </div>
-      ${renderAuditReadinessBar(detail.workspace)}
+      ${renderAuditAccessManagement(detail, eligibleAuditors)}
       ${renderAuditWorkspaceTable(detail.workspace)}
     `;
   }
   if (detail.object_type === "test") {
     return `
-      <div class="card graph-story-card">
-        <h3 class="serif-text section-title">Test result</h3>
-        <p class="graph-story-title">${escapeHtml(detail.status || "attention")}</p>
-        <p class="status-gray">This test stays linked to controls, documents, and audits so remediation has context rather than living in a separate screen.</p>
+      <div class="vanta-card graph-story-card">
+        <div class="vanta-card-head">
+          <div>
+            <h3 class="section-title">Latest version</h3>
+            <p class="graph-story-title">${escapeHtml(detail.title)}</p>
+            <p class="vanta-subtle">Completed evidence and renewal history stay tied to the mapped controls.</p>
+          </div>
+          ${getStatusHtml(detail.status || "attention")}
+        </div>
+      </div>
+      <div class="vanta-card graph-story-card">
+        <h3 class="section-title">Document instructions</h3>
+        <p class="vanta-subtle">Review implementation and evidence collection guidance before renewing this sample.</p>
       </div>
     `;
   }
@@ -2824,6 +3256,7 @@ function renderObjectSpecificPanels(detail) {
 async function renderGraphDetailPage(objectType, objectKey) {
   const detail = await getGraphDetail(objectType, objectKey);
   const config = GRAPH_ROUTE_CONFIG[objectType];
+  const objectPanels = await renderObjectSpecificPanels(detail);
   return renderGraphPageFrame(
     detail,
     config.route,
@@ -2832,7 +3265,7 @@ async function renderGraphDetailPage(objectType, objectKey) {
       <div class="grid-2 audit-layout graph-detail-layout">
         <div class="graph-main-stack">
           ${renderGraphSummaryGrid(detail)}
-          ${renderObjectSpecificPanels(detail)}
+          ${objectPanels}
         </div>
         <div class="graph-side-stack">
           ${renderMappedElements(detail)}
@@ -2843,6 +3276,7 @@ async function renderGraphDetailPage(objectType, objectKey) {
 }
 
 function renderControlDrawer(detail) {
+  const metadata = detail.metadata || {};
   return `
     <aside class="detail-drawer-shell">
       <div class="detail-drawer-backdrop" onclick="backToControls()"></div>
@@ -2850,18 +3284,35 @@ function renderControlDrawer(detail) {
         <div class="detail-drawer-head">
           <div>
             <p class="graph-detail-eyebrow">Control</p>
-            <h2 class="serif-text">${escapeHtml(detail.title)}</h2>
+            <h2>${escapeHtml(detail.title)}</h2>
             <p class="graph-detail-subtitle">${escapeHtml(detail.description || "")}</p>
           </div>
-          <button class="detail-drawer-close" onclick="backToControls()">Close</button>
+          <button class="detail-drawer-close" onclick="backToControls()">x</button>
         </div>
-        ${renderGraphSummaryGrid(detail)}
+        <div class="vanta-detail-meta">
+          <span class="vanta-pill">ID ${escapeHtml(detail.external_key || detail.subtitle || "-")}</span>
+          <span class="vanta-pill">Source ${escapeHtml(detail.subtitle || "JEC")}</span>
+          <span class="vanta-pill">Owner ${escapeHtml(detail.owner || "Unassigned")}</span>
+        </div>
+        <div class="vanta-drawer-tabs">
+          <span class="active">Mapped elements</span>
+          <span>History</span>
+          <span>Comments</span>
+        </div>
+        <div class="vanta-card">
+          <div class="graph-summary-grid">
+            <div class="graph-summary-item"><p class="graph-summary-label">Status</p><p class="graph-summary-value">${getStatusHtml(detail.status || "draft")}</p></div>
+            <div class="graph-summary-item"><p class="graph-summary-label">Domain</p><p class="graph-summary-value">${escapeHtml(metadata.domain || metadata.category || "Compliance")}</p></div>
+            <div class="graph-summary-item"><p class="graph-summary-label">Type I readiness</p><p class="graph-summary-value">${metadata.type1_ready ? `<span class="status-green">ready</span>` : `<span class="status-gray">pending</span>`}</p></div>
+            <div class="graph-summary-item"><p class="graph-summary-label">Type II readiness</p><p class="graph-summary-value">${metadata.type2_ready ? `<span class="status-green">ready</span>` : `<span class="status-gray">pending</span>`}</p></div>
+          </div>
+        </div>
         ${renderMappedElements(detail, true)}
-        <div class="card mapped-elements-card compact">
+        <div class="vanta-card mapped-elements-card compact">
           <div class="mapped-elements-header compact">
             <div>
               <p class="mapped-elements-kicker">Evidence</p>
-              <h3 class="serif-text section-title" style="margin-bottom:4px;">Recent evidence</h3>
+              <h3 class="section-title" style="margin-bottom:4px;">Recent evidence</h3>
             </div>
             <button class="btn btn-outline" data-route-target="evidence" data-param-control_id="${escapeHtml(detail.external_key)}">Add evidence</button>
           </div>
@@ -2882,6 +3333,16 @@ function renderControlDrawer(detail) {
               : `<p class="status-gray">No evidence attached yet.</p>`
           }
         </div>
+        <div class="vanta-card">
+          <div class="mapped-elements-header compact">
+            <div>
+              <p class="mapped-elements-kicker">Frameworks</p>
+              <h3 class="section-title" style="margin-bottom:4px;">SOC 2 mappings</h3>
+            </div>
+          </div>
+          <span class="vanta-pill">SOC 2</span>
+          <span class="vanta-pill">CC series</span>
+        </div>
       </div>
     </aside>
   `;
@@ -2894,31 +3355,54 @@ async function renderControlsGraph() {
 
   const implementedCount = controls.filter((item) => item.status === "implemented").length;
   const readyCount = controls.filter((item) => (item.metadata || {}).type1_ready).length;
+  const assignedCount = controls.filter((item) => item.owner).length;
   const rows = controls.map(
     (control) => `
       <tr>
+        <td><input type="checkbox" aria-label="Select ${escapeHtml(control.external_key)}" /></td>
         <td style="font-weight:500;">${escapeHtml(control.subtitle || control.external_key)}</td>
         <td>
           <div style="font-weight:500; color:var(--text-primary);">${escapeHtml(control.title)}</div>
           <div class="status-gray" style="font-size:0.85rem; margin-top:4px;">${escapeHtml(control.description || "")}</div>
         </td>
         <td>${escapeHtml(control.owner || "Unassigned")}</td>
+        <td><span class="vanta-pill">SOC 2</span></td>
         <td>${getStatusHtml(control.status || "draft")}</td>
         <td>${(control.metadata || {}).type1_ready ? `<span class="status-green">ready</span>` : `<span class="status-gray">pending</span>`}</td>
-        <td><button class="btn btn-outline" onclick="openControlDetail('${escapeHtml(control.external_key)}')">View</button></td>
+        <td><button class="btn btn-outline" onclick="openControlDetail('${escapeHtml(control.external_key)}')">...</button></td>
       </tr>
     `
   );
 
   return `
-    ${shell("Controls", "")}
-    <div class="grid-3" style="margin-bottom:24px;">
-      ${renderGraphMetric("Total controls", controls.length, "Live graph-backed records")}
-      ${renderGraphMetric("Implemented", implementedCount, "Controls marked implemented")}
-      ${renderGraphMetric("Type I ready", readyCount, "Controls with readiness evidence")}
-    </div>
-    <div class="graph-list-layout ${selectedDetail ? "has-drawer" : ""}">
-      ${renderTable(["ID", "Control", "Owner", "Status", "Readiness", ""], rows)}
+    <div class="vanta-page wide">
+      ${vantaHeader("Controls", "Control ownership, framework mapping, and evidence readiness", `${routeButton("Add control", "compliance-controls")} <button class="btn btn-outline">...</button>`)}
+      <div class="vanta-kpi-grid" style="margin-bottom:14px;">
+        <div class="vanta-card">
+          <h2>Assignment</h2>
+          <div style="display:grid; grid-template-columns:180px 1fr; gap:18px; align-items:center;">
+            <div class="vanta-donut" style="--value:${statusRatio(assignedCount, controls.length)}%;">
+              <div class="vanta-donut-core"><div><strong>${statusRatio(assignedCount, controls.length)}%</strong><br><span class="vanta-subtle">Assigned</span></div></div>
+            </div>
+            <div class="vanta-legend">
+              <span><span class="legend-dot gray"></span>Unassigned <strong style="float:right;">${controls.length - assignedCount}</strong></span>
+              <span><span class="legend-dot"></span>Assigned <strong style="float:right;">${assignedCount}</strong></span>
+              <span><span class="legend-dot red"></span>Needs reassignment <strong style="float:right;">0</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="vanta-card">
+          <h2>Controls</h2>
+          <div class="vanta-big-number">${statusRatio(readyCount, controls.length)}%</div>
+          <p class="vanta-subtle">of controls have passing evidence</p>
+          ${vantaProgress(statusRatio(readyCount, controls.length))}
+          <div class="metric-footer" style="margin-top:10px;"><span>${readyCount} controls</span><span>${controls.length} total</span></div>
+        </div>
+      </div>
+      ${vantaToolbar("Search controls", ["Frameworks", "Owner", "Domain", "Source", "Framework code", "Status"])}
+      <div class="graph-list-layout ${selectedDetail ? "has-drawer" : ""}">
+        ${renderTable(["", "ID", "Control", "Owner", "Frameworks", "Status", "Readiness", ""], rows)}
+      </div>
       ${selectedDetail ? renderControlDrawer(selectedDetail) : ""}
     </div>
   `;
@@ -2987,14 +3471,56 @@ async function renderAuditsGraph() {
   if (key) return renderGraphDetailPage("audit", key);
   const items = await getGraphList("audit");
   const workspace = await getJson("/workspaces/audits");
+  const ready = Math.max(workspace.summary.controls_in_scope - workspace.summary.open_findings, 0);
   return `
-    ${shell("Audits", "", routeButton("Start audit", "new_audit_firm_selection"))}
-    <div class="grid-3" style="margin-bottom:24px;">
-      ${renderGraphMetric("Controls in scope", workspace.summary.controls_in_scope, "Current audit scope")}
-      ${renderGraphMetric("Open findings", workspace.summary.open_findings, "Needs remediation")}
-      ${renderGraphMetric("Evidence items", workspace.summary.evidence_items, "Collected artifacts")}
+    <div class="vanta-page">
+      ${vantaHeader("Audits", "Active audit cycles and evidence readiness", `<button class="btn btn-outline">...</button> ${routeButton("Add audit", "new_audit_firm_selection")}`)}
+      <div class="vanta-tabs">
+        <button class="vanta-tab active">Active</button>
+        <button class="vanta-tab">Completed</button>
+      </div>
+      ${vantaToolbar("Search", ["Audit firm", "Framework", "Status", "Audit type"])}
+      ${
+        items.length
+          ? items.map((audit) => `
+            <div class="vanta-card">
+              <div class="vanta-card-head">
+                <div class="vanta-title-row" style="justify-content:flex-start;">
+                  <span class="vanta-mini-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                  <h2>${escapeHtml(audit.title)}</h2>
+                  <span class="vanta-pill">${escapeHtml(audit.status || "in audit")}</span>
+                  <span class="vanta-pill">${escapeHtml(audit.subtitle || "SOC 2")}</span>
+                </div>
+                <button class="btn btn-outline" data-open-object="1" data-object-type="audit" data-object-key="${escapeHtml(audit.external_key)}">Open audit</button>
+              </div>
+              <div class="grid-2" style="margin-top:18px;">
+                <div class="surface-panel" style="margin:0;">
+                  <h3>Timeline</h3>
+                  <div class="vanta-timeline" style="margin-top:12px;">
+                    ${vantaTask("fa-regular fa-eye", "Auditor gets access", "Mar 23, 2026")}
+                    ${vantaTask("fa-solid fa-hourglass-start", "Audit starts", "Mar 23, 2026")}
+                    ${vantaTask("fa-regular fa-circle-check", "Audit ends", "Jun 23, 2026")}
+                  </div>
+                </div>
+                <div class="surface-panel" style="margin:0;">
+                  <h3>Evidence tracker</h3>
+                  <div class="vanta-progress segmented" style="margin-top:16px;">
+                    <span class="red" style="width:${statusRatio(workspace.summary.open_findings, Math.max(workspace.summary.controls_in_scope, 1))}%"></span>
+                    <span class="blue" style="width:${statusRatio(ready, Math.max(workspace.summary.controls_in_scope, 1))}%"></span>
+                    <span class="gray" style="width:8%"></span>
+                  </div>
+                  <div class="audit-readiness-legend">
+                    <span><strong>${workspace.summary.open_findings}</strong> Not ready for audit</span>
+                    <span><strong>${ready}</strong> Ready for audit</span>
+                    <span><strong>${workspace.summary.evidence_items}</strong> Evidence items</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `).join("")
+          : `<div class="vanta-card"><p class="vanta-subtle">No audit records exist yet. Start one to open the full workspace view.</p></div>`
+      }
     </div>
-    ${items.length ? renderGraphListTable(items, ["title", "status", "subtitle", "__open"], "audit") : `<div class="card"><p class="status-gray">No audit records exist yet. Start one to open the full workspace view.</p></div>`}
   `;
 }
 
@@ -3032,14 +3558,46 @@ async function renderTestsGraph() {
   const key = getSearchParam("test");
   if (key) return renderGraphDetailPage("test", key);
   const items = await getGraphList("test");
+  const passing = items.filter((item) => isPositiveStatus(item.status)).length;
+  const attention = items.length - passing;
   return `
-    ${shell("Tests", "")}
-    <div class="grid-3" style="margin-bottom:24px;">
-      ${renderGraphMetric("Tests", items.length, "Connected test records")}
-      ${renderGraphMetric("Passing", items.filter((item) => item.status === "ok").length, "Healthy validation coverage")}
-      ${renderGraphMetric("Attention", items.filter((item) => item.status !== "ok").length, "Needs remediation")}
+    <div class="vanta-page wide">
+      ${vantaHeader("Tests", "Automated and document-based compliance tests", '<button class="btn btn-outline">...</button>')}
+      <div class="vanta-kpi-grid" style="margin-bottom:14px;">
+        <div class="vanta-card">
+          <div class="vanta-card-head">
+            <h2>Tests passing</h2>
+            <span class="vanta-pill">${passing}</span>
+          </div>
+          <div class="vanta-big-number">${statusRatio(passing, items.length)}%</div>
+          <p class="vanta-subtle">${passing} of ${items.length} passing</p>
+          ${vantaProgress(statusRatio(passing, items.length))}
+          <div class="vanta-monitor-grid two" style="margin-top:18px;">
+            <div>
+              <p class="vanta-subtle">Automated tests</p>
+              ${vantaProgress(statusRatio(passing, items.length))}
+            </div>
+            <div>
+              <p class="vanta-subtle">Documents</p>
+              ${vantaProgress(statusRatio(Math.max(passing - 1, 0), items.length))}
+            </div>
+          </div>
+        </div>
+        <div class="vanta-card">
+          <div class="vanta-card-head">
+            <h2>Tests that need attention</h2>
+            <span class="vanta-pill">${attention}</span>
+          </div>
+          <div class="vanta-task-list" style="margin-top:14px;">
+            ${vantaTask("fa-regular fa-calendar-xmark", "Overdue", attention)}
+            ${vantaTask("fa-solid fa-diamond", "Needs remediation", Math.ceil(attention / 4))}
+            ${vantaTask("fa-regular fa-clock", "Due soon", Math.ceil(attention / 3))}
+          </div>
+        </div>
+      </div>
+      ${vantaToolbar("Search", ["Category", "Framework", "Control", "Integration", "Owner", "Type", "Status", "Rollout"])}
+      ${renderGraphListTable(items, ["title", "owner", "status", "integration_name", "subtitle", "__open"], "test")}
     </div>
-    ${renderGraphListTable(items, ["title", "status", "owner", "integration_name", "__open"], "test")}
   `;
 }
 
@@ -3246,6 +3804,168 @@ async function setupActions() {
     });
   });
 
+  const auditAuditorForm = document.getElementById("audit-auditor-form");
+  if (auditAuditorForm && auditAuditorForm.dataset.boundSubmit !== "1") {
+    auditAuditorForm.dataset.boundSubmit = "1";
+    const output = document.getElementById("audit-auditor-status");
+    auditAuditorForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (output) output.textContent = "Assigning auditor...";
+      const formData = new FormData(auditAuditorForm);
+      const expiresAt = formData.get("access_expires_at");
+      const payload = {
+        user_id: Number(formData.get("user_id")),
+        access_expires_at: expiresAt ? `${expiresAt}T23:59:59Z` : null,
+      };
+      try {
+        await getJson(`/api/v1/audits/${auditAuditorForm.dataset.auditId}/auditors`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (output) output.textContent = "Auditor assigned.";
+        renderCurrentPage();
+      } catch (error) {
+        if (output) output.textContent = `Assign failed: ${error.message}`;
+      }
+    });
+  }
+
+  document.querySelectorAll(".audit-revoke-btn").forEach((button) => {
+    if (button.dataset.boundClick === "1") return;
+    button.dataset.boundClick = "1";
+    button.addEventListener("click", async () => {
+      if (!confirm("Revoke this auditor's access to the audit?")) return;
+      try {
+        const response = await fetch(`/api/v1/audits/${button.dataset.auditId}/auditors/${button.dataset.userId}`, {
+          method: "DELETE",
+        });
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+        renderCurrentPage();
+      } catch (error) {
+        alert(`Revoke failed: ${error.message}`);
+      }
+    });
+  });
+
+  document.querySelectorAll(".audit-preview-btn").forEach((button) => {
+    if (button.dataset.boundClick === "1") return;
+    button.dataset.boundClick = "1";
+    button.addEventListener("click", async () => {
+      const output = document.getElementById("audit-preview-result");
+      if (!output) return;
+      output.style.display = "block";
+      output.innerHTML = `<p class="status-gray">Loading auditor preview...</p>`;
+      try {
+        const preview = await getJson(`/api/v1/audits/${button.dataset.auditId}/preview-as-auditor`);
+        output.innerHTML = `
+          <h3 class="serif-text section-title">Auditor preview</h3>
+          <div class="grid-3">
+            ${renderAuditorMetric("Controls", (preview.controls || []).length, "Visible to auditor")}
+            ${renderAuditorMetric("Evidence", (preview.evidence || []).length, "Shared artifacts")}
+            ${renderAuditorMetric("Requests", (preview.requests || []).length, "Non-internal comments only")}
+          </div>
+        `;
+      } catch (error) {
+        output.innerHTML = `<p class="status-red">Preview failed: ${escapeHtml(error.message)}</p>`;
+      }
+    });
+  });
+
+  const auditorRequestForm = document.getElementById("auditor-request-form");
+  if (auditorRequestForm && auditorRequestForm.dataset.boundSubmit !== "1") {
+    auditorRequestForm.dataset.boundSubmit = "1";
+    const output = document.getElementById("auditor-request-status");
+    auditorRequestForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (output) output.textContent = "Creating request...";
+      const formData = new FormData(auditorRequestForm);
+      const payload = {
+        title: formData.get("title"),
+        description: formData.get("description") || null,
+        control_id: formData.get("control_id") ? Number(formData.get("control_id")) : null,
+        due_date: formData.get("due_date") ? `${formData.get("due_date")}T00:00:00Z` : null,
+      };
+      try {
+        await getJson(`/api/v1/audits/${auditorRequestForm.dataset.auditId}/requests`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (output) output.textContent = "Request created.";
+        renderCurrentPage();
+      } catch (error) {
+        if (output) output.textContent = `Request failed: ${error.message}`;
+      }
+    });
+  }
+
+  document.querySelectorAll(".auditor-comment-form").forEach((form) => {
+    if (form.dataset.boundSubmit === "1") return;
+    form.dataset.boundSubmit = "1";
+    const output = form.parentElement?.querySelector(".auditor-form-status");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (output) output.textContent = "Sending comment...";
+      const formData = new FormData(form);
+      try {
+        await getJson(`/api/v1/requests/${form.dataset.requestId}/comments`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ body: formData.get("body"), is_internal: false }),
+        });
+        if (output) output.textContent = "Comment added.";
+        renderCurrentPage();
+      } catch (error) {
+        if (output) output.textContent = `Comment failed: ${error.message}`;
+      }
+    });
+  });
+
+  document.querySelectorAll(".auditor-status-form").forEach((form) => {
+    if (form.dataset.boundSubmit === "1") return;
+    form.dataset.boundSubmit = "1";
+    const output = form.parentElement?.querySelector(".auditor-form-status");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (output) output.textContent = "Updating request...";
+      const formData = new FormData(form);
+      try {
+        await getJson(`/api/v1/requests/${form.dataset.requestId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: formData.get("status") }),
+        });
+        if (output) output.textContent = "Request updated.";
+        renderCurrentPage();
+      } catch (error) {
+        if (output) output.textContent = `Update failed: ${error.message}`;
+      }
+    });
+  });
+
+  document.querySelectorAll(".auditor-attach-form").forEach((form) => {
+    if (form.dataset.boundSubmit === "1") return;
+    form.dataset.boundSubmit = "1";
+    const output = form.parentElement?.querySelector(".auditor-form-status");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (output) output.textContent = "Attaching evidence...";
+      const formData = new FormData(form);
+      try {
+        await getJson(`/api/v1/requests/${form.dataset.requestId}/evidence`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ evidence_id: Number(formData.get("evidence_id")) }),
+        });
+        if (output) output.textContent = "Evidence attached.";
+        renderCurrentPage();
+      } catch (error) {
+        if (output) output.textContent = `Attach failed: ${error.message}`;
+      }
+    });
+  });
+
   const uploadForm = document.getElementById("upload-form");
   if (uploadForm) {
     const presetControlId = getSearchParam("control_id");
@@ -3329,6 +4049,7 @@ async function boot() {
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
+      window.localStorage.removeItem("auditorToken");
       await fetch("/auth/logout", { method: "POST" });
       window.location.reload();
     });
@@ -3337,7 +4058,7 @@ async function boot() {
   setupNavGroups();
 
   if (!window.location.hash || !ROUTES.has(window.location.hash.replace("#", ""))) {
-    window.location.hash = "#home";
+    window.location.hash = currentUser.role === "auditor" ? "#auditor-portal" : "#home";
   }
   window.addEventListener("hashchange", renderCurrentPage);
   window.addEventListener("popstate", renderCurrentPage);

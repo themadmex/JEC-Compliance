@@ -22,3 +22,16 @@ def upsert_user(profile: dict[str, Any]) -> dict[str, Any]:
             (profile["oid"],),
         ).fetchone()
         return dict(row)
+
+
+def list_auditor_users() -> list[dict[str, Any]]:
+    with get_connection() as conn:
+        rows = conn.execute(
+            """
+            SELECT id, email, name, role, scoped_token, token_expires_at
+            FROM users
+            WHERE role = 'auditor'
+            ORDER BY name, email
+            """
+        ).fetchall()
+    return [dict(row) for row in rows]

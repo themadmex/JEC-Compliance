@@ -1,0 +1,81 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - img "JEC logo" [ref=e5]
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: JEC
+        - paragraph [ref=e8]: Compliance Hub
+    - generic [ref=e9]:
+      - generic [ref=e10]: 
+      - generic [ref=e11]: Help ...
+      - generic [ref=e12]: ctrl+K
+    - navigation [ref=e13]:
+      - link " Home" [ref=e14] [cursor=pointer]:
+        - /url: "#home"
+        - generic [ref=e15]: 
+        - text: Home
+      - link " My work" [ref=e16] [cursor=pointer]:
+        - /url: "#my-work"
+        - generic [ref=e17]: 
+        - text: My work
+      - link " Vanta Agent" [ref=e18] [cursor=pointer]:
+        - /url: "#agent"
+        - generic [ref=e19]: 
+        - text: Vanta Agent
+      - link " Tests" [ref=e20] [cursor=pointer]:
+        - /url: "#tests"
+        - generic [ref=e21]: 
+        - text: Tests
+      - link " Reports" [ref=e22] [cursor=pointer]:
+        - /url: "#reports"
+        - generic [ref=e23]: 
+        - text: Reports
+      - button " Compliance " [ref=e26] [cursor=pointer]:
+        - generic [ref=e27]:
+          - generic [ref=e28]: 
+          - text: Compliance
+        - generic [ref=e29]: 
+      - button " Customer trust " [ref=e31] [cursor=pointer]:
+        - generic [ref=e32]:
+          - generic [ref=e33]: 
+          - text: Customer trust
+        - generic [ref=e34]: 
+      - button " Risk " [ref=e36] [cursor=pointer]:
+        - generic [ref=e37]:
+          - generic [ref=e38]: 
+          - text: Risk
+        - generic [ref=e39]: 
+      - button " Vendors " [ref=e42] [cursor=pointer]:
+        - generic [ref=e43]:
+          - generic [ref=e44]: 
+          - text: Vendors
+        - generic [ref=e45]: 
+      - button " Assets " [ref=e47] [cursor=pointer]:
+        - generic [ref=e48]:
+          - generic [ref=e49]: 
+          - text: Assets
+        - generic [ref=e50]: 
+      - button " Personnel " [ref=e52] [cursor=pointer]:
+        - generic [ref=e53]:
+          - generic [ref=e54]: 
+          - text: Personnel
+        - generic [ref=e55]: 
+      - link " Integrations" [ref=e57] [cursor=pointer]:
+        - /url: "#integrations"
+        - generic [ref=e58]: 
+        - text: Integrations
+      - link " Auditor portal" [ref=e59] [cursor=pointer]:
+        - /url: "#auditor-portal"
+        - generic [ref=e60]: 
+        - text: Auditor portal
+      - link " My security tasks" [ref=e62] [cursor=pointer]:
+        - /url: "#my-security-tasks"
+        - generic [ref=e63]: 
+        - text: My security tasks
+    - generic [ref=e64]:
+      - generic [ref=e65]: Nnaemeka Ugwokegbe
+      - button "" [ref=e66] [cursor=pointer]:
+        - generic [ref=e67]: 
+  - main [ref=e68]:
+    - heading "Screen Error" [level=1] [ref=e70]
+    - paragraph [ref=e72]: 401 Unauthorized

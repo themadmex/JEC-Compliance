@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from app.db import get_connection
+from app.db import get_connection, get_table_columns
 from app.services import controls_service, evidence_service, audit_service, task_service
 from app.services.evidence_service import EVIDENCE_STALE_DAYS
 
@@ -83,23 +83,24 @@ def get_gap_report() -> list[dict[str, Any]]:
     stale_cutoff_str = stale_cutoff.isoformat()
 
     with get_connection() as conn:
+        evidence_timestamp_expr = _evidence_timestamp_sql(conn)
         rows = conn.execute(
-            """
+            f"""
             SELECT c.id AS control_db_id, c.control_id, c.title,
                    CASE
-                     WHEN latest.collected_at IS NULL THEN 'No evidence collected'
-                     WHEN latest.collected_at < ? THEN 'Latest evidence is stale'
+                     WHEN latest.evidence_at IS NULL THEN 'No evidence collected'
+                     WHEN latest.evidence_at < ? THEN 'Latest evidence is stale'
                      WHEN c.implementation_status != 'implemented' THEN 'Control not implemented'
                      ELSE 'Needs review'
                    END AS reason
             FROM controls c
             LEFT JOIN (
-                SELECT control_id, MAX(collected_at) AS collected_at
+                SELECT control_id, MAX({evidence_timestamp_expr}) AS evidence_at
                 FROM evidence
                 GROUP BY control_id
             ) latest ON latest.control_id = c.id
-            WHERE latest.collected_at IS NULL
-               OR latest.collected_at < ?
+            WHERE latest.evidence_at IS NULL
+               OR latest.evidence_at < ?
                OR c.implementation_status != 'implemented'
             ORDER BY c.control_id
             """,
@@ -114,6 +115,7 @@ def get_phase1_overview(vendors_attention: int = 0) -> dict[str, Any]:
     stale_cutoff = now - timedelta(days=EVIDENCE_STALE_DAYS)
 
     with get_connection() as conn:
+        evidence_timestamp_expr = _evidence_timestamp_sql(conn)
         policies_total = int(conn.execute("SELECT COUNT(*) AS c FROM controls").fetchone()["c"])
         policies_attention = int(
             conn.execute(
@@ -124,15 +126,15 @@ def get_phase1_overview(vendors_attention: int = 0) -> dict[str, Any]:
         tests_total = policies_total
         tests_attention = int(
             conn.execute(
-                """
+                f"""
                 SELECT COUNT(*) AS c
                 FROM controls c
                 LEFT JOIN (
-                  SELECT control_id, MAX(collected_at) AS collected_at
+                  SELECT control_id, MAX({evidence_timestamp_expr}) AS evidence_at
                   FROM evidence
                   GROUP BY control_id
                 ) latest ON latest.control_id = c.id
-                WHERE latest.collected_at IS NULL OR latest.collected_at < ?
+                WHERE latest.evidence_at IS NULL OR latest.evidence_at < ?
                 """,
                 (stale_cutoff.isoformat(),),
             ).fetchone()["c"]
@@ -197,9 +199,10 @@ def get_audits_workspace() -> dict[str, Any]:
     gaps = get_gap_report()
     latest_by_control: dict[int, dict[str, Any]] = {}
     for item in evidence:
+        evidence_at = _evidence_timestamp(item)
         current = latest_by_control.get(item["control_id"])
-        if current is None or item["collected_at"] > current["collected_at"]:
-            latest_by_control[item["control_id"]] = item
+        if current is None or evidence_at > _evidence_timestamp(current):
+            latest_by_control[item["control_id"]] = {**item, "evidence_at": evidence_at}
 
     controls_in_scope = []
     for control in controls:
@@ -212,7 +215,7 @@ def get_audits_workspace() -> dict[str, Any]:
                 "title": control["title"],
                 "owner": control["owner"],
                 "implementation_status": control["implementation_status"],
-                "latest_evidence_at": latest["collected_at"] if latest else None,
+                "latest_evidence_at": latest["evidence_at"] if latest else None,
                 "latest_evidence_status": latest["status"] if latest else "missing",
                 "issue": gap["reason"] if gap else None,
                 "audit_state": "attention" if gap else "ready",
@@ -227,6 +230,26 @@ def get_audits_workspace() -> dict[str, Any]:
         },
         "controls": controls_in_scope,
     }
+
+
+def _evidence_timestamp(item: dict[str, Any]) -> str:
+    for key in ("valid_from", "collected_at", "created_at"):
+        value = item.get(key)
+        if value not in (None, ""):
+            return str(value)
+    return ""
+
+
+def _evidence_timestamp_sql(conn: Any) -> str:
+    columns = get_table_columns(conn, "evidence")
+    candidates = [
+        column
+        for column in ("valid_from", "collected_at", "created_at")
+        if column in columns
+    ]
+    if not candidates:
+        return "NULL"
+    return f"COALESCE({', '.join(candidates)})"
 
 
 def get_risk_workspace() -> dict[str, Any]:

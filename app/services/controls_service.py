@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from typing import Any
-from datetime import datetime
 
 from app.db import get_connection
 from app.schemas import ControlCreate
@@ -69,6 +68,7 @@ def create_control(payload: ControlCreate) -> dict[str, Any]:
                 last_tested_at, next_review_at
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            RETURNING id
             """,
             (
                 framework_id,
@@ -83,7 +83,7 @@ def create_control(payload: ControlCreate) -> dict[str, Any]:
                 payload.next_review_at.isoformat() if payload.next_review_at else None,
             ),
         )
-        new_id = int(cursor.lastrowid)
+        new_id = int(cursor.fetchone()["id"])
         row = conn.execute(
             """
             SELECT id, control_id, title, description, owner, implementation_status,

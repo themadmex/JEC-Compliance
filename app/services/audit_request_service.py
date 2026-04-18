@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from typing import Any, Dict, List, Optional
-from datetime import datetime, timezone
+
 
 from app.db import get_connection
 from app.services.log_service import log_audit_event
@@ -41,7 +41,7 @@ def create_audit_request(
             """,
             (audit_id, requester_id, title, description, control_id, due_date),
         )
-        request_id = cur.fetchone()[0]
+        request_id = cur.fetchone()["id"]
         
         log_audit_event(
             actor_id=requester_id,

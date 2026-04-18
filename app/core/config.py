@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     """Environment-backed application settings."""
 
     app_name: str = "JEC Compliance Engine"
-    environment: str = Field(default="development", alias="ENVIRONMENT")
+    environment: str = Field(default="development", alias="APP_ENV")
     database_url: str = Field(
         default="sqlite:///data/jec_soc2.db",
         alias="DATABASE_URL",

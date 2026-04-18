@@ -48,6 +48,19 @@ class Phase1FoundationTests(unittest.TestCase):
                     "audit_comments",
                     "readiness_snapshots",
                     "readiness_gaps",
+                    "evidence_controls",
+                    "policies",
+                    "policy_controls",
+                    "policy_versions",
+                    "policy_consistency_flags",
+                    "access_reviews",
+                    "access_review_accounts",
+                    "personnel",
+                    "personnel_requirements",
+                    "personnel_compliance_records",
+                    "risks",
+                    "risk_controls",
+                    "risk_history",
                 }:
                     self.assertIn(required_table, table_names)
 
@@ -64,6 +77,11 @@ class Phase1FoundationTests(unittest.TestCase):
                     "evidence_requirements",
                 }:
                     self.assertIn(required_column, control_columns)
+
+                snapshot_columns = {
+                    row[1] for row in conn.execute("PRAGMA table_info(integration_snapshots)")
+                }
+                self.assertIn("is_service_account_candidate", snapshot_columns)
         finally:
             pass
 
@@ -123,6 +141,16 @@ class Phase1FoundationTests(unittest.TestCase):
             self.assertTrue(all(row[4] for row in rows))
         finally:
             pass
+
+    def test_app_health_route_does_not_require_database(self) -> None:
+        from fastapi.testclient import TestClient
+
+        from app.main import app
+
+        response = TestClient(app).get("/health")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "ok"})
 
 
 if __name__ == "__main__":

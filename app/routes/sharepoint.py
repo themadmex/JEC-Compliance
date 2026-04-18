@@ -3,10 +3,11 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 
 from app import repository
+from app.auth import require_role
 from app.schemas import EvidenceCreate
 from app.services import sharepoint
 
@@ -21,13 +22,18 @@ class AttachRequest(BaseModel):
 
 
 @router.get("/status")
-def sp_status() -> dict[str, Any]:
+def sp_status(
+    current_user: dict[str, Any] = Depends(require_role("viewer")),
+) -> dict[str, Any]:
     """Check SharePoint connectivity."""
     return sharepoint.check_connection()
 
 
 @router.get("/browse")
-def browse(folder: str = "") -> list[dict[str, Any]]:
+def browse(
+    folder: str = "",
+    current_user: dict[str, Any] = Depends(require_role("viewer")),
+) -> list[dict[str, Any]]:
     """List files in the SharePoint Documents library."""
     if not sharepoint.is_configured():
         raise HTTPException(
@@ -38,7 +44,10 @@ def browse(folder: str = "") -> list[dict[str, Any]]:
 
 
 @router.post("/attach", status_code=201)
-def attach(payload: AttachRequest) -> dict[str, Any]:
+def attach(
+    payload: AttachRequest,
+    current_user: dict[str, Any] = Depends(require_role("contributor")),
+) -> dict[str, Any]:
     """Attach an existing SharePoint file as evidence for a control."""
     if not sharepoint.is_configured():
         raise HTTPException(
@@ -49,19 +58,27 @@ def attach(payload: AttachRequest) -> dict[str, Any]:
     evidence = repository.create_evidence(
         EvidenceCreate(
             control_id=payload.control_id,
-            name=payload.name,
-            source="sharepoint",
-            artifact_path=meta["web_url"],
-            collected_at=datetime.now(timezone.utc),
+            title=payload.name,
+            description=payload.notes,
+            source_type="sharepoint",
+            sharepoint_url=meta["web_url"],
+            sharepoint_item_id=payload.item_id,
+            local_path=meta["web_url"],
+            valid_from=datetime.now(timezone.utc),
             status="accepted",
-            notes=payload.notes,
+            uploaded_by=current_user["id"],
+            file_name=meta.get("name") or payload.name,
+            file_size_bytes=int(meta.get("size") or 1),
+            mime_type=meta.get("mime_type") or meta.get("content_type"),
         )
     )
     return evidence
 
 
 @router.get("/lists")
-def list_sp_lists() -> list[dict[str, Any]]:
+def list_sp_lists(
+    current_user: dict[str, Any] = Depends(require_role("viewer")),
+) -> list[dict[str, Any]]:
     """Return all visible SharePoint Lists on the site."""
     if not sharepoint.is_configured():
         raise HTTPException(
@@ -72,7 +89,9 @@ def list_sp_lists() -> list[dict[str, Any]]:
 
 
 @router.post("/provision-folders")
-def provision_folders() -> dict[str, Any]:
+def provision_folders(
+    current_user: dict[str, Any] = Depends(require_role("compliance_manager")),
+) -> dict[str, Any]:
     """Create the compliance folder tree on SharePoint (idempotent)."""
     if not sharepoint.is_configured():
         raise HTTPException(
@@ -83,7 +102,10 @@ def provision_folders() -> dict[str, Any]:
 
 
 @router.get("/lists/{list_name}/items")
-def list_items(list_name: str) -> list[dict[str, Any]]:
+def list_items(
+    list_name: str,
+    current_user: dict[str, Any] = Depends(require_role("viewer")),
+) -> list[dict[str, Any]]:
     """Return all items from a SharePoint List."""
     if not sharepoint.is_configured():
         raise HTTPException(

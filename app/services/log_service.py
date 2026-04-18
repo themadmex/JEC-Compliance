@@ -6,7 +6,7 @@ from app.db import get_connection
 
 
 def log_audit_event(
-    actor_id: int,
+    actor_id: int | None,
     action: str,
     object_type: str,
     object_id: int,

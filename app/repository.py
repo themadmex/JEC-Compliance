@@ -24,8 +24,16 @@ from app.services.evidence_service import (
 from app.services.audit_service import (
     EXPORTS_DIR,
     list_audits,
+    list_audits_for_auditor,
     create_audit,
     get_audit,
+    update_audit,
+    update_audit_control,
+    assign_auditor,
+    list_audit_auditors,
+    remove_auditor,
+    auditor_has_scope,
+    get_auditor_portal,
     create_audit_finding,
     update_audit_finding,
     get_audit_finding,
@@ -33,6 +41,14 @@ from app.services.audit_service import (
     export_audit_packet,
     list_audit_periods,
     create_audit_period,
+    calculate_readiness,
+    list_audit_requests,
+    create_request,
+    get_request,
+    update_request,
+    scan_overdue_audit_requests,
+    attach_request_evidence,
+    add_request_comment,
 )
 from app.services.task_service import (
     list_tasks,
@@ -40,7 +56,7 @@ from app.services.task_service import (
     get_task,
     update_task_status,
 )
-from app.services.user_service import upsert_user
+from app.services.user_service import upsert_user, list_auditor_users
 from app.services.dashboard_service import (
     get_readiness_summary,
     get_dashboard_summary,

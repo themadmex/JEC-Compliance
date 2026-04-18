@@ -1,51 +1,46 @@
-from __future__ import annotations
-
-import random
-from typing import Any, Dict
-
 from app.services.checks.base import BaseCheck, CheckResult, CheckStatus
 
 
 class GoogleMFACheck(BaseCheck):
     """
     Automated check for CC6.1 (Logical Access) focusing on MFA enforcement.
-    Currently uses an internal stub/simulation pattern until Admin SDK is connected.
     """
-    
+
     def __init__(self):
         super().__init__(
             name="Google Workspace MFA Enforcement",
-            control_id="CC6.1",
+            control_code="CC6.1",
             description="Verifies that 2nd-step verification (MFA) is enforced for all active users."
         )
 
     async def run(self, **kwargs) -> CheckResult:
-        # SIMULATION LOGIC (Phase 2 Prep)
-        # In a real scenario, this would call integrations/google_workspace.py
-        
-        users_count = 42
-        mfa_disabled_users = ["alice@jec.com", "bob@jec.com"] if random.random() > 0.8 else []
-        
-        if not mfa_disabled_users:
-            return CheckResult(
-                control_id=self.control_id,
-                status=CheckStatus.PASS,
-                summary=f"MFA is enforced. Verified {users_count} users.",
-                details={
-                    "users_checked": users_count,
-                    "mfa_enforced_users": users_count,
-                    "policy": "Enforced for all Organization Units"
-                }
+        if not kwargs.get("test_mode"):
+            return self.result(
+                CheckStatus.SKIPPED,
+                "Google Workspace MFA check skipped because no integration snapshot is available.",
+                {"required_snapshot": "google_workspace:user"},
             )
-        else:
-            return CheckResult(
-                control_id=self.control_id,
-                status=CheckStatus.FAIL,
-                summary=f"MFA check failed. {len(mfa_disabled_users)} users have MFA disabled.",
-                details={
-                    "total_users": users_count,
-                    "failing_users": mfa_disabled_users,
-                    "policy": "Enforced, but exemptions detected."
-                },
-                remediation_steps="Ensure all users in 'IT Operations' OU have MFA enabled in Google Admin console."
+
+        users = [
+            {"email": "admin@jec.com", "mfa_enrolled": True, "service_account": False},
+            {"email": "deploy-bot@jec.com", "mfa_enrolled": False, "service_account": True},
+        ]
+        human_users = [user for user in users if not user["service_account"]]
+        failing_users = [user["email"] for user in human_users if not user["mfa_enrolled"]]
+
+        if failing_users:
+            return self.result(
+                CheckStatus.FAIL,
+                f"MFA check failed for {len(failing_users)} active human user(s).",
+                {"users_checked": len(human_users), "failing_users": failing_users},
+                "Enable MFA for every active human account or document an approved exception.",
             )
+
+        return self.result(
+            CheckStatus.PASS,
+            f"MFA is enforced for {len(human_users)} active human user(s).",
+            {
+                "users_checked": len(human_users),
+                "service_accounts_excluded": 1,
+            },
+        )

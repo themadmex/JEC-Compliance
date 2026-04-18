@@ -1,16 +1,14 @@
 from __future__ import annotations
 
-import json
-import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from app.db import get_connection
+from app.db import get_connection, get_table_columns
 from app.schemas import EvidenceCreate
 
 
-EVIDENCE_STALE_DAYS = 90
+EVIDENCE_STALE_DAYS = 30
 LOCKED_ARTIFACTS_DIR = Path("artifacts") / "locked"
 
 
@@ -19,24 +17,28 @@ def list_evidence(control_id: int | None = None) -> list[dict[str, Any]]:
         if control_id is None:
             rows = conn.execute(
                 """
-                SELECT id, control_id, name, source, artifact_path, collected_at,
-                       period_start, period_end, status, notes, submitter_id,
-                       approver_id, approved_at, rejected_reason, locked_at,
-                       sha256_hash, sharepoint_id, audit_period_id, collection_due_date
+                SELECT id, control_id, title, description, source_type, status,
+                       uploaded_by, reviewed_by, rejection_reason, valid_from,
+                       valid_to, sha256_hash, sharepoint_url, sharepoint_item_id,
+                       local_path, file_name, file_size_bytes, mime_type,
+                       locked_at, locked_by, audit_period_id, collection_due_date,
+                       created_at, updated_at
                 FROM evidence
-                ORDER BY collected_at DESC
+                ORDER BY created_at DESC
                 """
             ).fetchall()
         else:
             rows = conn.execute(
                 """
-                SELECT id, control_id, name, source, artifact_path, collected_at,
-                       period_start, period_end, status, notes, submitter_id,
-                       approver_id, approved_at, rejected_reason, locked_at,
-                       sha256_hash, sharepoint_id, audit_period_id, collection_due_date
+                SELECT id, control_id, title, description, source_type, status,
+                       uploaded_by, reviewed_by, rejection_reason, valid_from,
+                       valid_to, sha256_hash, sharepoint_url, sharepoint_item_id,
+                       local_path, file_name, file_size_bytes, mime_type,
+                       locked_at, locked_by, audit_period_id, collection_due_date,
+                       created_at, updated_at
                 FROM evidence
                 WHERE control_id = ?
-                ORDER BY collected_at DESC
+                ORDER BY created_at DESC
                 """,
                 (control_id,),
             ).fetchall()
@@ -47,10 +49,12 @@ def get_evidence(evidence_id: int) -> dict[str, Any] | None:
     with get_connection() as conn:
         row = conn.execute(
             """
-            SELECT id, control_id, name, source, artifact_path, collected_at,
-                   period_start, period_end, status, notes, submitter_id,
-                   approver_id, approved_at, rejected_reason, locked_at,
-                   sha256_hash, sharepoint_id, audit_period_id, collection_due_date
+            SELECT id, control_id, title, description, source_type, status,
+                   uploaded_by, reviewed_by, rejection_reason, valid_from,
+                   valid_to, sha256_hash, sharepoint_url, sharepoint_item_id,
+                   local_path, file_name, file_size_bytes, mime_type,
+                   locked_at, locked_by, audit_period_id, collection_due_date,
+                   created_at, updated_at
             FROM evidence
             WHERE id = ?
             """,
@@ -61,184 +65,225 @@ def get_evidence(evidence_id: int) -> dict[str, Any] | None:
 
 def create_evidence(payload: EvidenceCreate) -> dict[str, Any]:
     with get_connection() as conn:
+        table_columns = get_table_columns(conn, "evidence")
+        columns: list[str] = [
+            "control_id",
+            "title",
+            "description",
+            "source_type",
+            "status",
+            "uploaded_by",
+            "reviewed_by",
+            "rejection_reason",
+            "valid_from",
+            "valid_to",
+            "sha256_hash",
+            "sharepoint_url",
+            "sharepoint_item_id",
+            "local_path",
+            "file_name",
+            "file_size_bytes",
+            "mime_type",
+            "locked_at",
+            "locked_by",
+            "audit_period_id",
+            "collection_due_date",
+            "created_at",
+            "updated_at",
+        ]
+        values: list[Any] = [
+            payload.control_id,
+            payload.title,
+            payload.description,
+            payload.source_type,
+            payload.status,
+            payload.uploaded_by,
+            payload.reviewed_by,
+            payload.rejection_reason,
+            payload.valid_from.isoformat(),
+            payload.valid_to.isoformat() if payload.valid_to else None,
+            payload.sha256_hash,
+            payload.sharepoint_url,
+            payload.sharepoint_item_id,
+            payload.local_path,
+            payload.file_name,
+            payload.file_size_bytes,
+            payload.mime_type,
+            payload.locked_at.isoformat() if payload.locked_at else None,
+            payload.locked_by,
+            payload.audit_period_id,
+            payload.collection_due_date.isoformat() if payload.collection_due_date else None,
+            datetime.now(timezone.utc).isoformat(),
+            datetime.now(timezone.utc).isoformat(),
+        ]
+        legacy_values = {
+            "name": payload.title,
+            "source": payload.source_type,
+            "artifact_path": payload.local_path or payload.sharepoint_url or "",
+            "collected_at": payload.valid_from.isoformat(),
+            "period_start": payload.valid_from.isoformat(),
+            "period_end": payload.valid_to.isoformat() if payload.valid_to else None,
+            "notes": payload.description,
+            "submitter_id": payload.uploaded_by,
+            "approver_id": payload.reviewed_by,
+            "rejected_reason": payload.rejection_reason,
+            "sharepoint_id": payload.sharepoint_item_id,
+        }
+        for column, value in legacy_values.items():
+            if column in table_columns:
+                columns.append(column)
+                values.append(value)
+        present_columns = [column for column in columns if column in table_columns]
+        present_values = [value for column, value in zip(columns, values) if column in table_columns]
         cursor = conn.execute(
-            """
-            INSERT INTO evidence (
-                control_id, name, source, artifact_path, collected_at,
-                period_start, period_end, status, notes, submitter_id,
-                approver_id, approved_at, rejected_reason, locked_at,
-                sha256_hash, sharepoint_id, audit_period_id, collection_due_date
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            f"""
+            INSERT INTO evidence ({", ".join(present_columns)})
+            VALUES ({", ".join(["?"] * len(present_values))})
+            RETURNING id
             """,
-            (
-                payload.control_id,
-                payload.name,
-                payload.source,
-                payload.artifact_path,
-                payload.collected_at.isoformat(),
-                payload.period_start.isoformat() if payload.period_start else None,
-                payload.period_end.isoformat() if payload.period_end else None,
-                payload.status,
-                payload.notes,
-                payload.submitter_id,
-                payload.approver_id,
-                payload.approved_at.isoformat() if payload.approved_at else None,
-                payload.rejected_reason,
-                payload.locked_at.isoformat() if payload.locked_at else None,
-                payload.sha256_hash,
-                payload.sharepoint_id,
-                payload.audit_period_id,
-                payload.collection_due_date.isoformat() if payload.collection_due_date else None,
-            ),
+            tuple(present_values),
         )
-        new_id = int(cursor.lastrowid)
-        row = conn.execute(
-            """
-            SELECT id, control_id, name, source, artifact_path, collected_at,
-                   period_start, period_end, status, notes, submitter_id,
-                   approver_id, approved_at, rejected_reason, locked_at,
-                   sha256_hash, sharepoint_id, audit_period_id, collection_due_date
-            FROM evidence
-            WHERE id = ?
-            """,
-            (new_id,),
-        ).fetchone()
-        return dict(row)
+        new_id = int(cursor.fetchone()["id"])
+    created = get_evidence(new_id)
+    if created is None:
+        raise RuntimeError("Evidence insert succeeded but row could not be reloaded")
+    return created
 
 
-def approve_evidence(evidence_id: int, approver_id: int) -> dict[str, Any] | None:
+def approve_evidence(evidence_id: int, reviewer_id: int) -> dict[str, Any] | None:
     existing = get_evidence(evidence_id)
     if existing is None:
         return None
-    if existing["status"] not in {"submitted", "accepted"}:
-        raise ValueError("Evidence must be submitted before it can be approved")
-
-    approved_at = datetime.now(timezone.utc).isoformat()
+    now_str = datetime.now(timezone.utc).isoformat()
     with get_connection() as conn:
         conn.execute(
             """
             UPDATE evidence
-            SET status = 'approved',
-                approver_id = ?,
-                approved_at = ?,
-                rejected_reason = NULL
+            SET status = 'accepted',
+                reviewed_by = ?,
+                updated_at = ?,
+                rejection_reason = NULL
             WHERE id = ?
             """,
-            (approver_id, approved_at, evidence_id),
-        )
-        conn.execute(
-            """
-            UPDATE audit_controls
-            SET evidence_status = 'approved'
-            WHERE control_id = ?
-            """,
-            (existing["control_id"],),
+            (reviewer_id, now_str, evidence_id),
         )
     return get_evidence(evidence_id)
 
 
-def reject_evidence(evidence_id: int, rejected_reason: str) -> dict[str, Any] | None:
+def reject_evidence(evidence_id: int, reviewer_id: int, rejected_reason: str) -> dict[str, Any] | None:
     existing = get_evidence(evidence_id)
     if existing is None:
         return None
-    if existing["status"] not in {"submitted", "approved", "accepted"}:
-        raise ValueError("Only submitted or approved evidence can be rejected")
+    if existing["status"] not in {"submitted", "accepted"}:
+        raise ValueError("Only submitted or accepted evidence can be rejected")
 
+    now_str = datetime.now(timezone.utc).isoformat()
     with get_connection() as conn:
         conn.execute(
             """
             UPDATE evidence
             SET status = 'rejected',
-                approver_id = NULL,
-                approved_at = NULL,
-                rejected_reason = ?
+                reviewed_by = ?,
+                updated_at = ?,
+                rejection_reason = ?
             WHERE id = ?
             """,
-            (rejected_reason, evidence_id),
-        )
-        conn.execute(
-            """
-            UPDATE audit_controls
-            SET evidence_status = 'rejected'
-            WHERE control_id = ?
-            """,
-            (existing["control_id"],),
+            (reviewer_id, now_str, rejected_reason, evidence_id),
         )
     return get_evidence(evidence_id)
 
 
-def lock_evidence(evidence_id: int, locked_at: str) -> dict[str, Any] | None:
+def lock_evidence(evidence_id: int, locked_by: int, locked_at: str) -> dict[str, Any] | None:
     existing = get_evidence(evidence_id)
     if existing is None:
         return None
-    if existing["status"] != "approved":
-        raise ValueError("Evidence must be approved before it can be locked")
+    if existing["status"] != "accepted":
+        raise ValueError("Evidence must be accepted before it can be locked")
 
+    now_str = datetime.now(timezone.utc).isoformat()
     with get_connection() as conn:
         conn.execute(
             """
             UPDATE evidence
             SET status = 'locked',
-                locked_at = ?
+                locked_at = ?,
+                locked_by = ?,
+                updated_at = ?
             WHERE id = ?
             """,
-            (locked_at, evidence_id),
-        )
-        conn.execute(
-            """
-            UPDATE audit_controls
-            SET evidence_status = 'locked'
-            WHERE control_id = ?
-            """,
-            (existing["control_id"],),
+            (locked_at, locked_by, now_str, evidence_id),
         )
     return get_evidence(evidence_id)
 
 
 def run_evidence_health_check() -> dict[str, Any]:
+    """Scan evidence for stale/expired states and flag controls with missing evidence."""
     now = datetime.now(timezone.utc)
-    stale_cutoff = now - timedelta(days=EVIDENCE_STALE_DAYS)
-    stale_cutoff_str = stale_cutoff.isoformat()
-
-    stale_or_missing: list[int] = []
+    stale_limit = now + timedelta(days=EVIDENCE_STALE_DAYS)
+    
     with get_connection() as conn:
+        # 1. Mark expired evidence (past valid_to)
+        expired_count = conn.execute(
+            """
+            UPDATE evidence
+            SET status = 'expired',
+                updated_at = ?
+            WHERE status NOT IN ('locked', 'expired')
+              AND valid_to IS NOT NULL
+              AND valid_to < ?
+            """,
+            (now.isoformat(), now.isoformat()),
+        ).rowcount
+        
+        # 2. Mark stale evidence (within 30 days of valid_to)
+        stale_count = conn.execute(
+            """
+            UPDATE evidence
+            SET status = 'stale',
+                updated_at = ?
+            WHERE status NOT IN ('locked', 'expired', 'stale')
+              AND valid_to IS NOT NULL
+              AND valid_to < ?
+            """,
+            (now.isoformat(), stale_limit.isoformat()),
+        ).rowcount
+        
+        # 3. Check for controls missing evidence (legacy check)
+        stale_cutoff_str = (now - timedelta(days=EVIDENCE_STALE_DAYS)).isoformat()
         rows = conn.execute(
             """
             SELECT c.id
             FROM controls c
             LEFT JOIN (
-                SELECT control_id, MAX(collected_at) AS collected_at
+                SELECT control_id, MAX(valid_from) AS last_collected
                 FROM evidence
                 GROUP BY control_id
             ) latest ON latest.control_id = c.id
-            WHERE latest.collected_at IS NULL OR latest.collected_at < ?
+            WHERE latest.last_collected IS NULL OR latest.last_collected < ?
             """,
             (stale_cutoff_str,),
         ).fetchall()
-        stale_or_missing = [int(row["id"]) for row in rows]
+        stale_control_ids = [int(row["id"]) for row in rows]
 
-        for control_id in stale_or_missing:
+        for cid in stale_control_ids:
             conn.execute(
-                """
-                UPDATE controls
-                SET implementation_status = 'needs_evidence'
-                WHERE id = ?
-                """,
-                (control_id,),
+                "UPDATE controls SET implementation_status = 'needs_evidence' WHERE id = ?",
+                (cid,),
             )
             conn.execute(
                 """
                 INSERT INTO control_checks (control_id, checked_at, result, details)
                 VALUES (?, ?, 'warning', 'Evidence missing or stale for this control')
                 """,
-                (control_id, now.isoformat()),
+                (cid, now.isoformat()),
             )
 
     return {
-        "checked_at": now.isoformat(),
-        "controls_flagged": len(stale_or_missing),
-        "flagged_control_ids": stale_or_missing,
+        "ok": True,
+        "processed_at": now.isoformat(),
+        "evidence_expired": expired_count,
+        "evidence_stale": stale_count,
+        "controls_needs_evidence_flagged": len(stale_control_ids),
     }
 
 

@@ -1,0 +1,10 @@
+- generic [active]:
+  - generic [ref=e2]:
+    - img "JEC logo" [ref=e3]
+    - heading "JEC Compliance Hub" [level=1] [ref=e4]
+    - paragraph [ref=e5]: Sign in with your JEC Microsoft account to continue.
+    - link "Sign in with Microsoft" [ref=e6] [cursor=pointer]:
+      - /url: /auth/login
+      - img [ref=e7]
+      - text: Sign in with Microsoft
+  - text:                      

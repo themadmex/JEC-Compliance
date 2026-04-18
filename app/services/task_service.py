@@ -41,6 +41,7 @@ def create_task(payload: TaskCreate) -> dict[str, Any]:
                 owner_id, due_date, status, priority, completed_at
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            RETURNING id
             """,
             (
                 payload.type,
@@ -62,7 +63,7 @@ def create_task(payload: TaskCreate) -> dict[str, Any]:
             FROM tasks
             WHERE id = ?
             """,
-            (int(cursor.lastrowid),),
+            (cursor.fetchone()["id"],),
         ).fetchone()
         return dict(row)
 
